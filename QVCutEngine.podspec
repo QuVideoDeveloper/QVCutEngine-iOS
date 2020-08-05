@@ -30,9 +30,9 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'XYCommonEngine/engine_header/**/*.h'
+  s.source_files = 'QVCutEngine/engine_header/**/*.h'
   
-  s.vendored_libraries = 'XYCommonEngine/engine_libraries/device/*.a'
+  s.vendored_libraries = 'QVCutEngine/engine_libraries/device/*.a'
  
   s.libraries = 'iconv', 'c', 'c++', 'stdc++', 'z'
 
