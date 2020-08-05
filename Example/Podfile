@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '8.0'
+
+target 'QVCutEngine_Example' do
+  pod 'QVCutEngine', :path => '../'
+
+  target 'QVCutEngine_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
