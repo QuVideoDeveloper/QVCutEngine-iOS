@@ -166,8 +166,7 @@ typedef struct
 #import "CXiaoYingAudioProvider.h"
 #import "CXiaoYingAudioPlayer.h"
 #import "CXiaoYingTextAdvStyle.h"
-
-
+#import "CXiaoYingSegmentUtils.h"
 
 
 #define QVET_RENDER_TARGET_SCREEN   0x00000001

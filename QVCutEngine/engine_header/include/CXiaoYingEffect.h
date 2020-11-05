@@ -148,7 +148,7 @@
 	MDWord method;
     MDWord ts;
     MInt64 llKeyLineId;// method == 2 此值必须要设置
-    MFloat floatValue;// 值
+    MDouble floatValue;// 值
     MFloat fOffsetValue;//整体关键帧的偏移
     QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO extInfo;//method==3 时，这个值是引擎用来储存贝塞尔曲线的信息的
     QVET_KEYFRAME_EASINGINFO easingInfo;//缓动曲线配置

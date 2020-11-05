@@ -47,9 +47,11 @@
      MBool  _bTransformFlag;
      CXIAOYING_TRANSFORM_PARAMETERS _TransformPara;
      CXIAOYING_RECT _Region;
+     QVET_FRAME_VECTOR_3 _Rotation;
 	 MBool  _bApplyPanzoom;//场景虚拟节点对应是否应用panzoom的状态， true 应用，false 不应用
      MBool  _bFaceAlign;//人脸对齐标志
-     MBool _bFitMethod;// false: fit-in, true: fit-out
+     MBool _bFitMethod;//false: fit-in, true: fit-out
+     MBool _bDigOutImage;//源是否需要进行抠像
 	 id _pVirtualSourceInfo;
  }
  
@@ -65,9 +67,11 @@
 
  @property(readwrite,nonatomic) CXIAOYING_TRANSFORM_PARAMETERS TransformPara;
  @property(readwrite,nonatomic) CXIAOYING_RECT Region;
+ @property(readwrite, nonatomic) QVET_FRAME_VECTOR_3 Rotation;
  @property(readwrite,nonatomic) MBool bApplyPanzoom;
- @property(readwrite,nonatomic) MBool bFitMethod;
  @property(readwrite,nonatomic) MBool bFaceAlign;
+ @property(readwrite,nonatomic) MBool bFitMethod;
+ @property(readwrite,nonatomic) MBool bDigOutImage;
  @property(readwrite,nonatomic,strong) id pVirtualSourceInfo;
  @end
 

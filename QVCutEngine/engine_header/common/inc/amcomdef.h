@@ -122,6 +122,12 @@ typedef struct
 	MFloat bottom;
 } MRECTF;
 
+typedef struct __tag_rotation
+{
+    MFloat x;
+    MFloat y;
+    MFloat z;
+} MROTATION;
 
 #define RECT_WIDTH(rect) ((rect).right-(rect).left)
 #define RECT_HEIGHT(rect) ((rect).bottom-(rect).top)
@@ -152,6 +158,11 @@ typedef struct __tagMPOINT_FLOAT
 	MFloat y;
 }MPOINT_FLOAT;
 
+typedef struct __tagMPOINT_DOUBLE
+{
+	MDouble x;
+	MDouble y;
+}MPOINT_DOUBLUE;
 
 typedef struct __tagMPOINT_FLOAT_3D
 {
@@ -166,6 +177,12 @@ typedef struct __tag_point
 	MLong x; 
 	MLong y; 
 } MPOINT, *PMPOINT;
+
+typedef struct __tag_f_point
+{ 
+	MFloat fX; 
+	MFloat fY; 
+} MFPOINT, *PMFPOINT;
 
 #define MNull		0
 #define MFalse		0
