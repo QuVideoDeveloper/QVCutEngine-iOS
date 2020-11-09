@@ -30,6 +30,7 @@ public:
 private:
 	cJSON * m_pPackerJson;
 	MTChar m_szFilePath[AMVE_MAXPATH];
+	MFloat m_fLastOnset; //Onset点不重复写入，所以记录一下
 };
 
 #endif

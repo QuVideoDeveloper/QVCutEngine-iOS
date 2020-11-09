@@ -76,11 +76,24 @@ typedef struct tag_AudioAnaInsKey
 		bool bRet = false;
 		tag_AudioAnaInsKey * pCmp = const_cast<tag_AudioAnaInsKey *>(&other);
 		tag_AudioAnaInsKey * pThis = const_cast<tag_AudioAnaInsKey *>(this);
-		if (MMemCmp(pThis, pCmp, sizeof(tag_AudioAnaInsKey)) < 0)
-		{
-			bRet = true;
-		}
-
+		if (MStrCmp(pThis->szAudioPath,pCmp->szAudioPath) < 0)
+        {
+            bRet = true;
+            return bRet;
+        }
+        
+        if (MMemCmp(&pThis->audioRange,&pCmp->audioRange,sizeof(AMVE_POSITION_RANGE_TYPE)) < 0)
+        {
+            bRet = true;
+            return bRet;
+        }
+        
+        if (MMemCmp(&pThis->stAvConfigID,&pCmp->stAvConfigID,sizeof(MD5ID)) < 0)
+        {
+            bRet = true;
+    
+            return bRet;
+        }
 		return bRet;
 	}
 }AudioAnaInsKey;
@@ -192,9 +205,25 @@ public:
 	MRESULT MakeAmpEndValue(CQVETAATarget * pTarget, MFloat fOriValue, MDWord dwIndex, MDWord dwTimeStamp ,MFloat & fRes);
 
 	MRESULT GetAnaKey(AudioAnaInsKey & key);
+
+    /*
+     *针对Onset点检测的情况，seek过后，需要清除缓存区中的Onset点数据,
+     *重建aatarget,dwTargetIdx==-1表示reset所有target
+	 */
+	MRESULT ResetTarget(MDWord dwResetTime,MDWord dwTargetIdx);
 public:
 	static CQVETAudioAnalyzerMgr * GetAnaMgrIns();
 	static MVoid DestroyAnaMgrIns();
+
+	/*
+     *从Json文件中获取Onset数据
+     * @param pszResFile,解析的结果文件
+     * @param pAudioRange,audio文件的range
+     * @param pdwCount,Onset点的个数
+     * @param fOnsetPos,Onset时间点
+     * @return 成功返回QVET_ERR_NONE,否则返回错误码
+	 */
+	static MRESULT GetOnsetResultFromResFile(MTChar* pszResFile,AMVE_POSITION_RANGE_TYPE* pAudioRange,MDWord* pdwCount,MFloat** fOnsetPos);
 private:
 //	MRESULT PrepareContext(AA_PROCEDURE_TARGET *pTargets, MDWord dwTargetCnt);
 
@@ -207,6 +236,10 @@ private:
 	MDWord	GetNextAction();
 	MRESULT DoAnalysis(); //没有doResume, resume就是DoAnlysis; 同时，简化线程状态机，一进来就进入Analyzing态
 	MRESULT DoFlush2ThisTimePosNearBy();		
+	/*
+	 *对于Onset点检测，seek过后需要reset target
+	 */
+	MRESULT DoResetTarget();
  
 
 //	MRESULT CleanPossiblePartCache(MDWord dwCurUsedNodeIdx);//这个函数需要在AA调用者线程调用，只要条件满足就会做清理，否则直接返回
@@ -226,6 +259,10 @@ private:
 	
 	MRESULT FillDataByParser();
 	MRESULT InitDataSource(AA_INIT_PARAM *pParam);
+	/*
+	 *检查当前检测目标是否需要检测Onset点
+	 */
+	MBool HasOnsetDetection();
 private:
 	static CQVETAudioAnalyzerMgr * g_AudioAnaMgr;
 
@@ -274,6 +311,12 @@ private:
 
 	MVoid * m_pUserData;
 	FunAudioAnalysisCB m_pAnaProcessCB;
+	MDWord  m_dwGetResultTime;  //result time,对于onset检测，需要随时调整thresh hold,所以检测的时间点不能超过已取时间点太多
+	MHandle m_hMutex;
+	MFloat m_fOnsetThreshHold;
+	MDWord m_dwResetStartTime;
+	MBool  m_bForPlay;
+	MDWord m_dwRecycleCount;      //音乐的循环次数
 };
 
 

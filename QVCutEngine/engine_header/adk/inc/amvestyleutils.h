@@ -128,14 +128,27 @@
 #define GET_TEMPLATE_TYPE(llTemplateID)		((MDWord)((llTemplateID>>56)&0x1F))
 #define GET_TEMPLATE_SUB_TYPE(llTemplateID) 		(  (MDWord)( (llTemplateID>>19)&0x1FF)   )
 
+#define TEMPLATE_CONTENT_SUB_TYPE_PASTER 1
+#define TEMPLATE_CONTENT_SUB_TYPE_ATTACH_PASTER 2
+#define TEMPLATE_CONTENT_SUB_TYPE_DEFORMATION 3
+#define TEMPLATE_CONTENT_SUB_TYPE_3DMM 4
+#define TEMPLATE_CONTENT_SUB_TYPE_OT_PASTER 5
+#define TEMPLATE_CONTENT_SUB_TYPE_DIVA 6
+#define IS_FACIAL_PASTER_TEMPLATE(hEffect,hSessionCtx, llTemplateID)  CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0500000000080000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_PASTER)     
+#define IS_FACIAL_ATTCH_PASTER_TEMPLATE(hEffect,hSessionCtx,llTemplateID)  CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0500000000100000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_ATTACH_PASTER) 
+#define IS_FACE_DEFORMATION_IE_TEMPLATE(hEffect, hSessionCtx, llTemplateID) CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0400000000280000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_DEFORMATION)  
+#define IS_FACE_3DMM_IE_TEMPLATE(hEffect, hSessionCtx, llTemplateID)			CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0400000000480000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_3DMM) 
+#define IS_OT_PASTER_TEMPLATE(hEffect, hSessionCtx, llTemplateID)             CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0500000000180000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_OT_PASTER)  
+#define IS_DIVA_FREEZE_FRAME_TEMPLATE(hEffect, hSessionCtx, llTemplateID)     CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0F00000000100000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_DIVA) 
+#define IS_SEGMENT_IE_TEMPALTE(hEffect, hSessionCtx, llTemplateID)            CVEUtility::is_Need_Segment_template(MHandle hEffect,MHandle hSessionCtx,MBool bOldValue,MInt64 llTemplateID)(hEffect, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0400000000580000), llTemplateID) 
 
-#define IS_FACIAL_PASTER_TEMPLATE(llTemplateID)         ((llTemplateID&0x1f0000000ff80000) == 0x0500000000080000)
-#define IS_FACIAL_ATTCH_PASTER_TEMPLATE(llTemplateID)   ((llTemplateID&0x1f0000000ff80000) == 0x0500000000100000)
-#define IS_FACE_DEFORMATION_IE_TEMPLATE(llTemplateID)   ((llTemplateID&0x1f0000000ff80000) == 0x0400000000280000)
-#define IS_FACE_3DMM_IE_TEMPLATE(llTemplateID)			((llTemplateID&0x1f0000000ff80000) == 0x0400000000480000)
-#define IS_OT_PASTER_TEMPLATE(llTemplateID)             ((llTemplateID&0x1f0000000ff80000) == 0x0500000000180000)
-#define IS_DIVA_FREEZE_FRAME_TEMPLATE(llTemplateID)     ((llTemplateID&0x1f0000000ff80000) == 0x0F00000000100000)
-#define IS_SEGMENT_IE_TEMPALTE(llTemplateID)            ((llTemplateID&0x1f0000000ff80000) == 0x0400000000580000)
 
 
 

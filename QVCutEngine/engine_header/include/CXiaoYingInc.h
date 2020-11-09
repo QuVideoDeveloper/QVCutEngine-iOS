@@ -93,7 +93,7 @@ typedef struct
 //#import "eteffectprocessor.h"
 #import "stylefilehead.h"
 #import "etfacedtutils.h"
-
+#import "etaudioanalysiscomdef.h"
 /*
  *  Headfile for engine OC-layer
  */
@@ -167,7 +167,7 @@ typedef struct
 #import "CXiaoYingAudioPlayer.h"
 #import "CXiaoYingTextAdvStyle.h"
 #import "CXiaoYingSegmentUtils.h"
-
+#import "CXiaoYingAudioAnalyzer.h"
 
 #define QVET_RENDER_TARGET_SCREEN   0x00000001
 #define QVET_RENDER_TARGET_BUFFER   0x00000002

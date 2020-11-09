@@ -87,7 +87,7 @@
 #define AMVE_PROP_CONTEXT_DEF_STUFF_CLOLOR              (AMVE_PROP_CONTEXT_BASE+41) //填充clip的设定颜色ARGB
 #define AMVE_PROP_CONTEXT_DEF_STUFF_IMG_FILE			(AMVE_PROP_CONTEXT_BASE+42) //填充clip的设定图片路径
 
-#define AMVE_PROP_CONTEXT_IMAGE_SOURCE_FPS			(AMVE_PROP_CONTEXT_BASE+44)
+#define AMVE_PROP_CONTEXT_IMAGE_SOURCE_FPS			(AMVE_PROP_CONTEXT_BASE+44) //图片源的帧率
 #define AMVE_PROP_CONTEXT_EXPRESS_MSG_ADAPTER		(AMVE_PROP_CONTEXT_BASE+45)  //编辑状态下贴纸滤镜等等用户触发相关的回调
 #define AMVE_PROP_CONTEXT_REMAIN_MEM_QUERY          (AMVE_PROP_CONTEXT_BASE+46) //剩余内存查询回调
 #define AMVE_PROP_CONTEXT_VIDEO_CONSTANT_FPS         	(AMVE_PROP_CONTEXT_BASE+47) //视频的最小帧率，帧率小于这个帧率会补帧
@@ -362,10 +362,21 @@
 #define AMVE_PROP_EFFECT_3D_TRANSFORM_MODE					(AMVE_PROP_EFFECT_BASE+229)
 #define AVME_PROP_EFFECT_KEYFRAME_COMMON_DATA				(AMVE_PROP_EFFECT_BASE+230)
 #define AVME_PROP_EFFECT_KEYFRAME_COMMON_LIST				(AMVE_PROP_EFFECT_BASE+231)
+#define AMVE_PROP_EFFECT_ONSET_THRESH_HOLD                  (AMVE_PROP_EFFECT_BASE+232)
+#define AMVE_PROP_EFFECT_TIME_FACTOR                        (AMVE_PROP_EFFECT_BASE+233)
+
 
 #define AMVE_PROP_EFFECT_SEG_MASK                           (AMVE_PROP_EFFECT_BASE+234)
+#define AMVE_PROP_EFFECT_AUDIO_SCALE						(AMVE_PROP_EFFECT_BASE+235)
 #define AVME_PROP_EFFECT_SUB_EFFECT_DISABLE 				(AMVE_PROP_EFFECT_BASE+236)//用于是否关闭插件，此作用画中画上的subeffect
 #define AMVE_PROP_EFFECT_RESET_SEG_MASK                     (AMVE_PROP_EFFECT_BASE+237)
+#define AMVE_PROP_EFFECT_FRAME_SCALE                        (AMVE_PROP_EFFECT_BASE+238)//画中画音视频变速
+#define AMVE_PROP_EFFECT_TIME_DST_TO_SRC                    (AMVE_PROP_EFFECT_BASE+239)//画中画时间 dst To src
+#define AMVE_PROP_EFFECT_TIME_SRC_TO_DST                    (AMVE_PROP_EFFECT_BASE+240)//画中画 时间 src to dst
+#define AMVE_PROP_EFFECT_INVERSE_PLAY_VIDEO_FLAG            (AMVE_PROP_EFFECT_BASE+241)//画中画视频到放
+#define AMVE_PROP_EFFECT_INVERSE_PLAY_AUDIO_FLAG            (AMVE_PROP_EFFECT_BASE+242)//画中画音频到放
+#define AMVE_PROP_EFFECT_INVERSE_PLAY_SOURCE_RANGE          (AMVE_PROP_EFFECT_BASE+243)//画中画到放range
+#define AMVE_PROP_EFFECT_TEMPLATE_CONTENT_INFO              (AMVE_PROP_EFFECT_BASE+244)//素材id无关中，获取模板里边业务相关的属性
 
 
 #define AVME_EFFECT_SUB_ITEM_TYPE_BASE                   0
@@ -516,6 +527,9 @@
 #define AMVE_PROP_CLIP_CURVE_SCALE_RANGE			   (AMVE_PROP_CLIP_BASE+78)
 
 #define AMVE_PROP_CLIP_RESET_SEG_MASK                  (AMVE_PROP_CLIP_BASE+79)
+
+#define AMVE_PROP_CLIP_ONSET_PARAM                     (AMVE_PROP_CLIP_BASE+80) //Onset检测参数
+
 
 
 //constants used to identify the property for storyboard
@@ -1719,7 +1733,7 @@ typedef MRESULT (*QVET_FIND_FONT_CALLBACK) (MDWord dwFontID,MTChar* pszFontPath,
 
 typedef MRESULT (*QVET_TEXT_TRANSFORM_CALLBACK) (MTChar* pszOrgText,MTChar** ppszTgtText,AMVE_TEXT_TRANSFORM_PARAM* pParam,MVoid* pUserData);
 
-typedef MInt64 (*QVET_QUERY_REMAIN_MEMORY_CALLBACK) (MVoid* pUserData);
+typedef MInt64 (*QVET_QUERY_REMAIN_MEMORY_CALLBACK) (MVoid* pUserData,MBool* pbLowMem);
 
 
 typedef struct _tagTemplateAdapter
@@ -2354,7 +2368,7 @@ typedef struct
 
 typedef struct _tag_QVET_FRAME_OBJECT_INFO
 {
-    MFloat cxNode;
+    MFloat cxNode; //!< 为0 表示不限制区域, >0则表示限制区域的大小
 	MFloat cyNode;
 	MFloat cxView;
 	MFloat cyView;
@@ -2368,9 +2382,9 @@ typedef struct _tag_QVET_FRAME_OBJECT_INFO
 
 typedef struct _tag_QVET_FRAME_SP_INFO
 {
-    QVET_FRAME_OBJECT_INFO objInfo;
+    QVET_FRAME_OBJECT_INFO objInfo; // node的长宽等信息
 	MRECTF textRect;   //文字在底图中所占区域,用归一化的比值
-	QVET_FRAME_TRANSFORM transform;
+	QVET_FRAME_TRANSFORM transform; // Node 在整个合层中的位置
 }QVET_FRAME_SP_INFO;
 
 typedef struct
@@ -2883,6 +2897,7 @@ typedef struct
 	MDWord dwReserveCount;
 	MSIZE viewSize; //该场景的view size
 	MDWord* pdwPreviewPos; //preview position in this scene
+	MDWord* pdwSourceType; //源的类型1-image,2-video,主要告诉app该主题需要什么类型的源
 	MRECT* pRegion; //万分比表示源在场景中的区域
 	MSIZE* pSizeInfo;
 	QVET_SOURSE_TIME_INFO* pSourseTimeInfo ;
@@ -3172,10 +3187,12 @@ typedef struct __tagQVET_SCALE_LIST
 {
 	MDWord *timePos; //every timePos is correpsonding to one timeScale, it's millisecond.  for scene, it should start from 0
 	MFloat *timeScale; //timeScalep[3] covers  from timePos[3] to timePos[4] (or end)
+	MDWord *timeMapPos; //every timePos is correpsonding to one timeScale, it's millisecond.  for scene, it should start from 0
 
 
 	MDWord	cnt;
 	MDWord capacity; 
+	MBool bIsNew;
 }QVET_SCALE_LIST;
 
 #define PROJECT_MEDIA_FATHER_TYPE_NONE   0
@@ -3393,5 +3410,25 @@ typedef struct _tagQVET_KEYFRAME_TRANSFORM_COMMON_DATA_LIST
 	MDWord size;
 	QVET_KEYFRAME_COMMON_DATA *values;
 }QVET_KEYFRAME_COMMON_DATA_LIST;
+
+typedef struct
+{
+    MDWord dwOnsetMode;   //Onset mode QASP_ONSET_MODE_XXX
+    MFloat fThreshHold;   //Onset thresh hold
+    MDWord dwOnsetGap;    //Onset gap,ms
+}QVET_ONSET_DETECT_PARAM;
+
+
+typedef struct 
+{
+	MDWord     dwSubType;
+	MBool      bIsOffline;
+	MBool      bIsPhoto;
+	MBool      bIsNeedFaceFeature;
+	MBool      bIsNeedSegment;
+	MInt64     llSeqenceID;
+	MInt64     llReservedID;
+	MInt64     llSequenceSubID;
+}QVET_TEMPlATE_CONTENT_TYPE;
 
 #endif //_AMVE_DEF_H_

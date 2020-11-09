@@ -16,6 +16,7 @@
     UInt32 _uiSrcCount;         //source count
     UInt32 _uiRevCount;         //count of source reserved to next scene
     UInt32* _puiPreviewPos;     //preview posiiton for each source
+    UInt32* _puiSourceType;     //media type for each source,1-image,2-video
     MRECT* _pRegion;            //source region
 }
 
@@ -23,6 +24,7 @@
 @property(readwrite, nonatomic) UInt32 uiSrcCount;
 @property(readwrite, nonatomic) UInt32 uiRevCount;
 @property(readwrite, nonatomic) UInt32* puiPreviewPos;
+@property(readwrite, nonatomic) UInt32* puiSourceType;
 @property(readwrite, nonatomic) MRECT* pRegion;
 @end
 

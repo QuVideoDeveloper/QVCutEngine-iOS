@@ -8,9 +8,7 @@
 #include "etaudioanalysisduallist.h"
 #include "qvasp.h"
 
-#define AATG_CONFIG_NONE						(0x00000000)
-#define AATG_CONFIG_INPUT_SAMPLE_INFO		(AATG_CONFIG_NONE+1)
-#define AATG_CONFIG_TOTAL_AUDIO_DURATION	(AATG_CONFIG_NONE+2)
+
 
 #define FUNC_EXPANDABLE	//it's only a tag to identify that if the function is possible to expand when new feature is comming
 
@@ -67,6 +65,7 @@ public:
 	MRESULT SetConfig(MDWord dwCfg, MVoid *pValue, MDWord dwValueSize);
 
 
+
 	//for read thread
 	MVoid* PeekResult(MDWord dwTimeStamp, MDWord *pdwCacheStartedTS, MDWord *pdwResultIdx/*, MDWord *pdwContent*/); //peek一眼最后的处理结果
 	MRESULT GetFinalReulstType(MDWord *pdwType);//查询最后一步处理的结果类型
@@ -118,6 +117,11 @@ public:
 
 	MVoid SetNotifyDataCB(FunNotifyDataCB pCB, MVoid * pUserData, MInt32 nIndexTarget);
 	MRESULT InsertResultDataToTarget(MVoid * pResData, MDWord dwTimeStamp, MDWord dwTimeSpan);
+
+    /*
+     *对于Onset点检测，seek过后需要reset，并将seek后的时间点穿
+	 */
+	MRESULT Reset(MDWord dwResetTime);
 
 private:
 	MRESULT ProcessBasicASPAnalysis(MByte *pData[], MDWord dwSrcCnt, MDWord dwNumBytes, MVoid **ppStepOutput);
@@ -192,6 +196,8 @@ private:
 	FunNotifyDataCB m_pFunNotify;
 	MVoid * m_pUserData;
 	MInt32 m_nTargetIndex;
+	MDWord  m_dwStartTime; //检测起始时间，在seek过后的情况下，对于Onset点检测，检测到的结果需要加上这个偏移量
+	AA_PROCEDURE_TARGET m_TargetParam;
 };
 
 

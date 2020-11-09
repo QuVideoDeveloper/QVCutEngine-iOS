@@ -5,11 +5,15 @@
 
 #include "etaudioanalysiscomdef.h"
 #include "etwin32gdiagent.h"
+#include <vector>
 
 typedef struct __tagAVPD_INIT_PARAMETER
 {
 	MDWord dwDuration;
 	MTChar *pszAVAudioSrc;
+	MFloat  fOnsetThreshHold;  //onset thresh hold 0.01~0.99
+	MDWord  dwOnsetMode; //Onset mode,0~14
+	MDWord dwOnsetGap; //Onset gap,ms
 }AVPD_INIT_PARAMETER;
 
 class CQVETAVParameterDemonstrator
@@ -62,6 +66,10 @@ private:
 	MLong	*m_pOTPList; //Onset Time Post
 	MDWord	m_dwOTPListCapacity; //Onset Time Post
 	MDWord  m_dwOTPDataCnt; 
+	std::vector<MDWord> m_OnsetPosVec;
+	MFloat m_fOnsetThreshHold;
+	MDWord m_dwOnsetMode;
+	MDWord m_dwOnsetGap;
 
 };
 

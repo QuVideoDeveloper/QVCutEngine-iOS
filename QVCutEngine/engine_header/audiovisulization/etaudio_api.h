@@ -37,6 +37,16 @@ ETAUDIO_DLL_API MVoid AA_UnLockResult(MHandle hIns,MDWord dwTargetIdx);
 ETAUDIO_DLL_API MInt32 AA_GetTimeWindowWidth(MHandle hIns);
 
 
+/*
+ * 从json文件得到Onset点信息
+ * @param pszResFile,json文件路径
+ * @param pAudioRange,audio 文件时间范围
+ * @param pdwCount，Onset点数量
+ * @param ppOnsetRes,Onset点时间位置
+ * @return 成功返回QVET_ERR_NONE,否则返回错误码
+ */
+ETAUDIO_DLL_API MRESULT AA_GetOnsetDetectResult(MTChar* pszResFile,AMVE_POSITION_RANGE_TYPE* pAudioRange,MDWord* pdwCount,MFloat** ppOnsetRes); 
+
 #ifdef __cplusplus
 }
 #endif

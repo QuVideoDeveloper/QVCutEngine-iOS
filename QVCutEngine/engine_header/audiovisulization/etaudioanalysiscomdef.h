@@ -7,6 +7,11 @@
 #define ASP_OUTPUT_MODE_LINEAR		1	//not all asp support this mode
 	
 
+#define AATG_CONFIG_NONE						(0x00000000)
+#define AATG_CONFIG_INPUT_SAMPLE_INFO		(AATG_CONFIG_NONE+1)
+#define AATG_CONFIG_TOTAL_AUDIO_DURATION	(AATG_CONFIG_NONE+2)
+#define AATG_CONFIG_ONSET_THRESH_HOLD       (AATG_CONFIG_NONE+3)
+#define AATG_CONFIG_PLAY_MODE               (AATG_CONFIG_NONE+4)
 
 
 #define AUDIO_FREQUENCY_RANGE_NONE		0x00000000
@@ -131,6 +136,7 @@ typedef struct __tagAA_PROCEDURE_TARGET
 	MDWord dwFrequenceRange; //AFR_XXX
 	MDWord dwBasicOutputMode;//QASP_OUTPUT_MODE_XXX
 
+
 	union {
 		struct {
 			MFloat fStartFP;//default is 1Hz
@@ -146,6 +152,9 @@ typedef struct __tagAA_PROCEDURE_TARGET
 	//这个变量在AA init之后会被赋值，AA的调用者并不需要直接使用他，但是里面隐藏的一些东西，在其他接口会用到。
 	//aa调用者只要传递一下这个Instance即可。调用者这不拥有此Instance的所有权，也不能释放它，这里只是暂存
 	MHandle hInstance; 
+	MFloat fOnsetThreshHold; //0.01~0.99
+	MDWord dwOnsetMode;  //0~14
+	MDWord dwOnsetGap;
 }AA_PROCEDURE_TARGET; // AV = audio visualization
 
 typedef MVoid (* FunAudioAnalysisCB) (MVoid * pData, MInt32 nDataLen,MVoid * pUserData);
@@ -164,7 +173,6 @@ typedef struct __tagAA_INIT_PARAM
 	MDWord dwTargetCnt;
 	MTChar szResDataFile[AMVE_MAXPATH]; //szResDataFile APP指定的结果文件的存储路径
 	MBool bNewBuild;     //是否新解析一次，如果结果文件不存在或者现在的参数和结果文件中的参数不一致，内部会重新解析的。否则解析载入结果文件处理好的数据
-
 	MD5ID  stAvConfigID; //参数标识，唯一性，主要由于直接比较target太麻烦了
 }AA_INIT_PARAM;
 

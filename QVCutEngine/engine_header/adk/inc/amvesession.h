@@ -82,6 +82,8 @@ MRESULT AMVE_GetBubbleThumbnailByTemplate(MHandle hSessionCtx,
 //hVecList std::vector<std::string> 模板需要引擎具备哪些功能
 MRESULT AMVE_GetMaterialNeedEngineSupportList(const MChar *pszTemplatePath, MHandle hVecList);
 
+MRESULT AMVE_GetTemplateContentInfo(MHandle hSessionCtx, MInt64 llTemplateID, QVET_TEMPlATE_CONTENT_TYPE **ppTempalteInfo);
+
 #if WIN32
 		
 MRESULT AMVE_EffectThumbnailMgrCreate(MHandle *phThumbnailMgr,
@@ -176,6 +178,7 @@ MRESULT AMVE_SessionContextSetProp(MHandle hContext, MDWord dwPropId, MVoid* pDa
 MRESULT AMVE_SessionContextGetProp(MHandle hContext, MDWord dwPropId, MVoid* pData, MDWord* pdwSize);
 //获取引擎支持功能列表， std::vector<std::string>
 MRESULT AMVE_SessionContextGetEngineSupportList(MHandle hVecCtx);
+MBool   AMVE_SessionContextIsSupportByLicense(const MChar *pName);
 
 //The interfaces for clip
 MRESULT AMVE_ClipCreate(MHandle hSessionContext, AMVE_MEDIA_SOURCE_TYPE* pSource, MHandle* phClip); 
@@ -356,6 +359,8 @@ MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 												const QVET_KEYFRAME_TRANSFORM_ROTATION_DATA *pRotation,
 												QVET_KEYFRAME_COMMON_DATA_LIST *pTransformList);//2D转3D关键帧用的
 
+MRESULT AMVE_EffectGetTextAttachInfoById(MHandle hEffect, MInt64 lltemplateId, enum QTextAttachType* outType, MDWord* outDesignTime);
+
 //The interfaces for stream
 MRESULT AMVE_StreamOpen(AMVE_STREAM_SOURCE_TYPE* pSource, AMVE_STREAM_PARAM_TYPE* pParam, MHandle *phStream);
 
@@ -377,6 +382,8 @@ MDWord AMVE_GetProjectVersion(MTChar* pszFilePath);
 
 
 MRESULT AMVE_GetTextAnimationThumbnail(MHandle hSessionContext,AMVE_TEXTANIMATION_SOURCE_TYPE* pTASource,MSIZE* pBGSize,MBITMAP* pBmp);
+
+MRESULT AMVE_RegisterRemainMemQueryCallBack(QVET_REMAIN_MEM_QUERY* pMemQuery);
 
 /*
     pBMP 输入的bitmap,颜色空间是rgba

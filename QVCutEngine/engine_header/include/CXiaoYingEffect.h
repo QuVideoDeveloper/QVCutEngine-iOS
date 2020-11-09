@@ -231,8 +231,11 @@
 
 @end
 
-
-
+typedef struct _tagCXYEffectTextAttachFileInfo
+{
+    MDWord dwType;
+    MDWord dwDesignTime;
+}CXYEffectTextAttachFileInfo;
 
 
 @interface CXiaoYingEffect : NSObject
@@ -427,5 +430,9 @@
 - (QVET_KEYFRAME_TRANSFORM_ROTATION_DATA ) ocKeyframeRotationToCFrameRotation:(CXiaoYingKeyFrameTransformRotationData*) src;
 - (QVET_KEYFRAME_TRANSFORM_SCALE_DATA ) ocKeyframeScaleToCFrameScale:(CXiaoYingKeyFrameTransformScaleData*) src;
 
++ (MRESULT) getTextAttachFileInfo : (const MTChar*) pFilePath
+                         fileInfo : (CXYEffectTextAttachFileInfo* ) pFileInfo;
+- (MRESULT) getTextAttachFileInfoById : (MLong)ltemplateId
+							 fileInfo : (CXYEffectTextAttachFileInfo* ) pFileInfo;
 @end // CXiaoYingEffect 
 

@@ -533,6 +533,8 @@ typedef struct _tagCXYEffectPropertyInfo
                             ThemePath:(NSString*) templateFile;
 
 + (MBool) GetBubbleIsAdujestAlpha:(CXiaoYingEngine*) pEngine ID:(MInt64)llTemplateID bgSize:(MSIZE)bgSize;//获取字幕是否可以调节alpha
+
++ (void)  setEngine:(CXiaoYingEngine *)pEngine;
 @end // CXiaoYingStyle
 
 

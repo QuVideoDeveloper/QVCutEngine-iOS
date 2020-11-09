@@ -7,7 +7,9 @@
 #define TEMPLATE_NAME_MAX_LENGTH		128
 #define TEMPLATE_FILE_EXT_NAME			_MMT(".xyt")
 //0x00050008 支持字幕高级属性配置
-#define QVET_ENGINE_VERSION				0x00050008		//QVET_ENGINE_VERSION是对模板解析处理引擎的版本标示，如果模板版本>模板引擎版本，则判定为不支持
+//0x00050009 支持模板中间层自定义尺寸
+//0x0005000A 支持老版本工程load转成新的版本
+#define QVET_ENGINE_VERSION				0x0005000A		//QVET_ENGINE_VERSION是对模板解析处理引擎的版本标示，如果模板版本>模板引擎版本，则判定为不支持
 #define XYPT_TAGID			 			'XYTP'
 #define QVET_SENIOR_TEXT_VERSION             0x30000         //区分动画字幕和普通bubble字幕的版本号
 #define QVET_SENIOR_VIDEO_FRAME_VERSION      0x30000         //高级版本的贴纸/水印等video frame
@@ -191,6 +193,7 @@ typedef struct
 
 //这个ID文件会告诉引擎素材需要引擎具备什么样能力
 #define QVTP_FILE_ID_MATERIAL           	700
+#define QVTP_FILE_ID_TEMPLATE_INFO          701
 
 #define QVPK_FILE_FORMAT_UNKNOWN		0
 #define QVPK_FILE_FORMAT_JPEG		'JPEG'

@@ -63,6 +63,15 @@
  **/
 - (MRESULT) GetPointFromMask : (MBITMAP* _Nonnull) pMaskBitmap
                       Points : (NSMutableArray * _Nonnull) arrMaskPoints;
+
+/**
+*获取 图像中占比超过阈值的对象个数
+* @param pMaskBitmap[in],mask bitmap
+* @param fThreshold[in],纹理转正需要旋转的角度
+* @return  -1,内部出错,>=0,对象个数
+**/
+- (MRESULT) CheckSegmentNum : (MBITMAP* _Nonnull) pMaskBitmap
+                  Threshold : (MFloat) fThreshold;
 @end // CXiaoYingSegmentUtils
 
 

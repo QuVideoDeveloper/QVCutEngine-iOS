@@ -1574,7 +1574,18 @@ typedef struct
 #define MB_SET_RES_GOTO(err) \
     res = err;                     \
     goto FUN_EXIT;                 \
-    
+
+
+
+typedef MInt64 (*MV2_QUERY_REMAIN_MEMORY_CALLBACK) (MVoid* pUserData,MBool* pbLowMem);
+
+typedef struct _tagMV2RemainMemQuery
+{
+   MV2_QUERY_REMAIN_MEMORY_CALLBACK fnRemainMemQueryCb;
+   MVoid* pUserData;
+}MV2_REMAIN_MEM_QUERY;
+
+
 
 #ifdef __cplusplus
 }

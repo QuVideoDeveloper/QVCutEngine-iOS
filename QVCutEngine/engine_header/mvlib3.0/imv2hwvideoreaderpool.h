@@ -97,6 +97,8 @@ public:
 	*     成功返回MVLIB_ERR_NONE,否则返回错误码
 	*/
 	virtual MRESULT ReleaseFreeInstance(MHandle hGLContext,MVoid* pszFileName) = 0;
+
+	virtual MRESULT RegisterMemQueryCallback(MV2_REMAIN_MEM_QUERY* pMemQuery) = 0;
 }; 
 
 #endif // __IMV2_HW_VIDEO_READER_POOL_H_
