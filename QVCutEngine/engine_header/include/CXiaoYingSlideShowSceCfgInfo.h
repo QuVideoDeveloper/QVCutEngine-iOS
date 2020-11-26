@@ -18,6 +18,7 @@
     UInt32* _puiPreviewPos;     //preview posiiton for each source
     UInt32* _puiSourceType;     //media type for each source,1-image,2-video
     MRECT* _pRegion;            //source region
+    UInt32* _puiContourApply;    //该场景需要的源是否要抠像，1表示需要抠像
 }
 
 @property(readwrite, nonatomic) UInt64 ulID;
@@ -26,6 +27,7 @@
 @property(readwrite, nonatomic) UInt32* puiPreviewPos;
 @property(readwrite, nonatomic) UInt32* puiSourceType;
 @property(readwrite, nonatomic) MRECT* pRegion;
+@property(readwrite, nonatomic) UInt32* puiContourApply;
 @end
 
 @interface CXiaoYingSlideShowSceCfgInfo : NSObject

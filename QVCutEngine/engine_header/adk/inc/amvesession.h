@@ -24,6 +24,8 @@ MVoid QVET_TransformToRect(MRECT *pRect, QVET_3D_TRANSFORM transform, MFloat *pf
 
 MRESULT QVET_GetWMTagFromFile(MTChar *videoFile, MTChar *tag, MDWord bufLen);
 
+MRESULT QVET_PreprocessImg(MHandle pSessionContext, const char* inputPath, const char* outputPath, const PreprocessArgs* args);
+
 MDWord QVET_GetEngineVersion();
 
 MRESULT QVET_GetTRCLyricsInfo(MTChar *pszTRC, QVET_TRCFILE_DECRYPTOR *pTRCDec, QVET_TRC_LYRICS_INFO* pInfo/*out*/);
@@ -329,6 +331,12 @@ MRESULT AMVE_EffectInsertNewTrajectory(MHandle hEffect, MDWord trIdx, QVET_TRAJE
 MRESULT AMVE_EffectUpdateTrajectory(MHandle hEffect, MDWord trIdx, QVET_TRAJECTORY_DATA *trData);
 MRESULT AMVE_EffectRemoveTrajectory(MHandle hEffect, MDWord trIdx);
 MRESULT AMVE_EffectRemoveAllTrajectory(MHandle hEffect);
+
+MRESULT AMVE_EffectStartLayerPaintLine(MHandle hEffect, MVoid *pPenType);
+MRESULT AMVE_EffectAppendLayerLinePoints(MHandle hEffect, MVoid *hVecPointsList);
+MRESULT AMVE_EffectEndLayerPaintShapeLine(MHandle hEffect);
+MDWord AMVE_EffectLayerPaintUndo(MHandle hEffect);
+MDWord AMVE_EffectLayerPaintRedo(MHandle hEffect);
 
 MRESULT AMVE_EffectGetKeyFrameTransformValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_VALUE* pValue);
 MRESULT AMVE_EffectGetKeyFrameTransformPosValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_POS_VALUE* pValue);

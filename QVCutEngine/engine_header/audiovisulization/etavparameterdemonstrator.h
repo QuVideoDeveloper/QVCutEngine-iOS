@@ -35,16 +35,22 @@ protected:
 	MRESULT ConstructAASpectrumTarget(AA_PROCEDURE_TARGET *pTarget);
 	MRESULT ConstructAAVolumeTarget(AA_PROCEDURE_TARGET *pTarget);	
 	MRESULT ConstructAAOnsetTarget(AA_PROCEDURE_TARGET *pTarget);	
+	MRESULT ConstructAATempoTarget(AA_PROCEDURE_TARGET *pTarget);
 
 	MRESULT DrawParameter4Spectrum(MDWord dwTimeStamp, MBITMAP *pBmp/*in, out*/);
 	MRESULT DrawParameter4Volume(MDWord dwTimeStamp, MBITMAP *pBmp/*in, out*/);
 	MRESULT DrawParameter4Onset(MDWord dwTimeStamp, MBITMAP *pBmp/*in, out*/);	
+	MRESULT DrawParameter4Tempo(MDWord dwTimeStamp,MBITMAP* pBmp/*in, out*/);
+
 
 
 protected:
 	MRESULT PreparePointList(MDWord dwCnt);
 	MRESULT PrepareOTPList(MDWord dwCapacity);//如果就有list里有内容，重新准备后要copy一下
 	MRESULT OrgnizeOTPData(MDWord dwCurTime);
+
+	MRESULT PrepareTMPList(MDWord dwCapacity);
+	MRESULT OrgnizeTMPData(MDWord dwCurTime);
 	
 	static MRESULT CreateGDIHandle(MBITMAP *pBmp/*in*/, MHandle* pHDC, MHandle* pHBITMAP);
 	static MVoid DestoryGDIHandle(MHandle HDC, MHandle HBTIMAP, MHandle H);
@@ -66,6 +72,12 @@ private:
 	MLong	*m_pOTPList; //Onset Time Post
 	MDWord	m_dwOTPListCapacity; //Onset Time Post
 	MDWord  m_dwOTPDataCnt; 
+
+    //Tempo有关的数据列表
+    MLong   *m_pTMPList; //Tempo Time Post
+    MDWord m_dwTMPListCapacity; //Tempo Time POst
+    MDWord m_dwTMPDataCnt;
+	
 	std::vector<MDWord> m_OnsetPosVec;
 	MFloat m_fOnsetThreshHold;
 	MDWord m_dwOnsetMode;

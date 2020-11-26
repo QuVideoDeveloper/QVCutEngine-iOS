@@ -91,8 +91,8 @@
 #define QVET_ERR_SEGMENT_UTILS_BASE   (QVET_ERR_BASE+0x00003700)       //etsegmentutils
 #define QVET_ERR_ETTEXT_UTILS_BASE      (QVET_ERR_BASE+0x00003800)    //ettextutils.cpp 
 #define QVET_ERR_TEXTUTILS_JNI_BASE     (QVET_ERR_BASE+0x00003900)     //textutils_jni.cpp 
+#define QVET_ERR_EFTPRTHREAD_BASE       (QVET_ERR_BASE+0x00003A00)     //effectPrepareThread.cpp
 
-//0x00803A00
 //0x00803B00
 //0x00803C00
 //0x00803D00

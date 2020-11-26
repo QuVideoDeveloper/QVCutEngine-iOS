@@ -114,6 +114,7 @@ typedef struct
 #import "CXiaoYingKeyFrameCommon.h"
 #import "CXiaoYing3DTransform.h"
 #import "CXiaoYingEffectSubItemSource.h"
+#import "CXiaoYingDrawLayerPaintPen.h"
 #import "CXiaoYingEngine.h"
 #import "CXiaoYingEffect.h"
 #import "CXiaoYingCamExportEffectData.h"

@@ -231,7 +231,8 @@ typedef MDWord  (*CamEngine_CAPTURECALLBACK)(MDWord dwStatus,MVoid* pUserData);
 #define QCAM_FORWARD_NOT_MIRRORED                         1  //前置摄像头不镜像
 #define QCAM_BACKWARD_NOT_MIRRORED                        2  //后置摄像头不镜像
 
-
+#define QCAM_MSAATYPE_NO                                 0  // 无抗锯齿
+#define QCAM_MSAATYPE_X4                                 1  // 4倍抗锯齿
 
 
 

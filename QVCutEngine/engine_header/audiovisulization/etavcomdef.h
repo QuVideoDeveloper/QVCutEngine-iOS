@@ -147,6 +147,30 @@ typedef struct __tagMF_ONSET_DATA
 }MF_ONSET_DATA;
 
 
+typedef struct __tagMF_TEMPO_DATA
+{
+	MDWord *timePos;
+	MFloat *weight;
+	MDWord  cnt;
+	MDWord capacity;
+
+
+	MFloat dvMean;//delta vol mean
+	MFloat dvDev;//delta vol deviation
+
+	//for debug:
+	MFloat *absVol;
+	MFloat *deltaVol;
+	//MFloat *deltaVolSecond;
+	MDWord *spanCovered; //the time span covered by one onset
+	MBool  *toBeLoud;
+
+	MBool *smallAbsVol;
+	MBool *smallDeltaVol;
+	MBool *smallSpanCovered;
+}MF_TEMPO_DATA;
+
+
 typedef struct __tagMF_VOLUME_DATA
 {
 	MDWord *timePos;

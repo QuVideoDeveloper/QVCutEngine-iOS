@@ -59,5 +59,19 @@
 + (NSArray<NSNumber*>* _Nullable) GetOnsetDetectResult : (NSString*)pStrResFile
                                              AudioRange: (CXIAOYING_POSITION_RANGE_TYPE*)pRange;
 
+
+/**
+*
+* 从解析得到的json文件获取tempo 点信息
+*@param pStrResFile json文件路径
+*@param pRange 解析audio range
+*
+* @return float类型的数据，表示Tempo时间点，单位ms
+*
+*/
++ (NSArray<NSNumber*>* _Nullable) GetTempoDetectResult : (NSString*)pStrResFile
+                                             AudioRange: (CXIAOYING_POSITION_RANGE_TYPE*)pRange;
+
+
 @end // CXiaoyingAudioAnalyzer
 

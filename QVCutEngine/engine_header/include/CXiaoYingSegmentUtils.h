@@ -72,6 +72,9 @@
 **/
 - (MRESULT) CheckSegmentNum : (MBITMAP* _Nonnull) pMaskBitmap
                   Threshold : (MFloat) fThreshold;
+
+- (MRESULT) GetRect : (CXIAOYING_RECT*) pRect
+             ByMask : (MBITMAP* _Nonnull) pMaskBitmap;
 @end // CXiaoYingSegmentUtils
 
 

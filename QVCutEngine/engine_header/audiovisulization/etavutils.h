@@ -40,6 +40,10 @@ public:
 	static MRESULT expandASPOnsetResult(ASP_ONSET_DETECTION_RESULT *p, MDWord capacity);//	
 	static MVoid  FreeASPOnsetResult(ASP_ONSET_DETECTION_RESULT* pResult, MBool bFreeStruct);
 
+	static ASP_TEMPO_DETECTION_RESULT* NewASPTempoResult(MDWord dwCapacity);
+	static MRESULT expandASPTempoResult(ASP_TEMPO_DETECTION_RESULT *p, MDWord capacity);
+	static MVoid  FreeASPTempoResult(ASP_TEMPO_DETECTION_RESULT* pResult, MBool bFreeStruct);
+
 	static AA_FLOAT_GROUP* NewFloatGroup(MDWord dwCapacity);
 	static MVoid  FreeFloatGroup(AA_FLOAT_GROUP* pGroup, MBool bFreeStruct);
 
@@ -50,6 +54,10 @@ public:
 	static MRESULT prepareMFOnsetData(MF_ONSET_DATA *hbd, MDWord capacity);
 	static MVoid   freeMFOnsetData(MF_ONSET_DATA *hbd, MBool bFreeStruct = MFalse);
 	static MRESULT copyMFOnsetData(MF_ONSET_DATA *src, MF_ONSET_DATA *dst);
+
+	static MRESULT prepareMFTempoData(MF_TEMPO_DATA *hbd, MDWord capacity);
+	static MVoid   freeMFTempoData(MF_TEMPO_DATA *hbd, MBool bFreeStruct = MFalse);
+	static MRESULT copyMFTempoData(MF_TEMPO_DATA *src, MF_TEMPO_DATA *dst);
 
 	static MRESULT prepareMFVolumeData(MF_VOLUME_DATA *v, MDWord capacity);
 	static MVoid  freeMFVolumeData(MF_VOLUME_DATA *v, MBool bFreeStruct = MFalse);

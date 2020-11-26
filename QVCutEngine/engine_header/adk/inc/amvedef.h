@@ -92,6 +92,8 @@
 #define AMVE_PROP_CONTEXT_REMAIN_MEM_QUERY          (AMVE_PROP_CONTEXT_BASE+46) //剩余内存查询回调
 #define AMVE_PROP_CONTEXT_VIDEO_CONSTANT_FPS         	(AMVE_PROP_CONTEXT_BASE+47) //视频的最小帧率，帧率小于这个帧率会补帧
 #define AMVE_PROP_CONTEXT_SEGMENT_MODEL_FILE        (AMVE_PROP_CONTEXT_BASE+48) //分割算法模型文件路径
+#define AMVE_PROP_CONTEXT_CLEAR_FILE_CACHE        (AMVE_PROP_CONTEXT_BASE+49) //清楚指定文件路径的文件缓存 后边跟的参数是MChar *
+#define AMVE_PROP_CONTEXT_RENDER_MSAATYPE                  (AMVE_PROP_CONTEXT_BASE+50)
 
 
 
@@ -377,7 +379,10 @@
 #define AMVE_PROP_EFFECT_INVERSE_PLAY_AUDIO_FLAG            (AMVE_PROP_EFFECT_BASE+242)//画中画音频到放
 #define AMVE_PROP_EFFECT_INVERSE_PLAY_SOURCE_RANGE          (AMVE_PROP_EFFECT_BASE+243)//画中画到放range
 #define AMVE_PROP_EFFECT_TEMPLATE_CONTENT_INFO              (AMVE_PROP_EFFECT_BASE+244)//素材id无关中，获取模板里边业务相关的属性
-
+#define AMVE_PROP_EFFECT_TA_TYPE							(AMVE_PROP_EFFECT_BASE+245)//动画字幕模板的类型,目前包括单层和多层
+#define AMVE_PROP_EFFECT_DRAW_LAYER_DATA                    (AMVE_PROP_EFFECT_BASE+246)
+#define AMVE_PROP_EFFECT_DRAW_LAYER_LIST_COUNT              (AMVE_PROP_EFFECT_BASE+247)
+#define AMVE_PROP_EFFECT_DRAW_LAYER_RECORD_LIST_COUNT       (AMVE_PROP_EFFECT_BASE+248)
 
 #define AVME_EFFECT_SUB_ITEM_TYPE_BASE                   0
 #define AVME_EFFECT_SUB_ITEM_TYPE_CHROMA                 (AVME_EFFECT_SUB_ITEM_TYPE_BASE + 1)
@@ -854,6 +859,7 @@
 #define AMVE_PROCESS_STATUS_PAUSED                     0X00000003
 #define AMVE_PROCESS_STATUS_STOPPED                    0X00000004
 #define AMVE_PROCESS_STATUS_INITIALIZING               0X00000005
+#define AMVE_PROCESS_STATUS_CANCEL					   0X00000006
 
 
 
@@ -1058,6 +1064,9 @@
 #define QVET_RENDER_API_Vulkan10                                0x00000040
 #define QVET_RENDER_API_D3D11                                   0x00000080
 
+// 抗锯齿类型
+#define QVET_RENDER_MSAATYPE_NO 			0x0			 // 无抗锯齿
+#define QVET_RENDER_MSAATYPE_X4 			0x1			 // 4倍抗锯齿
 
 #define QVET_TEXT_CHANGE_FLAG_MASK              0xffffffff
 #define QVET_TEXT_CHANGE_FLAG_ALIGN             0x00000001
@@ -1092,6 +1101,7 @@
 #define AMVE_SUB_EFFECT_APPLY_MODE_EFFECT            1
 #define AMVE_SUB_EFFECT_APPLY_MODE_MOTION_TITLE      2
 #define AMVE_SUB_EFFECT_APPLY_MODE_MIX				 3
+#define AMVE_SUB_EFFECT_APPLY_MODE_AE_LAYER		     4
 
 
 #define AMVE_EFFECT_REGION_ALIGN_MODE_DEFALUT               0
@@ -1204,6 +1214,8 @@ typedef MDWord  (*AMVE_FNSTATUSCALLBACK)(
 		AMVE_CBDATA_TYPE* pCBData,
 		MVoid* pUserData);
 
+typedef MVoid(*AMVE_TRANSITIONDETECT_CALLBACK)(AMVE_CBDATA_TYPE* pCBData, MVoid* pUserData);
+
 typedef MVoid (*AMVE_FNAUDIOSOURCECALLBACK)(MByte* pBuf,MDWord dwBufLen,MDWord dwTime,MVoid* pUserData);
 
 
@@ -1254,6 +1266,7 @@ typedef struct _tagQVET_RENDER_CONTEXT
 //	MDWord    dwOrientation;
 	MDWord    dwResampleMode;
 	MDWord	  dwRenderTarget;
+	MDWord 	  dwMSAAType;
 } QVET_RENDER_CONTEXT_TYPE;
 
 typedef struct _tagAMVE_VIDEO_INFO_TYPE
@@ -1443,7 +1456,6 @@ enum  QTextAttachType{
     TAIL_ANIMATE = 3,
     ATTACH_END,
 };
-
 
 typedef struct _tagAMVE_TEXTANIMATION_ATTACHMENT_ID
 {
@@ -2382,9 +2394,9 @@ typedef struct _tag_QVET_FRAME_OBJECT_INFO
 
 typedef struct _tag_QVET_FRAME_SP_INFO
 {
-    QVET_FRAME_OBJECT_INFO objInfo; // node的长宽等信息
-	MRECTF textRect;   //文字在底图中所占区域,用归一化的比值
-	QVET_FRAME_TRANSFORM transform; // Node 在整个合层中的位置
+    QVET_FRAME_OBJECT_INFO objInfo; //!< node的长宽等信息
+	MRECTF textRect;   //!< 文字在底图中所占区域,用归一化的比值
+	QVET_FRAME_TRANSFORM transform; //!< Node 在整个合层中的位置
 }QVET_FRAME_SP_INFO;
 
 typedef struct
@@ -2902,6 +2914,7 @@ typedef struct
 	MSIZE* pSizeInfo;
 	QVET_SOURSE_TIME_INFO* pSourseTimeInfo ;
     QVET_FRAME_VECTOR_3* pfRotation; //表示每个源的旋转角度
+	MDWord* pdwContourApply; // 标记源是否要抠像
 }QVET_THEME_SCECFG_ITEM;
 
 typedef struct
@@ -3426,9 +3439,42 @@ typedef struct
 	MBool      bIsPhoto;
 	MBool      bIsNeedFaceFeature;
 	MBool      bIsNeedSegment;
+	MBool      bIsDrawLayer;
 	MInt64     llSeqenceID;
 	MInt64     llReservedID;
 	MInt64     llSequenceSubID;
 }QVET_TEMPlATE_CONTENT_TYPE;
+enum CropType {
+	TOP_ALIGN = 0,
+	BOTTEM_ALIGN,
+	HEAD_ALIGN,
+	ANCHOR_ALIGN
+};
+
+/*** 图像预处理 ***/
+
+typedef struct _Geo {
+	int	x;			// 分割矩形左上角点位坐标
+	int y;
+
+	int width;		// 分割矩形宽
+	int height;		// 分割矩形高
+
+	int headWidth;	// 原图中人脸宽度
+
+	MPOINT	jaw;	// 下巴点位坐标
+} Geo;
+
+typedef struct _PreprocessArgs {
+	int			type;				// 处理类型
+	Geo			geo;				// 分割矩形框，点位等信息
+
+	int			targetWidth;		// 目标图像宽
+	int			targetHeight;		// 目标图像高
+	int			targetHeadSize;		// 目标图像中的人脸宽度
+
+	MPOINT		anchor;				// 设计师配置的锚点
+} PreprocessArgs;
+/*** end ***/
 
 #endif //_AMVE_DEF_H_

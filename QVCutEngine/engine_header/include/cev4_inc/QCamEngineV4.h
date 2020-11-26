@@ -62,6 +62,7 @@ static MRESULT QCamEngineModifyFrameRate(MDWord value, MVoid *handler, MV2Record
  *  @param pCropRelativeRect is based on 1/10000 
  *  @param pFrameSize is based on pixel, and it's the frame comes from camera device
  *  @param dwFDMode is defined as AMVE_FACEDT_MODE_XXX in etfacedtutils.h
+ *  @param dwMSAAType QCAM_MSAATYPE_NO or QCAM_MSAATYPE_X4
  **/
 - (MRESULT) InitCamEngine : (UIView*) pView
         DeviceOrientation : (UIDeviceOrientation) DO
@@ -73,7 +74,8 @@ static MRESULT QCamEngineModifyFrameRate(MDWord value, MVoid *handler, MV2Record
           ExportFrameSize : (MSIZE*) pExpFrameSize
                    FDMode : (MDWord)dwFDMode //face detection mode
                   arParam : (QVCE_AR_INIT_PARAM*)arParam
-              LicensePath : (MTChar*) szLicensePath;
+              LicensePath : (MTChar*) szLicensePath
+                 MSAAType : (MDWord)dwMSAAType;
 
 
 - (MVoid) UnInitCamEngine;

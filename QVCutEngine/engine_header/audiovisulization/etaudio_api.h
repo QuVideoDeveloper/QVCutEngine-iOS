@@ -47,6 +47,16 @@ ETAUDIO_DLL_API MInt32 AA_GetTimeWindowWidth(MHandle hIns);
  */
 ETAUDIO_DLL_API MRESULT AA_GetOnsetDetectResult(MTChar* pszResFile,AMVE_POSITION_RANGE_TYPE* pAudioRange,MDWord* pdwCount,MFloat** ppOnsetRes); 
 
+/*
+ * 从json文件得到tempo点信息
+ * @param pszResFile,json文件路径
+ * @param pAudioRange,audio 文件时间范围
+ * @param pdwCount，tempo点数量
+ * @param ppOnsetRes,tempo点时间位置
+ * @return 成功返回QVET_ERR_NONE,否则返回错误码
+ */
+ETAUDIO_DLL_API MRESULT AA_GetTempoDetectResult(MTChar* pszResFile,AMVE_POSITION_RANGE_TYPE* pAudioRange,MDWord* pdwCount,MFloat** ppTempoRes); 
+
 #ifdef __cplusplus
 }
 #endif

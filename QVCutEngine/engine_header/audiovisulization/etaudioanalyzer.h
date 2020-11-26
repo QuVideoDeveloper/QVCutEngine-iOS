@@ -224,6 +224,16 @@ public:
      * @return 成功返回QVET_ERR_NONE,否则返回错误码
 	 */
 	static MRESULT GetOnsetResultFromResFile(MTChar* pszResFile,AMVE_POSITION_RANGE_TYPE* pAudioRange,MDWord* pdwCount,MFloat** fOnsetPos);
+
+	/*
+     *从Json文件中获取tempo数据
+     * @param pszResFile,解析的结果文件
+     * @param pAudioRange,audio文件的range
+     * @param pdwCount,Tempo点的个数
+     * @param fTempoPos,Tempo时间点
+     * @return 成功返回QVET_ERR_NONE,否则返回错误码
+	 */
+	static MRESULT GetTempoResultFromResFile(MTChar* pszResFile,AMVE_POSITION_RANGE_TYPE* pAudioRange,MDWord* pdwCount,MFloat** fTempoPos);
 private:
 //	MRESULT PrepareContext(AA_PROCEDURE_TARGET *pTargets, MDWord dwTargetCnt);
 
