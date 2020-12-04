@@ -185,17 +185,16 @@ MRESULT FaceDTUtils_SetProperty(MHandle hContext,MDWord dwPropID,MVoid* pData);
 * @return   QVET_ERR_NONE if success,other value if failed
 **/
 MRESULT FaceDTUtils_ConvertDTPoint(MHandle hContext,MPOINT_FLOAT* pDTPoint,MPOINT_FLOAT* pDstPoint);
-
     
 /**
- *  将特征点坐标由缩放后的size转换为缩放前的size中的像素值
+ *  将特征点坐标由在检测图像中的坐标转换为目标size中的坐标
  * @param hContext,face dt context
  * @param   pDTPoint,在缩放后的图像中以像素为单位表示的特征点
  * @param   pDstPoint,在缩放前的图像中以像素为单位表示的特征点
+ * @param  pDstSize,目标size
  * @return   QVET_ERR_NONE if success,other value if failed
  **/
-MRESULT FaceDTUtils_ConvertDTPointToSrcSize(MHandle hContext, MPOINT_FLOAT* pDTPoint, MPOINT_FLOAT* pDstPoint);
-
+MRESULT FaceDTUtils_ConvertDTPointToDstSize(MHandle hContext, MPOINT_FLOAT* pDTPoint, MPOINT_FLOAT* pDstPoint,MSIZE* pDstSize);
 
 /**
 *  检查license是否有效，只需调用一次

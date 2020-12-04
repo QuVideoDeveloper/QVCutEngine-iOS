@@ -95,7 +95,7 @@ MRESULT CESBitmapLoadFromAssetURL(MVoid* pFile,AssetsURLImageLoadProcessBlock Im
     
 MRESULT CESBitmapLoadFromPhAsset(MVoid* pFile,MBITMAP* pBitmap);
     
-MRESULT CESBitmapLoadFromCGImage(MHandle hCGImage,MDWord dwRotation,MBITMAP* pBitmap);
+MRESULT CESBitmapLoadFromCGImage(MHandle hCGImage,MDWord dwRotation,MBITMAP* pBitmap, MBool bXClip, MBool bYClip);
 #endif
 
 

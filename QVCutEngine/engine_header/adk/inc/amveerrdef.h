@@ -92,6 +92,7 @@
 #define QVET_ERR_ETTEXT_UTILS_BASE      (QVET_ERR_BASE+0x00003800)    //ettextutils.cpp 
 #define QVET_ERR_TEXTUTILS_JNI_BASE     (QVET_ERR_BASE+0x00003900)     //textutils_jni.cpp 
 #define QVET_ERR_EFTPRTHREAD_BASE       (QVET_ERR_BASE+0x00003A00)     //effectPrepareThread.cpp
+#define QVET_ERR_MULTIDETEC_BASE		(QVET_ERR_BASE+0x00003B00)	   //etmultidetec.cpp	
 
 //0x00803B00
 //0x00803C00
@@ -328,6 +329,11 @@
 #define QVET_ERR_SABER_BASE		        (QVET_ERR_BASE+0x000BD000)		//0x008BD000 etsaberstream.cpp
 #define QVET_ERR_SABER_PARSER_BASE	    (QVET_ERR_BASE+0x000BE000)		//0x008BE000 etsaberparser.cpp
 #define QVET_ERR_PSSCATTEROS_BASE		(QVET_ERR_BASE+0x000BF000)		//0x008BF000 etparticlescatter.cpp
+#define QVET_ERR_BLING_BASE				(QVET_ERR_BASE+0x000C0000)		//0x008BF000 bling.cpp
+#define QVET_ERR_BLING_PARSER_BASE		(QVET_ERR_BASE+0x000C1000)		//0x008BF000 blingparser.cpp
+
+
+
 
 /*
 * Error Definition Zone for FilePackage Tools
@@ -372,6 +378,7 @@
 #define QERR_OC_AUDIO_PLAYER_BASE   (QVET_ERR_BASE+0x000D1D00)  //CXiaoyingAudioPlayer.mm
 #define QERR_OC_SEGMENT_UTILS_BASE   (QVET_ERR_BASE+0x000D1E00)  //CXiaoyingSegmentUtils.mm
 #define QERR_OC_AUDIO_ANALYZER_BASE  (QVET_ERR_BASE+0x000D1F00)   //CXiaoyingAudioAnalyzer.mm
+#define QERR_OC_MULTIDETEC_UTILS_BASE   (QVET_ERR_BASE+0x000D2000) //CXiaoYingMultiDetec.mm
 
 /*
 *	以下是针对 JNI层的cpp err分段

@@ -47,6 +47,8 @@
 #define XYCE_PROP_PAUSE_EFFECT_TIMER                0x0000001f
 #define XYCE_PROP_SET_BACKGROUND_COLOR              0x00000020
 #define XYCE_PROP_3D_FACE_DATA                      0x00000021 //3D人脸重建数据
+#define XYCE_PROP_CAMERA_FREEZE                     0x00000022 //是否冻结相机画面的更新
+#define XYCE_PROP_CAMERA_MSAATYPE                   0x00000023 //是否开启抗锯齿 QCAM_MSAATYPE_NO or QCAM_MSAATYPE_X4
 
 
 
@@ -202,6 +204,8 @@ typedef MDWord  (*CamEngine_CAPTURECALLBACK)(MDWord dwStatus,MVoid* pUserData);
 #define QCAM_EFFECT_UPDATE_TYPE_UPDATE_TRAJECOTRY   (QCAM_EFFECT_UPDATE_TYPE_NONE + 12)  //refer to QCamEffectUpdateItem for more info
 #define QCAM_EFFECT_UPDATA_TYPE_REMOVE_TRAJECTORY   (QCAM_EFFECT_UPDATE_TYPE_NONE + 13)  //refer to QCamEffectUpdateItem for more info
 #define QCAM_EFFECT_UPDATE_TYPE_REMOVE_ALL_TRAJECTORY   (QCAM_EFFECT_UPDATE_TYPE_NONE + 14)  //refer to QCamEffectUpdateItem for more info
+#define QCAM_EFFECT_UPDATE_TYPE_USER_EXP_TYPE       (QCAM_EFFECT_UPDATE_TYPE_NONE + 15)
+#define QCAM_EFFECT_UPDATE_TYPE_APP_INPUT_EXP_VALUE       (QCAM_EFFECT_UPDATE_TYPE_NONE + 16)
 
 
 /*! @constant  QCAM_INVALID_FACE_ID */
@@ -276,18 +280,7 @@ typedef MDWord  (*CamEngine_CAPTURECALLBACK)(MDWord dwStatus,MVoid* pUserData);
 
 
 
-//pen相关的单独操作废弃: 改用effect 模板的套路走。全部调整完后，删除！
-//其他相关清理项:
-//    QARPenAddParam
-//    QARPen
-//    CE的函数
-//    一些工具函数
-#define QCAM_OP_ADD_ARPEN                   (QCAM_OP_AR_BASE+57)
-#define QCAM_OP_REMOVE_ARPEN                (QCAM_OP_AR_BASE+58)
-#define QCAM_OP_REMOVE_ALL_ARPEN            (QCAM_OP_AR_BASE+59)
-#define QCAM_OP_ARPEN_DRAW_BEGIN            (QCAM_OP_AR_BASE+60)
-#define QCAM_OP_ARPEN_DRAW                  (QCAM_OP_AR_BASE+61)
-#define QCAM_OP_ARPEN_DRAW_END              (QCAM_OP_AR_BASE+62)
+
 
 
 

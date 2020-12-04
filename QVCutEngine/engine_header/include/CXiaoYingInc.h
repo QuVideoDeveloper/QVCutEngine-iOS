@@ -111,6 +111,8 @@ typedef struct
 #import "QCamEffectInquiryItem.h"
 #import "QCamEffectInquiryResult.h"
 #import "QCamEffectPasterInfo.h"
+#import "QAppInputExpValue.h"
+
 #import "CXiaoYingKeyFrameCommon.h"
 #import "CXiaoYing3DTransform.h"
 #import "CXiaoYingEffectSubItemSource.h"

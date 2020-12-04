@@ -284,6 +284,8 @@
 #define AVME_PROP_EFFECT_INSTANT_VIDEO_REGION 			(AMVE_PROP_EFFECT_BASE+117)
 #define AVME_PROP_EFFECT_INSTANT_VIDEO_ROTATION 		(AMVE_PROP_EFFECT_BASE+118)
 
+
+
 #define AVME_PROP_EFFECT_KEYFRAME_MASK				    (AMVE_PROP_EFFECT_BASE+119)
 #define AVME_PROP_EFFECT_KEYFRAME_MASK_SET				(AMVE_PROP_EFFECT_BASE+120)
 #define AMVE_PROP_EFFECT_USER_EXP_TYPE                  (AMVE_PROP_EFFECT_BASE+121)
@@ -977,6 +979,7 @@
 #define AMVE_FACE_DT_LIB_TYPE_ARCSOFT_41                0x1
 #define AMVE_FACE_DT_LIB_TYPE_ARCSOFT_101               0x2
 
+#define AMVE_FACEDT_MAX_PASTER_COUNT                    6	//AE上单个paster层，最多几个贴纸。不需要多少，由于combo可以
 #define AMVE_FACEDT_MAX_FACE_COUNT                      4  //最多支持4张人脸
 #define AMVE_FACEDT_RESULT_POINT_COUNT                  106
 
@@ -988,6 +991,12 @@
 #define AMVE_FACEDT_EXPRESSION_TYPE_HEADSHAKE           4
 #define AMVE_FACEDT_EXPRESSION_TYPE_HEADNOD             5
 #define AMVE_FACEDT_EXPRESSION_TYPE_HEADSHAKE_NOD       6
+//人脸的小于11
+#define AMVE_APP_INPUT_EXPRESSION_TYPE_BEGIN            11
+#define AMVE_APP_INPUT_EXPRESSION_TYPE_CLICK            12
+
+#define AMVE_FACEDT_EXPRESSION_TYPE_RANDOM_SELECT		255 //通知APP随机选取下一个触发类型贴纸，当前这个不能是带触发的
+
 
 
 #define AMVE_FACEDT_EXPRESSION_PASTE_SHOW               0
@@ -1922,6 +1931,9 @@ typedef struct __tag_BubbleTemplateInfo
 {
     MDWord dwVersion;
 	MFloat fRotation;
+	MFloat fRotationX;
+	MFloat fRotationY;
+	MFloat fRotationZ;
 	MCOLORREF clrBubble;//not used in IOS8.0
 	MRECT rcRegion;
 	MBool bIsAnimated;
@@ -2296,11 +2308,10 @@ typedef struct _tag_AMVE_EFFECT_ABFACE_INFO
     MDWord dwTotalCount;
 }AMVE_EFFECT_ABFACE_INFO;
 
-typedef struct _tag_AMVE_PASTER_FACIAL_INFO
+typedef struct _tag_AMVE_PASTER_ATTACH_INFO
 {
-    MBool bFollowFace;          //是否跟随人脸,有些人脸贴纸仅仅和表情有关,大小和位置与人脸无关
-    MDWord dwFdlibType;         // 0 SenceTime  1 Arcsoft
-    MFloat fAnchorPoint[3];    //Anchor point of paster
+	MDWord dwEftIndex;         //所在子Effect的index
+	MFloat fAnchorPoint[3];    //Anchor point of paster
     MDWord dwXPointNo;         //The point number of x axis refer to(0~105)
     MLong  lXOffset;          //The offset to x axis refer point in pixels
     MDWord dwYPointNo;         //The point number of y axis refer to(0~105)
@@ -2309,9 +2320,20 @@ typedef struct _tag_AMVE_PASTER_FACIAL_INFO
 	MSIZE  faceSize;
 	MSIZE  pasterSize;
 	MDWord dwAdjustPositionWay;
+}AMVE_PASTER_ATTACH_INFO;
+
+
+typedef struct _tag_AMVE_PASTER_FACIAL_INFO
+{
+    MBool bFollowFace;          //是否跟随人脸,有些人脸贴纸仅仅和表情有关,大小和位置与人脸无关
+    MDWord dwFdlibType;         // 0 SenceTime  1 Arcsoft
 	AMVE_EFFECT_EXPRESSION_INFO expressionInfo;
 	AMVE_EFFECT_ABFACE_INFO ABFaceInfo;
+
+	MDWord dwPasterCount;
+	AMVE_PASTER_ATTACH_INFO * pArrayPasterAttachInfo; //依附于人脸的每张贴纸的相关信息
 }AMVE_PASTER_FACIAL_INFO;
+
 
 typedef struct _tag_AMVE_FACIAL_PASTER_DATA_TYPE
 {
@@ -2369,6 +2391,9 @@ typedef struct
 	MDWord dwAlignment;
 	MDWord dwPosAlignment;
 	MDWord dwPreviewPos;
+	MFloat fRotationX;
+    MFloat fRotationY;
+    MFloat fRotationZ;
 	MTChar szDefaultText[QVET_BUBBLE_TEXT_MAX_LENGTH];
 	MDWord dwFontID;
 	MDWord dwParamID;
@@ -2531,6 +2556,12 @@ typedef struct _tagQVET_SEGMENT_UTILS_CONTEXT
 	MHandle hSessonContext;
 }QVET_SEGMENT_UTILS_CONTEXT;
 
+typedef struct _tagQVET_MULTIDETEC_UTILS_CONTEXT
+{
+	MHandle hMultiDetecContext;
+	MHandle hAPPContext;
+	MHandle hSessionContext;
+}QVET_MULTIDETEC_UTILS_CONTEXT;
 
 typedef struct _tag_AMVE_FACE_EXPRESSION_INFO
 {
@@ -2578,6 +2609,19 @@ typedef struct __tagQVET_TRAJECTORY_VALUE
 	MFloat rotation; //self-rotation angle around the object's center ——未启用
 	MRECT region; //与effect的PROP_VIDEO_REGION概念一致，对于只有"点"概念的对象，只需确保rect的中心与实际点一致即可。rect的size不重要
 }QVET_TRAJECTORY_VALUE;
+
+#define QVET_TRAJ_TYPE_NONE       0
+#define QVET_TRAJ_TYPE_LINE       1
+#define QVET_TRAJ_TYPE_RIPPLE     2
+
+#define QVET_TRAJ_RIPPLE_EVENT_NONE  0
+#define QVET_TRAJ_RIPPLE_EVENT_CLICK 1
+#define QVET_TRAJ_RIPPLE_EVENT_SLIDE 2
+
+#define QVET_TRAJ_RIPPLE_POINT_NONE  0
+#define QVET_TRAJ_RIPPLE_EVENT_HEAD  1
+#define QVET_TRAJ_RIPPLE_EVENT_TAIL  2
+
 
 
 #define QVET_TRAJECTORY_UPDATE_MODE_REPLACE				0 //不仅数据替换，老轨迹的属性也会替换
@@ -3100,6 +3144,17 @@ typedef struct _tagEffectSubChormaProp
 }QVET_EFFECT_SUB_EFFECT_CHORMA_PROP;//画中画里的滤色功能的相关属性
 
 
+#define AMVE_APP_INPUT_EXPRESSION_STATE_NONE 0
+#define AMVE_APP_INPUT_EXPRESSION_STATE_TOUCH_ON 	        1  //持续触击
+#define AMVE_APP_INPUT_EXPRESSION_STATE_TOUCH_OFF           2  //持续无接触
+#define AMVE_APP_INPUT_EXPRESSION_STATE_TOUCH_ON_ONCE       3  //触发一次即关闭
+
+//APP输入触发事件需要传递的数据，后面还可能什么坐标啊之类的。或者变成什么链表存取连续输入等，目前没啥必要
+typedef struct _tagEffectAppInputExpValue
+{
+	MDWord dwExpType; //触发类型
+	MDWord dwState;   //触发状态，按需求定义 AMVE_APP_INPUT_EXPRESSION_STATE_XX
+}QVET_EFFECT_APP_INPUT_EXP_VALUE;
 
 
 

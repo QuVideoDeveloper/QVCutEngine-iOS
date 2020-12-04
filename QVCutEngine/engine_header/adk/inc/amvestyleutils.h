@@ -414,6 +414,11 @@ MRESULT AMVE_StyleGetPasterFacialInfo(MHandle hStyle,AMVE_PASTER_FACIAL_INFO* pF
 
 MRESULT AMVE_StyleIsAudioVisualizationTemplate(MHandle hStyle, MBool *pbIsAVT);
 
+MRESULT AMVE_StyleIsRender4MultiFaceTemplate(MHandle hStyle, MBool *pbIs4Multi);
+
+MRESULT AMVE_StyleIsRenderEvenNoFaceTemplate(MHandle hStyle, MBool *pbIsRenderEvenNoface);
+
+
 MRESULT AMVE_StyleGetInfoVersion(MHandle hStyle,MDWord* pdwVersion);
 
 

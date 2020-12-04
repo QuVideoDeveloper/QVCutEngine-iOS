@@ -152,6 +152,10 @@ MRESULT AMVE_GetAnimatePointSettings(MHandle hEffect,MSIZE* pBGSize,MVoid** ppSe
 MRESULT AMVE_GetPasterFacialInfo(MHandle hSessionCtx, MTChar* szFrameFile,AMVE_PASTER_FACIAL_INFO* pFacialInfo);
 MRESULT QVET_GetTemplateParamData(MHandle hSessionCtx, MTChar* szTemplateFile, MLong lCfgIndex, MSIZE* pResolution, AMVE_USER_DATA_TYPE* pTPMData);
 
+MRESULT AMVE_EffectGetFilterDuration(MTChar * szFilePath,MSIZE * pBgSzie,MDWord * pdwDuration);
+
+
+
 MVoid	QVET_PrintWin32DebugLog(MTChar *format, ...);
 //macro for session register
 #define MVE_REGISTER_PLAYER() \

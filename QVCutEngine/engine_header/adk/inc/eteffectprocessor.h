@@ -32,6 +32,10 @@
 #define QVET_EP_CONFIG_EFFECT_HANDLE               (QVET_EP_PROP_BASE + 17)
 #define QVET_EP_PROP_TRACK_SIZE                    (QVET_EP_PROP_BASE + 18)
 #define QVET_EP_PROP_AV_MUSIC_INFO                 (QVET_EP_PROP_BASE + 19)
+#define QVET_EP_PROP_USER_EXP_TYPE          	   (QVET_EP_PROP_BASE + 20)
+#define QVET_EP_PROP_APP_INPUT_EXP_V               (QVET_EP_PROP_BASE + 21)
+#define QVET_EP_PROP_IS_RENDER_FOR_MULTIFACE       (QVET_EP_PROP_BASE + 22)
+
 
 #define QVET_EFFECT_TYPE_NONE				0
 #define QVET_EFFECT_TYPE_IE					1		//IE
@@ -42,15 +46,19 @@
 #define QVET_EFFECT_TYPE_DIVA				6		//VAVIDIVA
 #define QVET_EFFECT_TYPE_COMBO_IE           7       //combo ie
 
-
-#define QVET_EXPRESSION_PASTER_NONE                    -1
-#define QVET_EXPRESSION_PASTER_STOPPED                 0
-#define QVET_EXPRESSION_PASTER_STARTED                 1
-#define QVET_EXPRESSION_PASTER_DOING                   2
-#define QVET_EXPRESSION_PASTER_SWITCH                  3
-
 #define QVET_EXPRESSION_STATE_NOWAIT        0
 #define QVET_EXPRESSION_STATE_MUSTWAIT      1        //该人脸存在需要进行等待播放完毕的触发动画
+
+class CVEBaseEffect;
+//触发来源类型定义
+typedef enum
+{
+	QVET_EXP_MAIN_TYPE_NONE = 0,
+	QVET_EXP_MAIN_TYPE_FACEDT,  //人脸
+	QVET_EXP_MAIN_TYPE_APP_INPUT, //App输入
+	QVET_EXP_MAIN_TYPE_GESTURE    //手势
+}QVET_EXP_SOURCE_TYPE;
+
 
 class CQVETRenderEngine;
 
@@ -65,9 +73,11 @@ typedef struct
 //存放Cam Effect的某些相关状态用于显示
 typedef struct
 {
-    MWord nExpState;    //某个人脸当前的Exp状态
-    MWord nFaceIndex;   //入参，人脸的数组ID
+    MWord nExpState;    //单个对象当前的Exp状态，人脸的话就是某张人脸
+    MWord nFaceIndex;   //入参，人脸的数组ID。某些触发来源不使用
+	QVET_EXP_SOURCE_TYPE eType; //触发来源
 }QVET_EFFECTS_EXPSTATE;
+
 
 typedef MRESULT (*QVET_CAM_EFFECT_GET_EXPSTATE_CALLBACK)(QVET_EFFECTS_EXPSTATE & struState/*in*/, MVoid* pUserData);
 
@@ -130,6 +140,18 @@ typedef struct
     MDWord dwDetectFaceCount;
     MDWord dwOpacity[AMVE_FACEDT_MAX_FACE_COUNT];
 }QVET_EP_RANDOM_FACE_PASTER;
+
+typedef struct
+{
+	MDWord dwExpressionState;  //QVET_EXPRESSION_PASTER_DISPLAY_XXX
+	MBool bEyeClosed;  //用于检测眨眼的flag,若检测到闭眼,将flag置为true,
+					   //当检测到睁眼时开始显示贴纸
+	MDWord dwExpressionStartTime;
+	MDWord dwDuration;
+	MBool bHeadshakeStarted;
+	MBool bHeadNodStarted;
+	MBool bBlinkStarted;
+}QVET_EP_EXPRESSION_INFO;
 
 
 typedef QVET_EFFECT_PROPDATA QVET_EP_PROP;
@@ -266,10 +288,12 @@ MRESULT QVET_EP_UnFocusPaster(MHandle hEP,MDWord dwFaceIndex);
 *    fRotation: 贴纸绕自身中心点旋转角度
 *    pRegionRect:贴纸的region,单位为万分比
 *    dwFaceIndex:人脸id,对于OT贴纸,传0
+*    dwPasterIndex: 滤镜形式下，存在多个贴纸，需要给入Effect ID。对于单层老贴纸默认就是0。另外这个接口基本上APP没用
 *   返回值:
 *     设置成功返回QVET_ERR_NONE,否则 返回错误值
 */
-MRESULT QVET_EP_SetPasterRotationAndRegion(MHandle hEP,MFloat fRotation,MRECT* pRegionRect,MDWord dwFaceIndex);
+MRESULT QVET_EP_SetPasterRotationAndRegion(MHandle hEP,MFloat fRotation,MRECT* pRegionRect,MDWord dwFaceIndex,MDWord dwPasterIndex = 0);
+
 
 /*
 * 功能：
@@ -366,7 +390,14 @@ MRESULT QVET_EP_GetPasterPitchValue(MHandle hEp,MFloat & fPitch);
 *   返回值:
 *    当前的状态
 */
-MWord QVET_EP_GET_LOCAL_EXPSTATE(MHandle hEp,MWord nFaceIndex);
+MWord QVET_EP_GET_LOCAL_EXPSTATE(MHandle hEp,MWord nFaceIndex,QVET_EXP_SOURCE_TYPE srcType);
+
+
+/*
+人脸表情的检测转换逻辑，提出来给外面用
+*/
+MRESULT QVET_EP_UpdateExpressionState4Face(MHandle hFaceDTContext, QVET_EP_EXPRESSION_INFO * pExpArray,
+	CVEBaseEffect* pEffect, QVET_EFFECTS_EXPSTATE_MENDER & mender, MDWord dwTimeStamp);
 
 #ifdef __cplusplus
 }
