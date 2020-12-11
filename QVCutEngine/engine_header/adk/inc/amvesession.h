@@ -142,6 +142,7 @@ MRESULT AMVE_GetVHWDecoderCount(MHandle hSessionContext,MLong* plCount);
 MRESULT AMVE_GetHWCodecCap(MTChar* pszXMLFile, MDWord* pdwMAXHWDecCount,MBool* pbEncSupported,
 	                                 MDWord* pdwVImportFormat,MBool* bBetaTestedFlag,MTChar* pszGPURender);
 
+MRESULT	AMVE_GetGPURender(MTChar* pszGPURender);
 
 MRESULT AMVE_GetAnimatedFrameInfo(MHandle hSessionCtx, MTChar* szFrameFile, MSIZE* pBGSize, QVET_ANIMATED_FRAME_TEMPLATE_INFO* pInfo);
 

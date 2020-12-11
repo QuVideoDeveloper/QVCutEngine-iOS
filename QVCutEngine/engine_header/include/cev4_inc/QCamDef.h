@@ -49,7 +49,7 @@
 #define XYCE_PROP_3D_FACE_DATA                      0x00000021 //3D人脸重建数据
 #define XYCE_PROP_CAMERA_FREEZE                     0x00000022 //是否冻结相机画面的更新
 #define XYCE_PROP_CAMERA_MSAATYPE                   0x00000023 //是否开启抗锯齿 QCAM_MSAATYPE_NO or QCAM_MSAATYPE_X4
-
+#define XYCE_PROP_FACEDT_ADAPTER                    0x00000024 //人脸表情组件代理
 
 
 

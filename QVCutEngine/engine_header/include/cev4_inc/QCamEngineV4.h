@@ -389,7 +389,7 @@ static MRESULT QCamEngineModifyFrameRate(MDWord value, MVoid *handler, MV2Record
 - (MRESULT)performOperation : (MDWord)opType
                     opParam : (NSArray*)paramList;
 
-
+- (MVoid)SetFaceDTAdapter : (MVoid*)pAdapter;
 /*!
     @brief  perform class operation
     @param  opType

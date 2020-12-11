@@ -57,7 +57,7 @@ extern "C" {
 * @param   In pszAlkFilePath,track_data文件路径
 * @return   如果创建成功，返回人脸检测实例句柄，否则返回MNull
 **/
-MHandle FaceDTUtils_CreateFaceDTContext(MHandle hAppContext,MTChar* pszAlkFilePath);
+MHandle FaceDTUtils_CreateFaceDTContext(MHandle hAppContext,MTChar* pszAlkFilePath, MVoid* pAdapter);
 
 /**
 *  Function:

@@ -211,7 +211,7 @@ typedef struct _tag_qvet_draw_shape_type
 		this->operator=(shape_type);
 	}
 
-	_tag_qvet_draw_shape_type(_tag_qvet_draw_shape_type&& shape_type)
+	_tag_qvet_draw_shape_type(_tag_qvet_draw_shape_type&& shape_type) noexcept
 	{
 		if (this != &shape_type)
 		{
@@ -219,7 +219,7 @@ typedef struct _tag_qvet_draw_shape_type
 			shape_type.pType = MNull;
 		}
 	}
-	_tag_qvet_draw_shape_type& operator=(_tag_qvet_draw_shape_type&& shape_type)
+	_tag_qvet_draw_shape_type& operator=(_tag_qvet_draw_shape_type&& shape_type) noexcept
 	{
 		if (this != &shape_type)
 		{
@@ -276,11 +276,11 @@ typedef struct _tag_qvet_layer_data
 	{
 
 	}
-	_tag_qvet_layer_data(_tag_qvet_layer_data&& layer_type)
+	_tag_qvet_layer_data(_tag_qvet_layer_data&& layer_type) noexcept
 	{
 		this->operator=(layer_type);
 	}
-	_tag_qvet_layer_data& operator=(_tag_qvet_layer_data&& layer_type)
+	_tag_qvet_layer_data& operator=(_tag_qvet_layer_data&& layer_type) noexcept
 	{
 		if (this != &layer_type)
 		{

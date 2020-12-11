@@ -92,6 +92,14 @@
 
 - (MDWord) GetVersion;
 
+- (MVoid) SetFaceDTAdapter : (MVoid*)pAdapter;
+
+- (MVoid) SetSegmentAdapter : (MVoid*)pAdapter;
+
+- (MVoid) SetShotDTAdapter : (MVoid*)pAdapter;
+
+- (MVoid) SetMultiDTAdapter : (MVoid*)pAdapter;
+
 + (NSArray<NSString *> * _Nullable) GetEngineSupportList;
 @end // CXiaoYingEngine
 

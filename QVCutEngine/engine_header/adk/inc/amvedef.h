@@ -93,9 +93,11 @@
 #define AMVE_PROP_CONTEXT_VIDEO_CONSTANT_FPS         	(AMVE_PROP_CONTEXT_BASE+47) //视频的最小帧率，帧率小于这个帧率会补帧
 #define AMVE_PROP_CONTEXT_SEGMENT_MODEL_FILE        (AMVE_PROP_CONTEXT_BASE+48) //分割算法模型文件路径
 #define AMVE_PROP_CONTEXT_CLEAR_FILE_CACHE        (AMVE_PROP_CONTEXT_BASE+49) //清楚指定文件路径的文件缓存 后边跟的参数是MChar *
-#define AMVE_PROP_CONTEXT_RENDER_MSAATYPE                  (AMVE_PROP_CONTEXT_BASE+50)
-
-
+#define AMVE_PROP_CONTEXT_RENDER_MSAATYPE         (AMVE_PROP_CONTEXT_BASE+50)
+#define AMVE_PROP_CONTEXT_FACEDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+60) //人脸表情组件代理句柄,目前只有ios平台需要配置	
+#define AMVE_PROP_CONTEXT_SEGMENT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+61) //分割组件代理句柄,目前只有ios平台需要配置
+#define AMVE_PROP_CONTEXT_SHOTDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+62) //视频卡点检测代理句柄,目前只有ios平台需要配置	
+#define AMVE_PROP_CONTEXT_MULTIDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+63) //目标检测算法代理句柄,目前只有ios平台需要配置	
 
 //Constants used to identify the media type for clip's source
 #define AMVE_CLIP_TYPE_BASE                            0X00000000
