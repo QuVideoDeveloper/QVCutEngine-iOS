@@ -146,10 +146,19 @@
 			((llTemplateID&0x1f0000000ff80000) == 0x0500000000180000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_OT_PASTER)  
 #define IS_DIVA_FREEZE_FRAME_TEMPLATE(hEffect, hSessionCtx, llTemplateID)     CVEUtility::is_Need_Face_Feature_template(hEffect, hSessionCtx, \
 			((llTemplateID&0x1f0000000ff80000) == 0x0F00000000100000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_DIVA) 
-#define IS_SEGMENT_IE_TEMPALTE(hEffect, hSessionCtx, llTemplateID)            CVEUtility::is_Need_Segment_template(MHandle hEffect,MHandle hSessionCtx,MBool bOldValue,MInt64 llTemplateID)(hEffect, hSessionCtx, \
-			((llTemplateID&0x1f0000000ff80000) == 0x0400000000580000), llTemplateID) 
 
-
+#define IS_FACIAL_PASTER_TEMPLATE_BY_TRACK(hTrack,hSessionCtx, llTemplateID)  CVEUtility::is_Need_Face_Feature_template_byTrack(hTrack, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0500000000080000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_PASTER)     
+#define IS_FACIAL_ATTCH_PASTER_TEMPLATE_BY_TRACK(hTrack,hSessionCtx,llTemplateID)  CVEUtility::is_Need_Face_Feature_template_byTrack(hTrack, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0500000000100000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_ATTACH_PASTER) 
+#define IS_FACE_DEFORMATION_IE_TEMPLATE_BY_TRACK(hTrack, hSessionCtx, llTemplateID) CVEUtility::is_Need_Face_Feature_template_byTrack(hTrack, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0400000000280000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_DEFORMATION)  
+#define IS_FACE_3DMM_IE_TEMPLATE_BY_TRACK(hTrack, hSessionCtx, llTemplateID)			CVEUtility::is_Need_Face_Feature_template_byTrack(hTrack, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0400000000480000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_3DMM) 
+#define IS_OT_PASTER_TEMPLATE_BY_TRACK(hTrack, hSessionCtx, llTemplateID)             CVEUtility::is_Need_Face_Feature_template_byTrack(hTrack, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0500000000180000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_OT_PASTER)  
+#define IS_DIVA_FREEZE_FRAME_TEMPLATE_BY_TRACK(hTrack, hSessionCtx, llTemplateID)     CVEUtility::is_Need_Face_Feature_template_byTrack(hTrack, hSessionCtx, \
+			((llTemplateID&0x1f0000000ff80000) == 0x0F00000000100000), llTemplateID, TEMPLATE_CONTENT_SUB_TYPE_DIVA) 
 
 
 
