@@ -219,6 +219,12 @@ MRESULT FaceDTUtils_CheckLicenseData(const MVoid* pFileData,MDWord dwDataSize);
  **/
 MRESULT FaceDTUtils_UpdateSrcSize(MHandle hContext, MSIZE* srcSize);
 
+/*
+ * 释放用于人脸检测的纹理
+ */
+MVoid FaceDTUtils_DestroyFaceDTTexture(MHandle hContext);
+
+
 
 
 #ifdef __cplusplus
