@@ -626,6 +626,7 @@
 #define AMVE_PROP_PLAYER_STREAM_FRAME_SIZE             (AMVE_PROP_PLAYER_BASE+6)
 #define AMVE_PROP_PLAYER_CALLBACK_DELTA				   (AMVE_PROP_PLAYER_BASE+7)
 #define AMVE_PROP_PLAYER_STREAM_DURATION               (AMVE_PROP_PLAYER_BASE+8)
+#define AMVE_PROP_PLAYER_DISPLAY_TRANSFORM             (AMVE_PROP_PLAYER_BASE+9) //QVET_3D_TRANSFORM value
 
 
 
@@ -1124,6 +1125,12 @@
 #define AMVE_THEME_FILTER_MODE_REPLACE						(0) //替换-将滤镜效果替换成主题里的滤镜 
 #define AMVE_THEME_FILTER_MODE_RETAIN						(1) //保留-原滤镜不变,不使用主题里的滤镜
 #define AMVE_THEME_FILTER_MODE_OVERLAY						(2) //叠加-将主题里的滤镜叠加到原滤镜上
+
+
+#define QVET_SCENE_PANZOOM_MODE_NONE                         0   //没有panzoom效果
+#define QVET_SCENE_PANZOOM_MODE_BLUR                         1   //模糊背景
+#define QVET_SCENE_PANZOOM_MODE_FILL                         2   //颜色填充
+#define QVET_SCENE_PANZOOM_MODE_TRANSPARENT                  3   //透明背景
 
 #define QVET_CHECK_VALID_RET(ret)   \
         if (ret) {                  \
@@ -2086,7 +2093,8 @@ typedef struct __tagQVET_SCENE_ELEMENT_INFO
 	MDWord dwAlignment;
 	MDWord dwShadeFrameID;
 	MDWord dwFitMode; //ATOM.ResampleModeFitIn = 1; ATOM.ResampleModeFitOut = 2;
-    MBool  bApplyPanzoom;
+    //MBool  bApplyPanzoom;
+    MDWord dwPanzoomMode;   //QVET_SCENE_PANZOOM_MODE_XXX
 	QVET_SCENE_ELEMENT_TIME time;
 	MBool bFaceAlign;  //表示这个源是否需要做人脸对齐
 	MDWord dwFreezeID;
@@ -2264,7 +2272,8 @@ typedef struct
 	QVET_TRANSFORM_PARAMETERS transformPara;
 	MDWord dwFrameWidth;
 	MDWord dwFrameHeight;
-	MBool bApplyPanzoom;
+	//MBool bApplyPanzoom;
+	MDWord dwPanzoomMode;
 	MBool bFitMethod;// false: fit-in, true: fit-out
 	MBool bCropFlag; //表示app是否设置了crop区域的flag
 	MRECT rcCrop; //app设置下来 的crop区域
