@@ -98,6 +98,11 @@
 #define AMVE_PROP_CONTEXT_SEGMENT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+61) //分割组件代理句柄,目前只有ios平台需要配置
 #define AMVE_PROP_CONTEXT_SHOTDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+62) //视频卡点检测代理句柄,目前只有ios平台需要配置	
 #define AMVE_PROP_CONTEXT_MULTIDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+63) //目标检测算法代理句柄,目前只有ios平台需要配置	
+#define AMVE_PROP_CONTEXT_MASK_CACHE_PATH		  (AMVE_PROP_CONTEXT_BASE+64) //保存mask缓存的根目录,最后一级应该带上'/'	 
+//这个属性是用来控制播放器暂停状态时是否需要开启预抠像,默认是false,内部不应该修改该值,只能由app设置,因为设成true后
+//会严重影响在多个clip之间seek的性能
+#define AMVE_PROP_CONTEXT_MASK_CACHE_FLAG		  (AMVE_PROP_CONTEXT_BASE+65) 																			
+#define AMVE_PROP_CONTEXT_MASK_CACHE_ADAPTER	  (AMVE_PROP_CONTEXT_BASE+66) //抠像预处理回调
 
 //Constants used to identify the media type for clip's source
 #define AMVE_CLIP_TYPE_BASE                            0X00000000
@@ -113,6 +118,7 @@
 #define AMVE_WEBP_CLIP								   (AMVE_CLIP_TYPE_BASE+0xA)
 #define AMVE_RAW_VIDEO_CLIP							   (AMVE_CLIP_TYPE_BASE+0xB)
 #define AMVE_STUFF_IMAGE_CLIP                          (AMVE_CLIP_TYPE_BASE+0xC)
+#define AMVE_EFFECT_CLIP                               (AMVE_CLIP_TYPE_BASE+0xD)//clip的源是effect
 
 //Constants used to identify the type for effect track type
 #define AMVE_EFFECT_TRACK_TYPE_BASE                    0X00000000
@@ -539,9 +545,7 @@
 #define AMVE_PROP_CLIP_RESET_SEG_MASK                  (AMVE_PROP_CLIP_BASE+79)
 
 #define AMVE_PROP_CLIP_ONSET_PARAM                     (AMVE_PROP_CLIP_BASE+80) //Onset检测参数
-
-
-
+#define AMVE_PROP_CLIP_EFFECT_SOURCE                    (AMVE_PROP_CLIP_BASE+81) //设置effect source
 //constants used to identify the property for storyboard
 #define AMVE_PROP_STORYBOARD_BASE                      0X00004000
 #define AMVE_PROP_STORYBOARD_FIT_TRACK                 (AMVE_PROP_STORYBOARD_BASE+1)
@@ -626,6 +630,7 @@
 #define AMVE_PROP_PLAYER_STREAM_FRAME_SIZE             (AMVE_PROP_PLAYER_BASE+6)
 #define AMVE_PROP_PLAYER_CALLBACK_DELTA				   (AMVE_PROP_PLAYER_BASE+7)
 #define AMVE_PROP_PLAYER_STREAM_DURATION               (AMVE_PROP_PLAYER_BASE+8)
+#define AMVE_PROP_PLAYER_DISPLAY_TRANSFORM             (AMVE_PROP_PLAYER_BASE+9) //QVET_3D_TRANSFORM value
 
 
 
@@ -740,6 +745,7 @@
 #define AMVE_MEDIA_SOURCE_TYPE_WATERMARK			   0x00000006 //水印Source格式
 #define AMVE_MEDIA_SOURCE_TYPE_TEXT_ANIMATION          0x00000007 //动画字幕对应的source,数据类型为AMVE_TEXTANIMATION_SOURCE_TYPE
 #define AMVE_MEDIA_SOURCE_TYPE_FACE_MORPHING           0x00000010
+#define AMVE_MEDIA_SOURCE_TYPE_EFFECT                  0x00000011 //effect Clip的源
 
 //constants used to identify display rotation
 #define AMVE_DISPLAY_ROTATION_NONE                     0
@@ -1044,6 +1050,7 @@
 #define QVET_REFRESH_STREAM_OPCODE_UPDATE_ALL_TRANSITION		9
 #define QVET_REFRESH_STREAM_OPCODE_UPDATE_TIME_SCALE			10
 #define QVET_REFRESH_STREAM_OPCODE_REOPEN						11
+#define QVET_REFRESH_STREAM_OPCODE_PLAYER_TRANFORM				12//player transform
 
 #define QVET_DURATION_MODE_NO_ADD_FREEZE_TIME                   0
 #define QVET_DURATION_MODE_CLIP_ADD_FREEZE_TIME                 1
@@ -1124,6 +1131,12 @@
 #define AMVE_THEME_FILTER_MODE_REPLACE						(0) //替换-将滤镜效果替换成主题里的滤镜 
 #define AMVE_THEME_FILTER_MODE_RETAIN						(1) //保留-原滤镜不变,不使用主题里的滤镜
 #define AMVE_THEME_FILTER_MODE_OVERLAY						(2) //叠加-将主题里的滤镜叠加到原滤镜上
+
+
+#define QVET_SCENE_PANZOOM_MODE_NONE                         0   //没有panzoom效果
+#define QVET_SCENE_PANZOOM_MODE_BLUR                         1   //模糊背景
+#define QVET_SCENE_PANZOOM_MODE_FILL                         2   //颜色填充
+#define QVET_SCENE_PANZOOM_MODE_TRANSPARENT                  3   //透明背景
 
 #define QVET_CHECK_VALID_RET(ret)   \
         if (ret) {                  \
@@ -1254,6 +1267,12 @@ typedef struct _tagQVET_FILEPATH_MODIFIER{
 	AMVE_FUNFILEPATHMODIFYCALLBACK fp;
 	MVoid* pUserData;
 }QVET_FILEPATH_MODIFIER;
+
+typedef struct _tagQVET_MASKMGR_ADAPTER
+{
+	AMVE_FNSTATUSCALLBACK fnCallback;
+	MVoid *pUserData;
+}QVET_MASKMGR_ADAPTER;
 
 #define QVET_EXPRESSION_PASTER_NONE                    -1
 #define QVET_EXPRESSION_PASTER_STOPPED                 0
@@ -2086,7 +2105,8 @@ typedef struct __tagQVET_SCENE_ELEMENT_INFO
 	MDWord dwAlignment;
 	MDWord dwShadeFrameID;
 	MDWord dwFitMode; //ATOM.ResampleModeFitIn = 1; ATOM.ResampleModeFitOut = 2;
-    MBool  bApplyPanzoom;
+    //MBool  bApplyPanzoom;
+    MDWord dwPanzoomMode;   //QVET_SCENE_PANZOOM_MODE_XXX
 	QVET_SCENE_ELEMENT_TIME time;
 	MBool bFaceAlign;  //表示这个源是否需要做人脸对齐
 	MDWord dwFreezeID;
@@ -2264,7 +2284,8 @@ typedef struct
 	QVET_TRANSFORM_PARAMETERS transformPara;
 	MDWord dwFrameWidth;
 	MDWord dwFrameHeight;
-	MBool bApplyPanzoom;
+	//MBool bApplyPanzoom;
+	MDWord dwPanzoomMode;
 	MBool bFitMethod;// false: fit-in, true: fit-out
 	MBool bCropFlag; //表示app是否设置了crop区域的flag
 	MRECT rcCrop; //app设置下来 的crop区域

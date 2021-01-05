@@ -36,6 +36,10 @@
                       Param : (AMVE_TEXT_TRANSFORM_PARAM*)pParam;
 @end
 
+@protocol MaskMgrStateDelegate <NSObject>
+- (MDWord) maskMgrStateCallBack : (AMVE_CBDATA_TYPE*) pCBData;
+
+@end
 
 @interface CXiaoYingEngine : NSObject
 {

@@ -374,6 +374,9 @@ MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 
 MRESULT AMVE_EffectGetTextAttachInfoById(MHandle hEffect, MInt64 lltemplateId, enum QTextAttachType* outType, MDWord* outDesignTime);
 
+
+MRESULT AMVE_EffectDestroy(MHandle hEffect);//销毁effect的接口
+
 //The interfaces for stream
 MRESULT AMVE_StreamOpen(AMVE_STREAM_SOURCE_TYPE* pSource, AMVE_STREAM_PARAM_TYPE* pParam, MHandle *phStream);
 
