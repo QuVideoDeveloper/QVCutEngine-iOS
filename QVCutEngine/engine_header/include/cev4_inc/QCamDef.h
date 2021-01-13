@@ -301,6 +301,7 @@ typedef MDWord  (*CamEngine_CAPTURECALLBACK)(MDWord dwStatus,MVoid* pUserData);
 typedef struct __tag_XYCE_AR_INIT_PARAM
 {
     MBool  enableAR;
+	MBool  enableDepth;		// enable ARDepth
     MDWord trackingType; //QCAM_AR_TRACKING_TYPE_XXX
     MDWord frameRate; //Ex. 30000 = 30 fps. For AR camera, the camera device is controlled by internal AR module. And this frameRate is related to the trackingType. you should inquire it first by API:performStaticOpertion with inquire item of QCAM_SOP_INQUIRY_AR_XXX_VIDEO_FORMATS
     
