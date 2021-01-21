@@ -77,13 +77,14 @@ extern "C" {
     //    平面的变化包括：检测的平面从无到有或者从有到无，平面发生合并等引起得平面信息变化。在该回调函数中会返回当前frame中的所有平面信息，包括检测到的平面数量（数量为0表示未检测到平面）和特性（标识符，长宽以及空间位置）。当没有检测到平面在current frame中的平面有变化时，返回当前frame中的所有平面信息
     typedef MRESULT (*QVARFNDidChangeState)(MHandle pUser, MHandle pCtx, MInt32 state);
     typedef MRESULT (*QVARFNDidUpdateAudio)(MHandle pUser, MHandle pCtx, MPVoid pAudio);
-    typedef MRESULT (*QVARFNDidUpdateFrame)(MHandle pUser, MHandle pCtx, MPVoid pFrame, MDouble timestamp);
+    typedef MRESULT (*QVARFNDidUpdateFrame)(MHandle pUser, MHandle pCtx, MPVoid pFrame, MPVoid pDepth, MDouble timestamp);
     typedef MRESULT (*QVARFNDidRenderFrame)(MHandle pUser, MHandle pCtx, MPVoid pTarget);
     typedef MRESULT (*QVARFNDidUpdatePlaneInfo)(MHandle pUser, MHandle pCtx, QVARplaneInfo* planeInfo);
     
     typedef struct _tag_qvar_init_desc {
         MInt32                     tracking;    // QVARtrackingType tracking type,
         MInt32                     capAudio;    // capture the audio data or not
+        MInt32                     capDepth; // capture lidar depth data
         QVARdrawInitDesc*       drawDesc;
         QVARvideoFormat*        videoFormat;
 
@@ -104,11 +105,11 @@ extern "C" {
         MPVoid           mtlDepthTexture;
         MPVoid           mtlSourceTex;       // Metal texture, pointer to id<MTLTexture>，非空时使用该纹理作为渲染底图，反之使用相机预览数据作为渲染底图
 
-        MDWord    glTargetFBO;        // opengl frame buffer id
-        MDWord    glSourceTex;        // OpenGL ES texture id，非零时使用该纹理作为渲染底图，反之，使用相机预览数据作为渲染底图
+        MDWord          glTargetFBO;        // opengl frame buffer id
+        MDWord          glSourceTex;        // OpenGL ES texture id，非零时使用该纹理作为渲染底图，反之，使用相机预览数据作为渲染底图
 
-        MPVoid         pDrawTarget;        // a render target create by the qvar, use for render to buffer(CVPixelBuffer on iOS)
-        MBool            renderScene;        // 是否渲染通过qvarfxAttachScene所添加的场景(3D模型或2D图片)，False不渲染，反之则渲染
+        MPVoid          pDrawTarget;        // a render target create by the qvar, use for render to buffer(CVPixelBuffer on iOS)
+        MBool           renderScene;        // 是否渲染通过qvarfxAttachScene所添加的场景(3D模型或2D图片)，False不渲染，反之则渲染
     } QVARdrawTargetDesc;
     
     typedef enum _tag_qvar_query_key {
