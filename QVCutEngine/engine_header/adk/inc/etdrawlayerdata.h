@@ -101,13 +101,14 @@ typedef struct _tag_qvet_draw_shape_base
 	_tag_qvet_draw_shape_base()
 	{
 		euType = EU_DRAW_SHAPE_DEFAULT;
+		dwGroupId = 0;
 	}
 	virtual ~_tag_qvet_draw_shape_base()
 	{
 	}
 	virtual MBool operator ==(struct _tag_qvet_draw_shape_base *pShape) = 0;
-
-	EU_DRAW_SHAPE_TYPE euType;// 0 画笔，1.擦除  2套索， 3 涂料 
+	MDWord dwGroupId;
+	EU_DRAW_SHAPE_TYPE euType;// 0 画笔，1.清屏  2套索， 3 涂料 
 }QVET_DRAW_SHAPE_BASE_TYPE;
 
 typedef struct _tag_qvet_draw_line_type :public QVET_DRAW_SHAPE_BASE_TYPE
@@ -131,6 +132,7 @@ typedef struct _tag_qvet_draw_line_type :public QVET_DRAW_SHAPE_BASE_TYPE
 		if (this != &line_type)
 		{
 			this->euType = line_type.euType;
+			this->dwGroupId = line_type.dwGroupId;
 			this->paint_type = line_type.paint_type;
 			this->point_list.clear();
 			this->point_list = line_type.point_list;
@@ -157,25 +159,14 @@ typedef struct _tag_qvet_draw_erasure_type :public QVET_DRAW_SHAPE_BASE_TYPE
 {
 	_tag_qvet_draw_erasure_type()
 	{
-		dwErasureColor = 0;
-		fErasureRadius = 0.01f;
-		point_list.clear();
+
 		euType = EU_DRAW_SHAPE_ERASURE;
 	}
 	MBool operator ==(struct _tag_qvet_draw_shape_base *pShape)
 	{
-        _tag_qvet_draw_erasure_type *pErasureShape = (_tag_qvet_draw_erasure_type *)pShape;
-		MBool bPaintIsSame = MFalse;
-		if (pErasureShape == MNull)
-			return MFalse;
-		bPaintIsSame = (dwErasureColor == pErasureShape->dwErasureColor);
-		if (bPaintIsSame && point_list.size() == pErasureShape->point_list.size())
-			return MTrue;
-		return MFalse;
+      
+		return MTrue;
 	}
-	MDWord dwErasureColor;//擦除的颜色，默认是透明度全是0
-	MFloat fErasureRadius;// 相对于底图的百分比 例如底图宽度720， 真实的擦除半径是=720*fLightRadius
-	std::vector<MPOINT_FLOAT> point_list;//点的集合
 }QVET_DRAW_SHAPE_ERASURE_TYPE;
 
 

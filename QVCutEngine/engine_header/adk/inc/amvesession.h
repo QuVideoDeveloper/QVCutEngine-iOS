@@ -342,6 +342,7 @@ MRESULT AMVE_EffectAppendLayerLinePoints(MHandle hEffect, MVoid *hVecPointsList)
 MRESULT AMVE_EffectEndLayerPaintShapeLine(MHandle hEffect);
 MDWord AMVE_EffectLayerPaintUndo(MHandle hEffect);
 MDWord AMVE_EffectLayerPaintRedo(MHandle hEffect);
+MDWord AMVE_EffectCopyPartFormEffect(MHandle hEffect, MHandle hFromEffect, EU_DUPLICATE_PART_EFFECT_TYPE euCopyMode);
 
 MRESULT AMVE_EffectGetKeyFrameTransformValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_VALUE* pValue);
 MRESULT AMVE_EffectGetKeyFrameTransformPosValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_POS_VALUE* pValue);
@@ -555,6 +556,10 @@ MBool AMVE_IsPureBG(MBITMAP* pBMP, MDWord* pdwColor, MPOINT* pdwPos, MInt8* pCol
 
 #define AMVES_StoryboardGetDataClip(hSession, phDataClip) \
 		(CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardGetData)(hSession, phDataClip))
+
+#define AMVES_StoryboardGetStuffClip(hSession, phDataClip) \
+		(CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardGetStuffClip)(hSession, phDataClip))
+
 
 #define AMVES_StoryboardLoadProject(hSession, pProjectFile, fnCallback, pUserData) \
 	    (CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardLoadProject)(hSession, pProjectFile, fnCallback, pUserData))

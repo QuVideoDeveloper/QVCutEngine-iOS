@@ -233,6 +233,8 @@
 
 + (NSString*)getWMTagFrom : (NSString*)videoFile;
 
++ (Boolean)isVideoHasDepth: (NSURL*)videoURL;
+
 
 /**
  *  getAudioDeltaPitch
