@@ -50,8 +50,9 @@
 #define XYCE_PROP_CAMERA_FREEZE                     0x00000022 //是否冻结相机画面的更新
 #define XYCE_PROP_CAMERA_MSAATYPE                   0x00000023 //是否开启抗锯齿 QCAM_MSAATYPE_NO or QCAM_MSAATYPE_X4
 #define XYCE_PROP_FACEDT_ADAPTER                    0x00000024 //人脸表情组件代理
-#define XYCE_PROP_CAMERA_RENDER_AR_DEPTH            0x00000025 // 是否渲染AR深度信息到屏幕
-#define XYCE_PROP_AR_DEPTH_RCRIGION					0x00000026 // 深度图渲染区域
+#define XYCE_PROP_CAMERA_RENDER_AR_DEPTH_TO_SCREEN  0x00000025 // 是否渲染AR深度信息到屏幕 MBool
+#define XYCE_PROP_CAMERA_AR_DEPTH_RCRIGION			0x00000026 // 深度图渲染区域 MRECT
+#define XYCE_PROP_CAMERA_ENABLE_DEPTH_ON_PREVIEW	0x00000027 // 是否在camera预览时启用深度信息做effect
 
 
 

@@ -262,6 +262,8 @@
 + (MBool) IsSupportNSX;
 
 + (NSArray<NSString *> * _Nullable) GetMaterialNeedSupportList:(NSString*) templateFile;
+
++ (int) SavePngFromQBitmap:(NSString*) pPngFilePath imageBuffer:(CVImageBufferRef) cvImgBuf;
 @end // CXiaoYingUtils
 
 

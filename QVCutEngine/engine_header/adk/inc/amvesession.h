@@ -376,6 +376,23 @@ MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 MRESULT AMVE_EffectGetTextAttachInfoById(MHandle hEffect, MInt64 lltemplateId, enum QTextAttachType* outType, MDWord* outDesignTime);
 
 
+
+/****************Box Effect Function**********************/
+
+MRESULT AMVE_EffectBoxInsertEffect(MHandle hFatherEffect, MHandle hEffect, MDWord dwIndex);
+
+MRESULT AMVE_EffectBoxMoveEffect(MHandle hFatherEffect, MHandle hEffect, MDWord dwIndex);
+
+MRESULT AMVE_EffectBoxDeleteEffect(MHandle hFatherEffect, MHandle hEffect);
+
+MRESULT AMVE_EffectBoxGetEffectByIndex(MHandle hFatherEffect, MDWord dwIndex, MHandle *phEffect);
+
+MRESULT AMVE_EffectBoxGetEffectByUUid(MHandle hFatherEffect, MChar  *pUuid, MHandle *phEffect);
+
+
+/*********************************************************/
+
+
 MRESULT AMVE_EffectDestroy(MHandle hEffect);//销毁effect的接口
 
 //The interfaces for stream
