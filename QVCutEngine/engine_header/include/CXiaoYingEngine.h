@@ -104,6 +104,7 @@
 
 - (MVoid) SetMultiDTAdapter : (MVoid*)pAdapter;
 
+- (MRESULT) CleanMaskCache : (MDWord) fileSize;
 + (NSArray<NSString *> * _Nullable) GetEngineSupportList;
 @end // CXiaoYingEngine
 

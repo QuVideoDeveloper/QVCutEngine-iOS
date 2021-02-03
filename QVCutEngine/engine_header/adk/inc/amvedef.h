@@ -136,6 +136,8 @@
 #define AMVE_EFFECT_TYPE_FREEZE_FRAME                  (AMVE_EFFECT_TYPE_BASE+4)
 #define AMVE_EFFECT_TYPE_LYRIC                         (AMVE_EFFECT_TYPE_BASE+5)
 #define AMVE_EFFECT_TYPE_COMBO_VIDEO_IE                (AMVE_EFFECT_TYPE_BASE+6)
+#define AMVE_EFFECT_TYPE_GROUP_FRAME                   (AMVE_EFFECT_TYPE_BASE+7)
+
 //#define AMVE_EFFECT_TYPE_VIDEO_SCENE				   (AMVE_EFFECT_TYPE_BASE+4)
 //#define AMVE_EFFECT_TYPE_TEXT_FRAME				   (AMVE_EFFECT_TYPE_BASE+5)
 
@@ -396,7 +398,15 @@
 #define AMVE_PROP_EFFECT_FILTER_DURATION                    (AMVE_PROP_EFFECT_BASE+249)
 #define AMVE_PROP_EFFECT_APP_AR_DEPTH                       (AMVE_PROP_EFFECT_BASE+250)	// AR depth
 #define AMVE_PROP_EFFECT_IS_DRAWING                         (AMVE_PROP_EFFECT_BASE+251)	// 画笔是否在绘画中
+#define AMVE_PROP_EFFECT_DRAW_LAYER_DATA_CLEAR              (AMVE_PROP_EFFECT_BASE+252)	//清楚画笔
 
+
+
+#define AMVE_PROP_EFFECT_GROUP_BASE                          0X0000F000
+#define AMVE_PROP_EFFECT_GROUP_SIZE                          (AMVE_PROP_EFFECT_GROUP_BASE + 1)
+#define AMVE_PROP_EFFECT_GROUP_ENABLE_EXTERN_IMAGE           (AMVE_PROP_EFFECT_GROUP_BASE + 2)
+#define AMVE_PROP_EFFECT_GROUP_EXTERN_SOURCE                 (AMVE_PROP_EFFECT_GROUP_BASE + 3)//直接是指针指向effect内部的，所以外部获取后不能释放
+#define AMVE_PROP_EFFECT_GROUP_CLEAR_EXTERN_SOURCE           (AMVE_PROP_EFFECT_GROUP_BASE + 4)//clean 上边设置的源
 
 
 #define AVME_EFFECT_SUB_ITEM_TYPE_BASE                   0
@@ -2296,6 +2306,7 @@ typedef struct
 	MRECT region; //源在场景中显示的区域,用于app点中
 	MBool bFaceAlign; //这个源是否需要人脸对齐
 	MBool bDigOutImage;//源是否需要进行抠像
+	MBool bSegment;	  //这个源是否需要抠像,这个值是用来在内部判断是否需要预处理用的,和上面的值赋值逻辑有点不同
     QVET_FRAME_VECTOR_3 fRotation; //表示每个源的旋转角度
 
 	union
@@ -3560,4 +3571,11 @@ typedef struct _PreprocessArgs {
 } PreprocessArgs;
 /*** end ***/
 
+//拷贝effect部分功能
+typedef enum _tag_EU_DUPLICATE_PART_EFFECT_TYPE
+{
+	EU_DUPLICATE_PART_EFFECT_TYPE_NONE = 0,//什么都不拷贝
+	EU_DUPLICATE_PART_EFFECT_TYPE_DRAW = 1,//拷贝effect的绘画线条
+	EU_DUPLICATE_PART_EFFECT_TYPE_END,
+}EU_DUPLICATE_PART_EFFECT_TYPE;
 #endif //_AMVE_DEF_H_

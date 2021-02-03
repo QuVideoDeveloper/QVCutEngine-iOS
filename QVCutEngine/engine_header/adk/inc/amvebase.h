@@ -87,6 +87,7 @@ MINF(MAMVEPlayerSession)
 	MRESULT (*fnStoryboardGetCurClipIndex)		(MHandle, MDWord*); \
 	MRESULT (*fnStoryboardSetCurClipIndex)		(MHandle, MDWord); \
     MRESULT (*fnStoryboardGetData)              (MHandle, MHandle*); \
+    MRESULT (*fnStoryboardGetStuffClip)         (MHandle, MHandle*); \
 	MRESULT (*fnStoryboardLoadProject)          (MHandle, MVoid*, AMVE_FNSTATUSCALLBACK, MVoid*); \
     MRESULT (*fnStoryboardSaveProject)          (MHandle, MVoid*, AMVE_FNSTATUSCALLBACK, MVoid*); \
 	MRESULT	(*fnStoryboardCancelProject)		(MHandle); \

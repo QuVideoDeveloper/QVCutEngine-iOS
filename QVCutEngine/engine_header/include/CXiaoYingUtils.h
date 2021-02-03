@@ -233,6 +233,8 @@
 
 + (NSString*)getWMTagFrom : (NSString*)videoFile;
 
++ (Boolean)isVideoHasDepth: (NSURL*)videoURL;
+
 
 /**
  *  getAudioDeltaPitch
@@ -260,6 +262,8 @@
 + (MBool) IsSupportNSX;
 
 + (NSArray<NSString *> * _Nullable) GetMaterialNeedSupportList:(NSString*) templateFile;
+
++ (int) SavePngFromQBitmap:(NSString*) pPngFilePath imageBuffer:(CVImageBufferRef) cvImgBuf;
 @end // CXiaoYingUtils
 
 
