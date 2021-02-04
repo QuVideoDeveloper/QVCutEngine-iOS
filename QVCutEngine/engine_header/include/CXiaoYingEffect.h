@@ -244,7 +244,6 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 		
 }
 @property (readwrite, nonatomic) MHandle hEffect;
-@property (readwrite, nonatomic) MBool bEffectNeedDestroy;
 /**
 	 * Creates a effect.
 	 * 
@@ -396,9 +395,22 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 
 - (NSMutableArray *) getSubItemSourceList:(UInt32)dwEffctSubTypeMin Max:(UInt32)dwEffctSubTypeMax;
 
+/*
+ *外部传入裸指针
+ */
 - (MRESULT)setEffectHandle:(MHandle)hEffect;
 
-- (MHandle)getEffectHandle;
+
+
+/*
+ *外部传入智能指针
+ */
+- (MRESULT)setEffectSpHandle:(MHandle)hEffectSP;
+
+/*
+ *获取effect智能指针
+ */
+- (MHandle)getEffectSpHandle;
 
 - (void)DestorySubItemSourceList;
 

@@ -248,6 +248,9 @@ MRESULT AMVE_ExtractAudioSample(MHandle hClip,
 
 MRESULT AMVE_ClipEffectCreate(MHandle hSessionContext, MDWord dwEffectTrackType, MDWord dwGroupID, MFloat fLayerID, MDWord dwEffectType, MHandle* phEffect);
 
+/*
+ *插入Effect的智能指针到clip,智能指针会在函数外部创建
+ */
 MRESULT AMVE_ClipInsertEffect(MHandle hClip, MHandle hEffect);
 
 MRESULT AMVE_ClipRemoveEffect(MHandle hClip, MHandle hEffect);
@@ -258,7 +261,12 @@ MRESULT AMVE_ClipGetEffectCount(MHandle hClip, MDWord dwEffectTrackType, MDWord 
 
 MRESULT AMVE_ClipGetEffect(MHandle hClip, MDWord dwEffectTrackType, MDWord dwGroupID, MDWord dwIndex, MHandle* phEffect);
 
+MRESULT AMVE_ClipGetEffectSp(MHandle hClip, MDWord dwEffectTrackType, MDWord dwGroupID, MDWord dwIndex, MHandle* phEffect);
+
 MRESULT AMVE_ClipGetEffectByUuid(MHandle hClip, MTChar *pszUuid, MHandle *phEffect);
+
+MRESULT AMVE_ClipGetEffectSpByUuid(MHandle hClip, MTChar *pszUuid, MHandle *phEffect);
+
 
 MRESULT AMVE_ClipMoveEffect(MHandle hClip, MHandle hEffect, MDWord dwIndex);
 
@@ -309,6 +317,8 @@ MRESULT AMVE_CoverSetTitleUserData(MHandle hCover, MDWord dwIndex, AMVE_USER_DAT
 MRESULT AMVE_CoverGetTitleLayerID(MHandle hCover, MDWord dwIndex, MFloat* pfLayerID);
 
 MRESULT AMVE_CoverGetTitleEffect(MHandle hCover, MDWord dwIndex, MHandle* phEffect);
+
+MRESULT AMVE_CoverGetTitleEffetSp(MHandle hCover,MDWord dwIndex,MHandle* phEffectSp);
     
 //The interfaces for effect
 MRESULT AMVE_EffectSetProp(MHandle hEffect, MDWord dwPropId, MVoid* pData, MDWord dwSize);
