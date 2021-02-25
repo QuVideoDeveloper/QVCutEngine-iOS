@@ -50,6 +50,10 @@
 #define XYCE_PROP_CAMERA_FREEZE                     0x00000022 //是否冻结相机画面的更新
 #define XYCE_PROP_CAMERA_MSAATYPE                   0x00000023 //是否开启抗锯齿 QCAM_MSAATYPE_NO or QCAM_MSAATYPE_X4
 #define XYCE_PROP_FACEDT_ADAPTER                    0x00000024 //人脸表情组件代理
+#define XYCE_PROP_CAMERA_RENDER_AR_DEPTH_TO_SCREEN  0x00000025 // 是否渲染AR深度信息到屏幕 MBool
+#define XYCE_PROP_CAMERA_AR_DEPTH_RCRIGION			0x00000026 // 深度图渲染区域 MRECT
+#define XYCE_PROP_CAMERA_ENABLE_DEPTH_ON_PREVIEW	0x00000027 // 是否在camera预览时启用深度信息做effect
+
 
 
 
@@ -301,6 +305,7 @@ typedef MDWord  (*CamEngine_CAPTURECALLBACK)(MDWord dwStatus,MVoid* pUserData);
 typedef struct __tag_XYCE_AR_INIT_PARAM
 {
     MBool  enableAR;
+	MBool  enableDepth;		// enable ARDepth
     MDWord trackingType; //QCAM_AR_TRACKING_TYPE_XXX
     MDWord frameRate; //Ex. 30000 = 30 fps. For AR camera, the camera device is controlled by internal AR module. And this frameRate is related to the trackingType. you should inquire it first by API:performStaticOpertion with inquire item of QCAM_SOP_INQUIRY_AR_XXX_VIDEO_FORMATS
     

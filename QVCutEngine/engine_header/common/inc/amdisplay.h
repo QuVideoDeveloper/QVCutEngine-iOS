@@ -60,6 +60,7 @@ thereof.
 #define		MPAF_OTHERS				0X70000000
 #define		MPAF_RG_BASE			0x80000000
 #define		MPAF_CT_BASE			0x90000000
+#define		MPAF_FLOAT_BASE			0xA0000000
 //Bits[27:24]	Bit Counts
 #define		MPAF_1BITS				0X01000000
 #define		MPAF_2BITS				0X02000000
@@ -313,6 +314,8 @@ thereof.
 #define		MRGB_G(rgb)         (((rgb)>>8)&0x00FF)
 #define		MRGB_B(rgb)         (((rgb)>>16)&0x00FF)
 #define		MRGBA_A(rgb)        (((rgb)>>24)&0x00FF)
+
+#define		MPAF_R32F			(MPAF_FLOAT_BASE | 0x100)
 
  
 

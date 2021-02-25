@@ -161,6 +161,16 @@
 
 - (CXiaoYingClip*) getDataClip;
 
+/**
+	 * Gets the stuff clip of storyboard. The handle of data clip is needed when 
+	 * managing the clip function for storyboard.
+	 * 
+	 * @return null if the operation is failed.
+*/
+
+- (CXiaoYingClip*) getStuffClip;
+
+
 
 /**
 	 * Loads the storyboard from project file.

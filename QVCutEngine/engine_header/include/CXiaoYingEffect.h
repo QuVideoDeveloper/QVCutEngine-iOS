@@ -446,5 +446,8 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 - (MDWord) LayerPaintRedo;
 - (MDWord) LayerPaintUndoCount;
 - (MDWord) LayerPaintRedoCount;
+- (MRESULT) LayerPaintClear;
+
+- (MRESULT) copyPartFormEffect:(CXiaoYingEffect *)pSrcEffect Type:(MDWord) euType;
 @end // CXiaoYingEffect 
 

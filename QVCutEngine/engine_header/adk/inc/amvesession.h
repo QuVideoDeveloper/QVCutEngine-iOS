@@ -342,6 +342,7 @@ MRESULT AMVE_EffectAppendLayerLinePoints(MHandle hEffect, MVoid *hVecPointsList)
 MRESULT AMVE_EffectEndLayerPaintShapeLine(MHandle hEffect);
 MDWord AMVE_EffectLayerPaintUndo(MHandle hEffect);
 MDWord AMVE_EffectLayerPaintRedo(MHandle hEffect);
+MDWord AMVE_EffectCopyPartFormEffect(MHandle hEffect, MHandle hFromEffect, EU_DUPLICATE_PART_EFFECT_TYPE euCopyMode);
 
 MRESULT AMVE_EffectGetKeyFrameTransformValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_VALUE* pValue);
 MRESULT AMVE_EffectGetKeyFrameTransformPosValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_POS_VALUE* pValue);
@@ -373,6 +374,26 @@ MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 												QVET_KEYFRAME_COMMON_DATA_LIST *pTransformList);//2D转3D关键帧用的
 
 MRESULT AMVE_EffectGetTextAttachInfoById(MHandle hEffect, MInt64 lltemplateId, enum QTextAttachType* outType, MDWord* outDesignTime);
+
+
+
+/****************Box Effect Function**********************/
+
+MRESULT AMVE_EffectBoxInsertEffect(MHandle hFatherEffect, MHandle hEffect, MDWord dwIndex);
+
+MRESULT AMVE_EffectBoxMoveEffect(MHandle hFatherEffect, MHandle hEffect, MDWord dwIndex);
+
+MRESULT AMVE_EffectBoxDeleteEffect(MHandle hFatherEffect, MHandle hEffect);
+
+MRESULT AMVE_EffectBoxGetEffectByIndex(MHandle hFatherEffect, MDWord dwIndex, MHandle *phEffect);
+
+MRESULT AMVE_EffectBoxGetEffectByUUid(MHandle hFatherEffect, MChar  *pUuid, MHandle *phEffect);
+
+
+/*********************************************************/
+
+
+MRESULT AMVE_EffectDestroy(MHandle hEffect);//销毁effect的接口
 
 //The interfaces for stream
 MRESULT AMVE_StreamOpen(AMVE_STREAM_SOURCE_TYPE* pSource, AMVE_STREAM_PARAM_TYPE* pParam, MHandle *phStream);
@@ -552,6 +573,10 @@ MBool AMVE_IsPureBG(MBITMAP* pBMP, MDWord* pdwColor, MPOINT* pdwPos, MInt8* pCol
 
 #define AMVES_StoryboardGetDataClip(hSession, phDataClip) \
 		(CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardGetData)(hSession, phDataClip))
+
+#define AMVES_StoryboardGetStuffClip(hSession, phDataClip) \
+		(CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardGetStuffClip)(hSession, phDataClip))
+
 
 #define AMVES_StoryboardLoadProject(hSession, pProjectFile, fnCallback, pUserData) \
 	    (CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardLoadProject)(hSession, pProjectFile, fnCallback, pUserData))
