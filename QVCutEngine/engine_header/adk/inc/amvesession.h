@@ -86,6 +86,9 @@ MRESULT AMVE_GetMaterialNeedEngineSupportList(const MChar *pszTemplatePath, MHan
 
 MRESULT AMVE_GetTemplateContentInfo(MHandle hSessionCtx, MInt64 llTemplateID, QVET_TEMPlATE_CONTENT_TYPE **ppTempalteInfo);
 
+MRESULT AMVE_GetTemplateContentInfoExt(MHandle hSessionCtx, MInt64 llTemplateID, QVET_TEMPlATE_CONTENT_TYPE **ppTempalteInfo, 
+                                    MBool bParseFaceDTRange);
+
 #if WIN32
 		
 MRESULT AMVE_EffectThumbnailMgrCreate(MHandle *phThumbnailMgr,

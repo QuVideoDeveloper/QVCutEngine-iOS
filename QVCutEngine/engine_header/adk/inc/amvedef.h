@@ -3526,6 +3526,18 @@ typedef struct
     MDWord dwOnsetGap;    //Onset gap,ms
 }QVET_ONSET_DETECT_PARAM;
 
+typedef struct 
+{
+	MDWord     				dwSrcIdx;
+	AMVE_POSITION_RANGE_TYPE *pRanges;
+    MDWord					 dwCount;
+}QVET_FACE_FEATURE_RANGE_LIST;
+
+typedef struct 
+{
+    QVET_FACE_FEATURE_RANGE_LIST *pFaceFeatureRanges;
+    MDWord					 dwCount;
+}QVET_FACE_FEATURE_RANGE_INFO;
 
 typedef struct 
 {
@@ -3533,6 +3545,7 @@ typedef struct
 	MBool      bIsOffline;
 	MBool      bIsPhoto;
 	MBool      bIsNeedFaceFeature;
+	QVET_FACE_FEATURE_RANGE_INFO pFaceFeatureRangeInfo;
 	MBool      bIsNeedSegment;
 	MBool      bIsDrawLayer;
 	MInt64     llSeqenceID;

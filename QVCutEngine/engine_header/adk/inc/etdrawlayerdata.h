@@ -162,6 +162,10 @@ typedef struct _tag_qvet_draw_erasure_type :public QVET_DRAW_SHAPE_BASE_TYPE
 
 		euType = EU_DRAW_SHAPE_ERASURE;
 	}
+	~_tag_qvet_draw_erasure_type()
+	{
+
+	}
 	MBool operator ==(struct _tag_qvet_draw_shape_base *pShape)
 	{
       
