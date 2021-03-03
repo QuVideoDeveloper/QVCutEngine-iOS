@@ -87,6 +87,7 @@ MHandle CESBitmapOpenInputStreamFromByteArray(MByte* pData,MDWord dwOffset,MDWor
 MRESULT CESGetImgFileInfo(MHandle hImgStream, LPMDIMGFILEINFO pImgInfo );
     
 #if defined(__IPHONE__)
+MFloat  CESGetSysVersion();
 MRESULT CESGetImgFileInfoFromAssetURL(MVoid* pFile,AssetsURLImageInfoProcessBlock ImgInfoProcessBlock);
     
 MRESULT CESGetImgFileInfoFromPhAsset(MVoid* pFile,LPMDIMGFILEINFO pImgInfo);

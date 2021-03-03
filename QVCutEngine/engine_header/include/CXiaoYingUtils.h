@@ -264,6 +264,11 @@
 + (NSArray<NSString *> * _Nullable) GetMaterialNeedSupportList:(NSString*) templateFile;
 
 + (int) SavePngFromQBitmap:(NSString*) pPngFilePath imageBuffer:(CVImageBufferRef) cvImgBuf;
+
++ (int) ObjectToXml:(NSObject*)nsSource Engine:(CXiaoYingEngine*)nsEngine Path:(NSString *)nsPath;
+
++ (NSObject*) ObjectFromXml:(CXiaoYingEngine*)nsEngine Path:(NSString *)nsPath Type:(EU_SOURCE_XML_TYPE)euType;
+
 @end // CXiaoYingUtils
 
 

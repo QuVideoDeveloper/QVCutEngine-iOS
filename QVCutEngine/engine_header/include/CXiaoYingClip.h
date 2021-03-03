@@ -1,4 +1,4 @@
-/*CXiaoYingClip.h
+﻿/*CXiaoYingClip.h
 *
 *Reference:
 *
@@ -10,11 +10,9 @@
     @protected
     MHandle _hClip;
     MHandle _hThumbnailMgr;
-    MBool _bNeedDeleteClip;
 }
 @property(readwrite, nonatomic) MHandle hClip;
 @property(readonly, nonatomic) MHandle hThumbnailMgr;
-@property(readwrite,nonatomic) MBool bNeedDeleteClip;
 
 /**
  * 
@@ -281,6 +279,16 @@
 */
 - (SInt32) getKeyFramePositionFromThumbnailMgr : (MDWord*) pdwPostion
                                         Direct : (MBool)bNext;
+
+/*
+ *外部传入智能指针
+ */
+- (MRESULT)setClipSpHandle:(MHandle)hClipSp;
+
+/*
+ *获取effect智能指针
+ */
+- (MHandle)getClipSpHandle;
 
 @end // CXiaoYingClip
 

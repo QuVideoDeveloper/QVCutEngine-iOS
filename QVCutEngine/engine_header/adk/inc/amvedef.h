@@ -136,7 +136,7 @@
 #define AMVE_EFFECT_TYPE_FREEZE_FRAME                  (AMVE_EFFECT_TYPE_BASE+4)
 #define AMVE_EFFECT_TYPE_LYRIC                         (AMVE_EFFECT_TYPE_BASE+5)
 #define AMVE_EFFECT_TYPE_COMBO_VIDEO_IE                (AMVE_EFFECT_TYPE_BASE+6)
-#define AMVE_EFFECT_TYPE_GROUP_FRAME                   (AMVE_EFFECT_TYPE_BASE+7)
+#define AMVE_EFFECT_TYPE_BOX_FRAME                     (AMVE_EFFECT_TYPE_BASE+7)
 
 //#define AMVE_EFFECT_TYPE_VIDEO_SCENE				   (AMVE_EFFECT_TYPE_BASE+4)
 //#define AMVE_EFFECT_TYPE_TEXT_FRAME				   (AMVE_EFFECT_TYPE_BASE+5)
@@ -593,6 +593,7 @@
 //该属性用于变速时是否进行变调的判断
 #define AMVE_PROP_STORYBOARD_IS_TIME_SCALE_USE_AUDIO_PITCH (AMVE_PROP_STORYBOARD_BASE+24)
 #define AMVE_PROP_STORYBOARD_STUFF_CLIP_FPS            (AMVE_PROP_STORYBOARD_BASE+25)
+#define AMVE_PROP_STORYBOARD_RESET_CLIP_PARENT         (AMVE_PROP_STORYBOARD_BASE+26)
 
 
 //constants used to identify the property for SlideShow
@@ -617,6 +618,8 @@
 //小影记需求是场景时间长，用户插入的视频端，需要循环播放，所以添加此宏控制
 #define AMVE_PROP_SLIDESHOW_USE_LOOP_PLAY_MODE         (AMVE_PROP_SLIDESHOW_BASE+18)
 #define AMVE_PROP_SLIDESHOW_USE_MUTI_SOURCE_MODE       (AMVE_PROP_SLIDESHOW_BASE+19)//设置多场景模式
+#define AMVE_PROP_SLIDESHOW_VIRTUAL_DISP_ALIGNMENT_MODE       (AMVE_PROP_SLIDESHOW_BASE+20)//设置比例切换display rect的计算方式
+#define AMVE_PROP_SLIDESHOW_DISABLE_SINGLE_SCENE_MODE       (AMVE_PROP_SLIDESHOW_BASE+21)//关闭单场景模式
 
 //constants used to identify the property for producer
 #define AMVE_PROP_PRODUCER_BASE						   0X00006000
@@ -1151,6 +1154,11 @@
 #define QVET_SCENE_PANZOOM_MODE_BLUR                         1   //模糊背景
 #define QVET_SCENE_PANZOOM_MODE_FILL                         2   //颜色填充
 #define QVET_SCENE_PANZOOM_MODE_TRANSPARENT                  3   //透明背景
+
+
+
+#define QVET_SLIDESHOW_ALIGNMENT_MODE_DEFALUT			0
+#define QVET_SLIDESHOW_ALIGNMENT_MODE_CENTER			1
 
 #define QVET_CHECK_VALID_RET(ret)   \
         if (ret) {                  \
@@ -2994,9 +3002,11 @@ typedef struct
 	MDWord* pdwPreviewPos; //preview position in this scene
 	MDWord* pdwSourceType; //源的类型1-image,2-video,主要告诉app该主题需要什么类型的源
 	MRECT* pRegion; //万分比表示源在场景中的区域
+	MRECT* pBestRegion;	// 最佳显示位置
 	MSIZE* pSizeInfo;
 	QVET_SOURSE_TIME_INFO* pSourseTimeInfo ;
     QVET_FRAME_VECTOR_3* pfRotation; //表示每个源的旋转角度
+    QVET_FRAME_VECTOR_3* pBestRotation;	// 最佳旋转角度
 	MDWord* pdwContourApply; // 标记源是否要抠像
 }QVET_THEME_SCECFG_ITEM;
 
@@ -3014,6 +3024,7 @@ typedef struct
 	MBool bRandom;
 	QVET_THEME_SCECFG_ITEM* pBodyItem;	// 实际内容;
 	MBool bDoNotFD;
+	MSIZE mExportSize;
 }QVET_THEME_SCECFG_SETTINGS;
 
 typedef struct __tagQVET_LYRIC_THEME_EXPARAM
@@ -3525,6 +3536,18 @@ typedef struct
     MDWord dwOnsetGap;    //Onset gap,ms
 }QVET_ONSET_DETECT_PARAM;
 
+typedef struct 
+{
+	MDWord     				dwSrcIdx;
+	AMVE_POSITION_RANGE_TYPE *pRanges;
+    MDWord					 dwCount;
+}QVET_FACE_FEATURE_RANGE_LIST;
+
+typedef struct 
+{
+    QVET_FACE_FEATURE_RANGE_LIST *pFaceFeatureRanges;
+    MDWord					 dwCount;
+}QVET_FACE_FEATURE_RANGE_INFO;
 
 typedef struct 
 {
@@ -3532,6 +3555,7 @@ typedef struct
 	MBool      bIsOffline;
 	MBool      bIsPhoto;
 	MBool      bIsNeedFaceFeature;
+	QVET_FACE_FEATURE_RANGE_INFO pFaceFeatureRangeInfo;
 	MBool      bIsNeedSegment;
 	MBool      bIsDrawLayer;
 	MInt64     llSeqenceID;
@@ -3578,4 +3602,13 @@ typedef enum _tag_EU_DUPLICATE_PART_EFFECT_TYPE
 	EU_DUPLICATE_PART_EFFECT_TYPE_DRAW = 1,//拷贝effect的绘画线条
 	EU_DUPLICATE_PART_EFFECT_TYPE_END,
 }EU_DUPLICATE_PART_EFFECT_TYPE;
+
+typedef enum _tag_Source_xml_Type
+{
+	EU_SOURCE_XML_TYPE_DEFAULT = 0,//effect
+	EU_SOURCE_XML_TYPE_EFFECT = 0,//effect
+	
+	//EU_EFFECT_PARENT_TYPE_CLIP = 1,
+}EU_SOURCE_XML_TYPE;
+
 #endif //_AMVE_DEF_H_
