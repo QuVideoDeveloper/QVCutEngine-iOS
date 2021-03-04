@@ -25,7 +25,7 @@ typedef enum {
 	EU_DRAW_SHAPE_LINE = 1,//默认线条
 	EU_DRAW_SHAPE_ERASURE = 2,//擦除
 	EU_DRAW_SHAPE_LASSO = 3,//套索
-	EU_DRAW_SHAPE_PAINT = 4,//涂料/填充
+	EU_DRAW_SHAPE_PAINT= 4,//涂料
 	EU_DRAW_SHAPE_END
 }EU_DRAW_SHAPE_TYPE;
 
@@ -173,48 +173,6 @@ typedef struct _tag_qvet_draw_erasure_type :public QVET_DRAW_SHAPE_BASE_TYPE
 	}
 }QVET_DRAW_SHAPE_ERASURE_TYPE;
 
-typedef struct _tag_qvet_draw_paint_type :public QVET_DRAW_SHAPE_BASE_TYPE
-{
-	_tag_qvet_draw_paint_type()
-	{
-		euType = EU_DRAW_SHAPE_PAINT;
-	}
-	~_tag_qvet_draw_paint_type()
-	{
-
-	}
-	_tag_qvet_draw_paint_type(const struct _tag_qvet_draw_paint_type& shape_type)
-	{
-		this->operator=(shape_type);
-	}
-
-	_tag_qvet_draw_paint_type& operator=(const struct _tag_qvet_draw_paint_type& paint_type)
-	{
-		if (this != &paint_type) 
-		{
-			this->euType = paint_type.euType;
-			this->dwGroupId = paint_type.dwGroupId;
-			this->dwDrawColor = paint_type.dwDrawColor;
-			this->point = paint_type.point;
-		}
-		return *this;
-	}
-
-	MBool operator ==(struct _tag_qvet_draw_shape_base* pShape)
-	{
-		_tag_qvet_draw_paint_type* pPaintShape = (_tag_qvet_draw_paint_type*)pShape;
-		MBool bPaintIsSame = MFalse;
-		if (pPaintShape == MNull)
-			return MFalse;
-		bPaintIsSame = (dwDrawColor == pPaintShape->dwDrawColor);
-		if (bPaintIsSame && point.x == pPaintShape->point.x && point.y == pPaintShape->point.y)
-			return MTrue;
-		return MFalse;
-	}
-	MDWord dwDrawColor;//涂料颜色
-	MPOINT_FLOAT point;
-}QVET_DRAW_SHAPE_PAINT_TYPE;
-
 
 typedef struct _tag_qvet_draw_shape_type
 {
@@ -232,9 +190,6 @@ typedef struct _tag_qvet_draw_shape_type
 			break;
 		case EU_DRAW_SHAPE_ERASURE:
 			pType = (QVET_DRAW_SHAPE_BASE_TYPE *)new QVET_DRAW_SHAPE_ERASURE_TYPE();
-			break;
-		case EU_DRAW_SHAPE_PAINT:
-			pType = (QVET_DRAW_SHAPE_BASE_TYPE*)new QVET_DRAW_SHAPE_PAINT_TYPE();
 			break;
 		}			
 	}
@@ -288,11 +243,6 @@ typedef struct _tag_qvet_draw_shape_type
 					pType = (QVET_DRAW_SHAPE_BASE_TYPE *)new QVET_DRAW_SHAPE_ERASURE_TYPE();
 					if (pType != MNull)
 						*((QVET_DRAW_SHAPE_ERASURE_TYPE *)pType) = *((QVET_DRAW_SHAPE_ERASURE_TYPE *)shape_type.pType);
-					break;
-				case EU_DRAW_SHAPE_PAINT:
-					pType = (QVET_DRAW_SHAPE_BASE_TYPE*)new QVET_DRAW_SHAPE_PAINT_TYPE();
-					if (pType != MNull)
-						*((QVET_DRAW_SHAPE_PAINT_TYPE*)pType) = *((QVET_DRAW_SHAPE_PAINT_TYPE*)shape_type.pType);
 					break;
 				}					
 			}
