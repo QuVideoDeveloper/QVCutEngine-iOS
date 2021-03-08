@@ -103,6 +103,7 @@
 //会严重影响在多个clip之间seek的性能
 #define AMVE_PROP_CONTEXT_MASK_CACHE_FLAG		  (AMVE_PROP_CONTEXT_BASE+65) 																			
 #define AMVE_PROP_CONTEXT_MASK_CACHE_ADAPTER	  (AMVE_PROP_CONTEXT_BASE+66) //抠像预处理回调
+#define AMVE_PROP_CONTEXT_SEGMENT_MODE			  (AMVE_PROP_CONTEXT_BASE+67) //手动配置设置抠像模式	
 
 //Constants used to identify the media type for clip's source
 #define AMVE_CLIP_TYPE_BASE                            0X00000000
