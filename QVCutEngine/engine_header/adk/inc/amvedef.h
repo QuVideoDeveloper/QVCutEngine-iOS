@@ -94,15 +94,16 @@
 #define AMVE_PROP_CONTEXT_SEGMENT_MODEL_FILE        (AMVE_PROP_CONTEXT_BASE+48) //分割算法模型文件路径
 #define AMVE_PROP_CONTEXT_CLEAR_FILE_CACHE        (AMVE_PROP_CONTEXT_BASE+49) //清楚指定文件路径的文件缓存 后边跟的参数是MChar *
 #define AMVE_PROP_CONTEXT_RENDER_MSAATYPE         (AMVE_PROP_CONTEXT_BASE+50)
-#define AMVE_PROP_CONTEXT_FACEDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+60) //人脸表情组件代理句柄,目前只有ios平台需要配置	
+#define AMVE_PROP_CONTEXT_FACEDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+60) //人脸表情组件代理句柄,目前只有ios平台需要配置	ß
 #define AMVE_PROP_CONTEXT_SEGMENT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+61) //分割组件代理句柄,目前只有ios平台需要配置
 #define AMVE_PROP_CONTEXT_SHOTDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+62) //视频卡点检测代理句柄,目前只有ios平台需要配置	
 #define AMVE_PROP_CONTEXT_MULTIDT_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+63) //目标检测算法代理句柄,目前只有ios平台需要配置	
 #define AMVE_PROP_CONTEXT_MASK_CACHE_PATH		  (AMVE_PROP_CONTEXT_BASE+64) //保存mask缓存的根目录,最后一级应该带上'/'	 
 //这个属性是用来控制播放器暂停状态时是否需要开启预抠像,默认是false,内部不应该修改该值,只能由app设置,因为设成true后
 //会严重影响在多个clip之间seek的性能
-#define AMVE_PROP_CONTEXT_MASK_CACHE_FLAG		  (AMVE_PROP_CONTEXT_BASE+65) 																			
+#define AMVE_PROP_CONTEXT_MASK_CACHE_FLAG		  (AMVE_PROP_CONTEXT_BASE+65) 															
 #define AMVE_PROP_CONTEXT_MASK_CACHE_ADAPTER	  (AMVE_PROP_CONTEXT_BASE+66) //抠像预处理回调
+#define AMVE_PROP_CONTEXT_SEGMENT_MODE			  (AMVE_PROP_CONTEXT_BASE+67) //预览时抠像模式, 同步/异步	
 
 //Constants used to identify the media type for clip's source
 #define AMVE_CLIP_TYPE_BASE                            0X00000000
