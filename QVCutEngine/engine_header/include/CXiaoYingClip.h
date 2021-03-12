@@ -222,6 +222,8 @@
 	 * @return MERR_NONE if the operation is successful, other value if failed.
 */
 
+- (CXiaoYingEffect*) mergeEffect:(NSMutableArray*) effectList;
+- (NSMutableArray*) separationEffect:(CXiaoYingEffect*) effectGroup;
 
 - (MRESULT) moveEffect : (CXiaoYingEffect*) pEffect
 	                     NewPosition : (MDWord) dwIndex;

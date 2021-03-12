@@ -14,6 +14,11 @@
 extern "C"
 {
 #endif
+
+MRESULT AMVE_SourceSaveToXml(MHandle hSessionCtx, const MChar *pFilePath, MHandle hHandle, MDWord dwType);
+
+MRESULT AMVE_SourceLoadFromXml(MHandle hSessionCtx,const MChar *pFilePath, MHandle *pHandle, MDWord *pdwType);
+
 //rect  to transform easy to test
 MVoid QVET_RectToTransform(MRECT rect, QVET_3D_TRANSFORM *pTransform, MFloat fRoationZ);
 
@@ -304,6 +309,9 @@ MRESULT AMVE_ClipSetSceneExternalSource(MHandle hClip, MDWord dwIndex, QVET_EFFE
 
 MRESULT AMVE_ClipGetSceneExternalSource(MHandle hClip, MDWord dwIndex, QVET_EFFECT_EXTERNAL_SOURCE* pExtSrc);
 
+MRESULT AMVE_ClipMergeEffect(MHandle hClip, MHandle* phEffectList, MDWord dwCount, MHandle* phEffectGroup);
+MRESULT AMVE_ClipSeparationEffect(MHandle hClip, MHandle hEffect, MDWord* pdwCount, MHandle** phEffectList);
+
 //The interfaces for cover
 MRESULT AMVE_CoverGetTitleCount(MHandle hCover, MDWord* pdwCount);
 
@@ -388,7 +396,19 @@ MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 
 MRESULT AMVE_EffectGetTextAttachInfoById(MHandle hEffect, MInt64 lltemplateId, enum QTextAttachType* outType, MDWord* outDesignTime);
 
+MRESULT AMVE_EffectSetItemSourceFormIndex(MHandle hEffect, QVET_EFFECT_SUB_ITEM_SOURCE_TYPE *pType, MDWord dwIndex);
 
+MRESULT AMVE_EffectGroupGetEffectCount(MHandle hEffectGroup, MDWord* pdwCount);
+MRESULT AMVE_EffectGroupGetEffectByIndex(MHandle hEffectGroup, MDWord dwIndex, MHandle* phEffect);
+MRESULT AMVE_EffectGroupRefreshGroup(MHandle hEffectGroup);
+MHandle AMVE_EffectGetEffectGroup(MHandle hEffect);
+MRESULT AMVE_EffectGroupInsertEffect(MHandle hEffectGroup, MHandle hEffect);
+MRESULT AMVE_EffectGroupDeleteEffect(MHandle hEffectGroup, MHandle hEffect);
+MRESULT AMVE_EffectGroupMergeEffect(MHandle hEffectGroup, MHandle* phEffectList, MDWord dwCount, MHandle* phEffectGroup);
+MRESULT AMVE_EffectGroupSeparationEffect(MHandle hEffectGroup, MHandle hEffect, MDWord* pdwCount, MHandle** phEffectList);
+MRESULT AMVE_EffectGroupGetEffect3DTransformInfo(MHandle hEffectGroup, MHandle hEffect, QVET_3D_TRANSFORM* pTransform);
+
+MRESULT AMVE_EffectMoveItemSourceFormIndex(MHandle hEffect, MHandle hSubEffect, MDWord dwIndex);
 
 /****************Box Effect Function**********************/
 
@@ -825,6 +845,8 @@ MRESULT QVET_PCMEStop(MHandle h);
 MRESULT QVET_PCMEResume(MHandle h);
 MRESULT QVET_PCMEPause(MHandle h);
 
+MVoid QVET_GetMAXRectByTransform(MRECTF* pRect, QVET_3D_TRANSFORM transform, MSIZE size);
+MPOINT_FLOAT QVET_GetRotatePoint(MPOINT_FLOAT point, MFloat fRotate, MPOINT_FLOAT centerPoint);
 
 
 

@@ -181,7 +181,47 @@
 @end
 
 
-
+typedef enum {
+    kQVAEBlendModeNone = 0,
+    kQVAEBlendModeAdd,
+    kQVAEBlendModeHue,
+    kQVAEBlendModeColor,
+    kQVAEBlendModeDivide,
+    kQVAEBlendModeScreen,
+    kQVAEBlendModeNormal,
+    kQVAEBlendModeDarken,
+    kQVAEBlendModeLighten,
+    kQVAEBlendModeOverlay,
+    kQVAEBlendModeHardMix,
+    kQVAEBlendModePinLight,
+    kQVAEBlendModeAlphaAdd,
+    kQVAEBlendModeSubstrct,
+    kQVAEBlendModeMultiply,
+    kQVAEBlendModeDissolve,
+    kQVAEBlendModeExclusion,
+    kQVAEBlendModeHardLight,
+    kQVAEBlendModeSoftLight,
+    kQVAEBlendModeColorBurn,
+    kQVAEBlendModeColorDodge,
+    kQVAEBlendModeVividLight,
+    kQVAEBlendModeDifference,
+    kQVAEBlendModeSaturation,
+    kQVAEBlendModeLuminosity,
+    kQVAEBlendModeLinearBurn,
+    kQVAEBlendModeLinearDodge,
+    kQVAEBlendModeLinearLight,
+    kQVAEBlendModeStencilLuma,
+    kQVAEBlendModeDarkerColor,
+    kQVAEBlendModeLighterColor,
+    kQVAEBlendModeStencilAlpha,
+    kQVAEBlendModeSilhouetteLuma,
+    kQVAEBlendModeSilhouetteAlpha,
+    kQVAEBlendModeDancingDissolve,
+    kQVAEBlendModeClassicColorBurn,
+    kQVAEBlendModeClassicColorDodge,
+    kQVAEBlendModeClassicDifference,
+    kQVAEBlendModeLuminescentPremul
+} CXiaoYingEffectBlendMode;
 
 
 @interface CXiaoYingKeyFrameMaskData : NSObject {
@@ -382,8 +422,22 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 + (CXiaoYingKeyFrameTransformPosValue *)getCurrentValueForKeyframeTransformPos:(CXiaoYingKeyFrameTransformPosData*)data timestamp:(MLong)ts;
 
 
+- (MDWord) getEffectCount;
+- (CXiaoYingEffect*) getEffectGroup;
+- (MRESULT) refreshGroup;
+- (CXiaoYingEffect*) getEffectByIndex:(MDWord) dwIndex;
+- (MRESULT) insertEffect:(CXiaoYingEffect*) effect;
+- (MRESULT) deleteEffect:(CXiaoYingEffect*) effect;
+- (MRESULT) setBlendMode:(CXiaoYingEffectBlendMode) blendMode;
+- (CXiaoYingEffectBlendMode) getBlendMode;
+- (CXiaoYingTransformInfo *) getTransform3dInfoInGroup:(CXiaoYingEffect*) effect;
+
+
 - (MRESULT) setSubItemSource:(CXiaoYingEffectSubItemSource *)pSubSource;
 
+- (MRESULT) setSubItemSourceFromIndex:(CXiaoYingEffectSubItemSource *)pSubSource Index:(MDWord)nIndex;
+
+- (MRESULT) moveSubItemSourceFromIndex:(CXiaoYingEffect *)pSubEffect Index:(MDWord)nIndex;
 
 - (CXiaoYingEffectSubItemSource *) getSubItemSource:(UInt32)dwEffctSubType;
 
@@ -406,6 +460,11 @@ typedef struct _tagCXYEffectTextAttachFileInfo
  *外部传入智能指针
  */
 - (MRESULT)setEffectSpHandle:(MHandle)hEffectSP;
+
+/*
+ *获取effect裸指针
+ */
+- (MHandle)getEffectHandle;
 
 /*
  *获取effect智能指针

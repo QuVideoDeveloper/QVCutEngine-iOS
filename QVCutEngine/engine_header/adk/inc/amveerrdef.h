@@ -101,6 +101,12 @@
 //0x00803E00
 //0x00803F00
 //[0x00804000, 0x00805000)
+#define QVET_ERR_EFFECTGROUP_BASE             (QVET_ERR_BASE+0x00804000)       //veeffectgroup.cpp 0x00804000
+#define QVET_ERR_VIDEOFRAMEGROUP_BASE         (QVET_ERR_BASE+0x00804000)       //vevideoframegroup.cpp 0x00804000
+#define QVET_ERR_EFFECTGROUP_STREAM_BASE      (QVET_ERR_BASE+0x00804100)       //eteffectgroupoutputstream.cpp 0x00804100
+#define QVET_ERR_EFFECTGROUP_TRACK_BASE       (QVET_ERR_BASE+0x00804200)       //eteffectgrouptrack.cpp 0x00804200
+#define QVET_ERR_AUDIO_FRAME_GROUP_TRACK_BASE       (QVET_ERR_BASE+0x00804300)       //veaudioframegrouptrack.cpp 0x00804300
+
 //
 //
 #define QVET_ERR_EFOS_BASE			(QVET_ERR_BASE+0x00005000)	//eteffectoutputstream.cpp   				0x00805000
@@ -124,6 +130,7 @@
 #define QVET_ERR_PPARSER_BASE		(QVET_ERR_BASE+0x00017000)	//etpkgparser.cpp   			0x00817000
 #define QVET_ERR_LZ4_BASE           (QVET_ERR_BASE+0x00018000)  //etCompressLz4Interface.cpp    //0x00018000
 #define QVET_ERR_SUBEFTSTRM_BASE    (QVET_ERR_BASE+0x00019000)  //etsubeffectoutputstream.cpp   0x00019000
+#define QVET_ERR_AECOS_BASE    (QVET_ERR_BASE+0x0001A000)  //etaecompositionoutputstream.cpp   0x0081A000
 
 
 //0x0001A000
@@ -263,6 +270,7 @@
 //0x00082000
 //0x00083000
 //0x00084000
+#define QVET_ERR_AEC_SETTING_PARSER_BASE    (QVET_ERR_BASE+0x00084000) //0x00084000 veaecomposersettingparser.cpp
 #define QVET_ERR_IOSTVC_BASE		(QVET_ERR_BASE+0x00085000) //veiosthreadvideocomposer.cpp 0x00885000
 #define QVET_ERR_VEIESP_BASE        (QVET_ERR_BASE+0x00086000)  //veiesettingparamparser.cpp    0x00886000
 #define QVET_ERR_CBEFOS_BASE		(QVET_ERR_BASE+0x00087000)  //etcomboeffectoutputstream.cpp    0x00887000
@@ -303,7 +311,11 @@
 #define QVET_ERR_SLSH_SEEN_BASE         (QVET_ERR_BASE+0x000A8000) //veslideshowsessionengine.cpp
 #define QVET_ERR_SLSH_SE_BASE           (QVET_ERR_BASE+0x000A9000) //veslideshowsession.cpp
 #define QVET_ERR_SLSH_XMLPA_BASE        (QVET_ERR_BASE+0x000AA000) //veslideshowxmlparser.cpp
+#define QVET_ERR_SOURCE_XMLPA_BASE      (QVET_ERR_BASE+0x000AA800) //vesourcexmlparser.cpp
 #define QVET_ERR_SLSH_XMLWR_BASE        (QVET_ERR_BASE+0x000AB000) //veslideshowxmlwriter.cpp
+#define QVET_ERR_SOURCE_XMLWR_BASE      (QVET_ERR_BASE+0x000ABA00) //vesourcexmlwriter.cpp
+#define QVET_ERR_SOURCE_MANAGE_BASE      (QVET_ERR_BASE+0x000ABB00) //vesourcexmlmanagebase.cpp
+#define QVET_ERR_SOURCE_MANAGE_EFFECT      (QVET_ERR_BASE+0x000ABC00) //vesourcexmlmanageeffect.cpp
 #define QVET_ERR_THEME_SCECFG_PA_BASE   (QVET_ERR_BASE+0x000AC000) //vethemescecfgparser.cpp
 #define QVET_ERR_SLSH_EN_BASE           (QVET_ERR_BASE+0x000AD000) //etslideshowengine.cpp
 #define QVET_ERR_TA_PARSER_BASE         (QVET_ERR_BASE+0x000AE000) //vetextanimationparamparser.cpp
