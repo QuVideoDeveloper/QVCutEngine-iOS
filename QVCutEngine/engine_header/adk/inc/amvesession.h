@@ -386,7 +386,7 @@ MRESULT AMVE_EffectGetKeyFrameTransform3DValue(MHandle hEffect, MLong lTimeStamp
 MRESULT AMVE_EffectGetCurrentValueForKeyFrameCommonValue(QVET_KEYFRAME_COMMON_DATA* pData, MLong lTimeStamp, QVET_KEYFRAME_COMMON_VALUE* pValue);
 MRESULT AMVE_EffectKeyFrameCommonUpdateBaseValue(MHandle hEffect, MLong lKeyValue, MFloat fBaseValue);//更新CommonBaseValue的偏移值
 MRESULT AMVE_EffectKeyFrameCommonInsertOrReplaceValue(MHandle hEffect, MLong lKeyValue, QVET_KEYFRAME_COMMON_VALUE *pValue);//fTimeStamp没有关键帧则会插入，如果存在关键帧则会替换
-MRESULT AMVE_EffectKeyFrameCommonRemoveValue(MHandle hEffect, MLong lKeyValue, MLong lTimeStamp);//移除fTimeStamp对应的关键帧 治理float类型底层会转成int类型进行比较
+MRESULT AMVE_EffectKeyFrameCommonRemoveValue(MHandle hEffect, MLong lKeyValue, MFloat fTimeStamp);//移除fTimeStamp对应的关键帧 治理float类型底层会转成int类型进行比较
 
 MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 												const QVET_KEYFRAME_TRANSFORM_POS_DATA* pData,
@@ -407,6 +407,7 @@ MRESULT AMVE_EffectGroupDeleteEffect(MHandle hEffectGroup, MHandle hEffect);
 MRESULT AMVE_EffectGroupMergeEffect(MHandle hEffectGroup, MHandle* phEffectList, MDWord dwCount, MHandle* phEffectGroup);
 MRESULT AMVE_EffectGroupSeparationEffect(MHandle hEffectGroup, MHandle hEffect, MDWord* pdwCount, MHandle** phEffectList);
 MRESULT AMVE_EffectGroupGetEffect3DTransformInfo(MHandle hEffectGroup, MHandle hEffect, QVET_3D_TRANSFORM* pTransform);
+MRESULT AMVE_EffectGroupReplaceEffect(MHandle hEffectGroup, MHandle* phEffectList, MDWord dwCount);
 
 MRESULT AMVE_EffectMoveItemSourceFormIndex(MHandle hEffect, MHandle hSubEffect, MDWord dwIndex);
 

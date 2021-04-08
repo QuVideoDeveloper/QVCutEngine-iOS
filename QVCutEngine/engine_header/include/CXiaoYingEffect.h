@@ -431,6 +431,7 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 - (MRESULT) setBlendMode:(CXiaoYingEffectBlendMode) blendMode;
 - (CXiaoYingEffectBlendMode) getBlendMode;
 - (CXiaoYingTransformInfo *) getTransform3dInfoInGroup:(CXiaoYingEffect*) effect;
+- (MRESULT) replaceEffect:(NSMutableArray*) effectList;
 
 
 - (MRESULT) setSubItemSource:(CXiaoYingEffectSubItemSource *)pSubSource;
@@ -488,7 +489,7 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 //插入或者替换value，具体根据ts时间，关键帧如果没有ts对应value，插入，否则替换
 - (MRESULT)insertOrReplaceKeyFrameCommonValue:(MLong)lKey withValue:(CXiaoYingKeyFrameCommonValue *)pValue;
 //删除关键帧
-- (MRESULT)removeKeyFrameCommonValue:(MLong)lKey timeStamp:(MLong)lTimeStamp;
+- (MRESULT)removeKeyFrameCommonValue:(MLong)lKey timeStamp:(MFloat)fTimeStamp;
 //获取data下边的关键帧的数据
 + (CXiaoYingKeyFrameCommonValue *)getCurrentValueForKeyFrameCommonValue:(CXiaoYingKeyFrameCommonData*)pData timeStamp:(MLong)lTimeStamp;
 //获取common data 关键帧数据

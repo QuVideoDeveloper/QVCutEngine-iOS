@@ -94,6 +94,8 @@
 #define QVET_ERR_EFTPRTHREAD_BASE       (QVET_ERR_BASE+0x00003A00)     //effectPrepareThread.cpp
 #define QVET_ERR_MULTIDETEC_BASE		(QVET_ERR_BASE+0x00003B00)	   //etmultidetec.cpp	
 #define QVET_ERR_MASKMGR_BASE			(QVET_ERR_BASE+0x00003C00)	   //etmaskmgr.cpp
+#define QVET_ERR_SKELETONUTILS_BASE		(QVET_ERR_BASE+0x00003E00)	   //etskeletonutils.cpp
+#define QVET_ERR_SKELETONMGR_BASE		(QVET_ERR_BASE+0x00003F00)	   //etskeletonmgr.cpp
 
 //0x00803B00
 //0x00803C00
@@ -264,6 +266,8 @@
 #define QVET_ERR_AA_API_BASE        (QVET_ERR_BASE+0x00080000)  //etaudio_api.cpp
 #define QVET_ERR_PCME_BASE			(QVET_ERR_BASE+0x00080100)  //etpcmextractor.cpp  0x00880100
 #define QVET_ERR_MASKMCM_BASE		(QVET_ERR_BASE+0X00080200)	//vemaskmgrcachemgr.cpp 0x00880200
+#define QVET_ERR_SKELETONMCM_BASE	(QVET_ERR_BASE+0X00080300)	//etskeletonmgrcachemgr.cpp 0x00880300
+
 //0x0007F000
 //0x00080000
 //0x00081000
