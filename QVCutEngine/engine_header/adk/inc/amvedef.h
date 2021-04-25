@@ -3659,4 +3659,11 @@ typedef struct
 	MDWord dwType;
 	QVET_TRANSFORM_PARAMETERS transform;
 }TYPE_CLIP_MASK_TRANSFORM;
+
+typedef struct {
+	QVET_3D_TRANSFORM transform;  // 贴纸的transform
+	MSIZE bgSize;	// 当前的bgSize
+    MBool bSetByUser;  //外部设置过的flag
+} QVET_FACE_PASTER_TRANSFORM;
+
 #endif //_AMVE_DEF_H_
