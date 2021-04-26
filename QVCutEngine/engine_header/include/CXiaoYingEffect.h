@@ -181,7 +181,47 @@
 @end
 
 
-
+typedef enum {
+    kQVAEBlendModeNone = 0,
+    kQVAEBlendModeAdd,
+    kQVAEBlendModeHue,
+    kQVAEBlendModeColor,
+    kQVAEBlendModeDivide,
+    kQVAEBlendModeScreen,
+    kQVAEBlendModeNormal,
+    kQVAEBlendModeDarken,
+    kQVAEBlendModeLighten,
+    kQVAEBlendModeOverlay,
+    kQVAEBlendModeHardMix,
+    kQVAEBlendModePinLight,
+    kQVAEBlendModeAlphaAdd,
+    kQVAEBlendModeSubstrct,
+    kQVAEBlendModeMultiply,
+    kQVAEBlendModeDissolve,
+    kQVAEBlendModeExclusion,
+    kQVAEBlendModeHardLight,
+    kQVAEBlendModeSoftLight,
+    kQVAEBlendModeColorBurn,
+    kQVAEBlendModeColorDodge,
+    kQVAEBlendModeVividLight,
+    kQVAEBlendModeDifference,
+    kQVAEBlendModeSaturation,
+    kQVAEBlendModeLuminosity,
+    kQVAEBlendModeLinearBurn,
+    kQVAEBlendModeLinearDodge,
+    kQVAEBlendModeLinearLight,
+    kQVAEBlendModeStencilLuma,
+    kQVAEBlendModeDarkerColor,
+    kQVAEBlendModeLighterColor,
+    kQVAEBlendModeStencilAlpha,
+    kQVAEBlendModeSilhouetteLuma,
+    kQVAEBlendModeSilhouetteAlpha,
+    kQVAEBlendModeDancingDissolve,
+    kQVAEBlendModeClassicColorBurn,
+    kQVAEBlendModeClassicColorDodge,
+    kQVAEBlendModeClassicDifference,
+    kQVAEBlendModeLuminescentPremul
+} CXiaoYingEffectBlendMode;
 
 
 @interface CXiaoYingKeyFrameMaskData : NSObject {
@@ -382,8 +422,23 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 + (CXiaoYingKeyFrameTransformPosValue *)getCurrentValueForKeyframeTransformPos:(CXiaoYingKeyFrameTransformPosData*)data timestamp:(MLong)ts;
 
 
+- (MDWord) getEffectCount;
+- (CXiaoYingEffect*) getEffectGroup;
+- (MRESULT) refreshGroup;
+- (CXiaoYingEffect*) getEffectByIndex:(MDWord) dwIndex;
+- (MRESULT) insertEffect:(CXiaoYingEffect*) effect;
+- (MRESULT) deleteEffect:(CXiaoYingEffect*) effect;
+- (MRESULT) setBlendMode:(CXiaoYingEffectBlendMode) blendMode;
+- (CXiaoYingEffectBlendMode) getBlendMode;
+- (CXiaoYingTransformInfo *) getTransform3dInfoInGroup:(CXiaoYingEffect*) effect;
+- (MRESULT) replaceEffect:(NSMutableArray*) effectList;
+
+
 - (MRESULT) setSubItemSource:(CXiaoYingEffectSubItemSource *)pSubSource;
 
+- (MRESULT) setSubItemSourceFromIndex:(CXiaoYingEffectSubItemSource *)pSubSource Index:(MDWord)nIndex;
+
+- (MRESULT) moveSubItemSourceFromIndex:(CXiaoYingEffect *)pSubEffect Index:(MDWord)nIndex;
 
 - (CXiaoYingEffectSubItemSource *) getSubItemSource:(UInt32)dwEffctSubType;
 
@@ -408,6 +463,11 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 - (MRESULT)setEffectSpHandle:(MHandle)hEffectSP;
 
 /*
+ *获取effect裸指针
+ */
+- (MHandle)getEffectHandle;
+
+/*
  *获取effect智能指针
  */
 - (MHandle)getEffectSpHandle;
@@ -429,7 +489,7 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 //插入或者替换value，具体根据ts时间，关键帧如果没有ts对应value，插入，否则替换
 - (MRESULT)insertOrReplaceKeyFrameCommonValue:(MLong)lKey withValue:(CXiaoYingKeyFrameCommonValue *)pValue;
 //删除关键帧
-- (MRESULT)removeKeyFrameCommonValue:(MLong)lKey timeStamp:(MLong)lTimeStamp;
+- (MRESULT)removeKeyFrameCommonValue:(MLong)lKey timeStamp:(MFloat)fTimeStamp;
 //获取data下边的关键帧的数据
 + (CXiaoYingKeyFrameCommonValue *)getCurrentValueForKeyFrameCommonValue:(CXiaoYingKeyFrameCommonData*)pData timeStamp:(MLong)lTimeStamp;
 //获取common data 关键帧数据

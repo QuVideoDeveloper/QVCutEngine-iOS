@@ -94,6 +94,8 @@
 #define QVET_ERR_EFTPRTHREAD_BASE       (QVET_ERR_BASE+0x00003A00)     //effectPrepareThread.cpp
 #define QVET_ERR_MULTIDETEC_BASE		(QVET_ERR_BASE+0x00003B00)	   //etmultidetec.cpp	
 #define QVET_ERR_MASKMGR_BASE			(QVET_ERR_BASE+0x00003C00)	   //etmaskmgr.cpp
+#define QVET_ERR_SKELETONUTILS_BASE		(QVET_ERR_BASE+0x00003E00)	   //etskeletonutils.cpp
+#define QVET_ERR_SKELETONMGR_BASE		(QVET_ERR_BASE+0x00003F00)	   //etskeletonmgr.cpp
 
 //0x00803B00
 //0x00803C00
@@ -101,6 +103,12 @@
 //0x00803E00
 //0x00803F00
 //[0x00804000, 0x00805000)
+#define QVET_ERR_EFFECTGROUP_BASE             (QVET_ERR_BASE+0x00804000)       //veeffectgroup.cpp 0x00804000
+#define QVET_ERR_VIDEOFRAMEGROUP_BASE         (QVET_ERR_BASE+0x00804000)       //vevideoframegroup.cpp 0x00804000
+#define QVET_ERR_EFFECTGROUP_STREAM_BASE      (QVET_ERR_BASE+0x00804100)       //eteffectgroupoutputstream.cpp 0x00804100
+#define QVET_ERR_EFFECTGROUP_TRACK_BASE       (QVET_ERR_BASE+0x00804200)       //eteffectgrouptrack.cpp 0x00804200
+#define QVET_ERR_AUDIO_FRAME_GROUP_TRACK_BASE       (QVET_ERR_BASE+0x00804300)       //veaudioframegrouptrack.cpp 0x00804300
+
 //
 //
 #define QVET_ERR_EFOS_BASE			(QVET_ERR_BASE+0x00005000)	//eteffectoutputstream.cpp   				0x00805000
@@ -124,6 +132,7 @@
 #define QVET_ERR_PPARSER_BASE		(QVET_ERR_BASE+0x00017000)	//etpkgparser.cpp   			0x00817000
 #define QVET_ERR_LZ4_BASE           (QVET_ERR_BASE+0x00018000)  //etCompressLz4Interface.cpp    //0x00018000
 #define QVET_ERR_SUBEFTSTRM_BASE    (QVET_ERR_BASE+0x00019000)  //etsubeffectoutputstream.cpp   0x00019000
+#define QVET_ERR_AECOS_BASE    (QVET_ERR_BASE+0x0001A000)  //etaecompositionoutputstream.cpp   0x0081A000
 
 
 //0x0001A000
@@ -257,12 +266,15 @@
 #define QVET_ERR_AA_API_BASE        (QVET_ERR_BASE+0x00080000)  //etaudio_api.cpp
 #define QVET_ERR_PCME_BASE			(QVET_ERR_BASE+0x00080100)  //etpcmextractor.cpp  0x00880100
 #define QVET_ERR_MASKMCM_BASE		(QVET_ERR_BASE+0X00080200)	//vemaskmgrcachemgr.cpp 0x00880200
+#define QVET_ERR_SKELETONMCM_BASE	(QVET_ERR_BASE+0X00080300)	//etskeletonmgrcachemgr.cpp 0x00880300
+
 //0x0007F000
 //0x00080000
 //0x00081000
 //0x00082000
 //0x00083000
 //0x00084000
+#define QVET_ERR_AEC_SETTING_PARSER_BASE    (QVET_ERR_BASE+0x00084000) //0x00084000 veaecomposersettingparser.cpp
 #define QVET_ERR_IOSTVC_BASE		(QVET_ERR_BASE+0x00085000) //veiosthreadvideocomposer.cpp 0x00885000
 #define QVET_ERR_VEIESP_BASE        (QVET_ERR_BASE+0x00086000)  //veiesettingparamparser.cpp    0x00886000
 #define QVET_ERR_CBEFOS_BASE		(QVET_ERR_BASE+0x00087000)  //etcomboeffectoutputstream.cpp    0x00887000
