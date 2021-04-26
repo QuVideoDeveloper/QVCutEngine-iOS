@@ -419,6 +419,8 @@
 #define AMVE_PROP_EFFECT_TIME_DST_TO_SRC_FLOAT                    (AMVE_PROP_EFFECT_BASE+258)//画中画时间 dst To src float 类型
 #define AMVE_PROP_EFFECT_TIME_SRC_TO_DST_FLOAT                    (AMVE_PROP_EFFECT_BASE+259)//画中画 时间 src to dst
 
+#define AMVE_PROP_EFFECT_FACE_PASTER_MAX_FACE_ONLY			(AMVE_PROP_EFFECT_BASE+260)  // 人脸贴纸只画最大脸
+
 #define AMVE_PROP_EFFECT_GROUP_BASE                          0X0000F000
 #define AMVE_PROP_EFFECT_GROUP_SIZE                          (AMVE_PROP_EFFECT_GROUP_BASE + 1)
 #define AMVE_PROP_EFFECT_GROUP_ENABLE_EXTERN_IMAGE           (AMVE_PROP_EFFECT_GROUP_BASE + 2)
@@ -579,6 +581,7 @@
 #define AMVE_PROP_CLIP_ONSET_PARAM                     (AMVE_PROP_CLIP_BASE+80) //Onset检测参数
 #define AMVE_PROP_CLIP_EFFECT_SOURCE                    (AMVE_PROP_CLIP_BASE+81) //设置effect source
 #define AMVE_PROP_CLIP_TYPE_SEG_MASK					(AMVE_PROP_CLIP_BASE+82) 	
+#define AMVE_PROP_CLIP_TYPE_SEG_MASK_PATH               (AMVE_PROP_CLIP_BASE+83)
 
 //constants used to identify the property for storyboard
 #define AMVE_PROP_STORYBOARD_BASE                      0X00004000
@@ -3653,6 +3656,12 @@ typedef struct
 	MDWord dwType;
 	MBITMAP bitMap;
 }TYPE_CLIP_SEG_MASK;
+
+typedef struct
+{
+    MDWord dwType;
+    MTChar* szPath;
+}TYPE_CLIP_SEG_MASK_PATH;
 
 typedef struct
 {

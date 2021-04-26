@@ -498,6 +498,8 @@ typedef struct _tagCXYEffectPropertyInfo
  */
 + (MBool) IsFBPreprocessTemplate : (MInt64) templateID;
 
++ (MBool) IsFacePasterTemplate : (MInt64) templateID;
+
 /**
  * Judge whether preprocess effect template
  * @param templateID template id

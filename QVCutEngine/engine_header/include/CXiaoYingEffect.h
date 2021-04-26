@@ -333,6 +333,16 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 - (MRESULT) getProperty : (MDWord) dwPropertyID
 						   PropertyData : (MVoid*)pValue;
 
+// get第faceIdx个人脸上的第layerId层人脸贴纸的3d transform, 如果设置了只贴最大人脸，只会返回最大脸的layerId=0的贴纸
+- (MBool) getFacePasterTransform : (QVET_FACE_PASTER_TRANSFORM*) transform
+							FaceIdx : (MDWord) faceIdx
+							LayerId : (MDWord) layerId;
+
+// get第faceIdx个人脸上的第layerId层人脸贴纸的3d transform, 如果设置了只贴最大人脸，只会设置最大脸的layerId=0的贴纸
+- (void) setFacePasterTransform : (QVET_FACE_PASTER_TRANSFORM*) transform
+							FaceIdx : (MDWord) faceIdx
+							LayerId : (MDWord) layerId;	
+
 - (CXiaoYingEffect*) duplicate;
 
 - (MRESULT) getDisplayInfo : (MDWord)dwTimeStamp
