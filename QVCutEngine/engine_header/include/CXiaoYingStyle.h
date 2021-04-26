@@ -24,7 +24,8 @@ typedef struct _tagCXYEffectPropertyItem
     MLong   dwMinValue;//lMinValue 改成dwMinValue 为了保证 app能够编译通过
     MLong   dwMaxValue;
     MDWord  dwCurValue;
-	MDWord  dwStep;
+    MDWord  dwGroupIdIdx;
+    MDWord  dwStep;
 	MDWord  dwControlType;
 	MBool   bIsUnlimitedMode;
     MBool   bIsSupportKeyframe;

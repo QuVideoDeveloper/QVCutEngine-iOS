@@ -25,7 +25,7 @@ typedef enum {
 	EU_DRAW_SHAPE_LINE = 1,//默认线条
 	EU_DRAW_SHAPE_ERASURE = 2,//擦除
 	EU_DRAW_SHAPE_LASSO = 3,//套索
-	EU_DRAW_SHAPE_PAINT= 4,//涂料
+	EU_DRAW_SHAPE_PAINT = 4,//涂料/填充
 	EU_DRAW_SHAPE_END
 }EU_DRAW_SHAPE_TYPE;
 
@@ -101,13 +101,14 @@ typedef struct _tag_qvet_draw_shape_base
 	_tag_qvet_draw_shape_base()
 	{
 		euType = EU_DRAW_SHAPE_DEFAULT;
+		dwGroupId = 0;
 	}
 	virtual ~_tag_qvet_draw_shape_base()
 	{
 	}
 	virtual MBool operator ==(struct _tag_qvet_draw_shape_base *pShape) = 0;
-
-	EU_DRAW_SHAPE_TYPE euType;// 0 画笔，1.擦除  2套索， 3 涂料 
+	MDWord dwGroupId;
+	EU_DRAW_SHAPE_TYPE euType;// 0 画笔，1.清屏  2套索， 3 涂料 
 }QVET_DRAW_SHAPE_BASE_TYPE;
 
 typedef struct _tag_qvet_draw_line_type :public QVET_DRAW_SHAPE_BASE_TYPE
@@ -131,6 +132,7 @@ typedef struct _tag_qvet_draw_line_type :public QVET_DRAW_SHAPE_BASE_TYPE
 		if (this != &line_type)
 		{
 			this->euType = line_type.euType;
+			this->dwGroupId = line_type.dwGroupId;
 			this->paint_type = line_type.paint_type;
 			this->point_list.clear();
 			this->point_list = line_type.point_list;
@@ -157,26 +159,61 @@ typedef struct _tag_qvet_draw_erasure_type :public QVET_DRAW_SHAPE_BASE_TYPE
 {
 	_tag_qvet_draw_erasure_type()
 	{
-		dwErasureColor = 0;
-		fErasureRadius = 0.01f;
-		point_list.clear();
+
 		euType = EU_DRAW_SHAPE_ERASURE;
+	}
+	~_tag_qvet_draw_erasure_type()
+	{
+
 	}
 	MBool operator ==(struct _tag_qvet_draw_shape_base *pShape)
 	{
-        _tag_qvet_draw_erasure_type *pErasureShape = (_tag_qvet_draw_erasure_type *)pShape;
+      
+		return MTrue;
+	}
+}QVET_DRAW_SHAPE_ERASURE_TYPE;
+
+typedef struct _tag_qvet_draw_paint_type :public QVET_DRAW_SHAPE_BASE_TYPE
+{
+	_tag_qvet_draw_paint_type()
+	{
+		euType = EU_DRAW_SHAPE_PAINT;
+	}
+	~_tag_qvet_draw_paint_type()
+	{
+
+	}
+	_tag_qvet_draw_paint_type(const struct _tag_qvet_draw_paint_type& shape_type)
+	{
+		this->operator=(shape_type);
+	}
+
+	_tag_qvet_draw_paint_type& operator=(const struct _tag_qvet_draw_paint_type& paint_type)
+	{
+		if (this != &paint_type) 
+		{
+			this->euType = paint_type.euType;
+			this->dwGroupId = paint_type.dwGroupId;
+			this->dwDrawColor = paint_type.dwDrawColor;
+			this->point = paint_type.point;
+		}
+		return *this;
+	}
+
+	MBool operator ==(struct _tag_qvet_draw_shape_base* pShape)
+	{
+		_tag_qvet_draw_paint_type* pPaintShape = (_tag_qvet_draw_paint_type*)pShape;
 		MBool bPaintIsSame = MFalse;
-		if (pErasureShape == MNull)
+		if (pPaintShape == MNull)
 			return MFalse;
-		bPaintIsSame = (dwErasureColor == pErasureShape->dwErasureColor);
-		if (bPaintIsSame && point_list.size() == pErasureShape->point_list.size())
+		bPaintIsSame = (dwDrawColor == pPaintShape->dwDrawColor);
+		if (bPaintIsSame && point.x == pPaintShape->point.x && point.y == pPaintShape->point.y)
 			return MTrue;
 		return MFalse;
 	}
-	MDWord dwErasureColor;//擦除的颜色，默认是透明度全是0
-	MFloat fErasureRadius;// 相对于底图的百分比 例如底图宽度720， 真实的擦除半径是=720*fLightRadius
-	std::vector<MPOINT_FLOAT> point_list;//点的集合
-}QVET_DRAW_SHAPE_ERASURE_TYPE;
+	MDWord dwDrawColor;//涂料颜色
+	MPOINT_FLOAT point;
+}QVET_DRAW_SHAPE_PAINT_TYPE;
 
 
 typedef struct _tag_qvet_draw_shape_type
@@ -195,6 +232,9 @@ typedef struct _tag_qvet_draw_shape_type
 			break;
 		case EU_DRAW_SHAPE_ERASURE:
 			pType = (QVET_DRAW_SHAPE_BASE_TYPE *)new QVET_DRAW_SHAPE_ERASURE_TYPE();
+			break;
+		case EU_DRAW_SHAPE_PAINT:
+			pType = (QVET_DRAW_SHAPE_BASE_TYPE*)new QVET_DRAW_SHAPE_PAINT_TYPE();
 			break;
 		}			
 	}
@@ -248,6 +288,11 @@ typedef struct _tag_qvet_draw_shape_type
 					pType = (QVET_DRAW_SHAPE_BASE_TYPE *)new QVET_DRAW_SHAPE_ERASURE_TYPE();
 					if (pType != MNull)
 						*((QVET_DRAW_SHAPE_ERASURE_TYPE *)pType) = *((QVET_DRAW_SHAPE_ERASURE_TYPE *)shape_type.pType);
+					break;
+				case EU_DRAW_SHAPE_PAINT:
+					pType = (QVET_DRAW_SHAPE_BASE_TYPE*)new QVET_DRAW_SHAPE_PAINT_TYPE();
+					if (pType != MNull)
+						*((QVET_DRAW_SHAPE_PAINT_TYPE*)pType) = *((QVET_DRAW_SHAPE_PAINT_TYPE*)shape_type.pType);
 					break;
 				}					
 			}

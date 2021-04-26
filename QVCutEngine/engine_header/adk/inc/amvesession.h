@@ -14,6 +14,11 @@
 extern "C"
 {
 #endif
+
+MRESULT AMVE_SourceSaveToXml(MHandle hSessionCtx, const MChar *pFilePath, MHandle hHandle, MDWord dwType);
+
+MRESULT AMVE_SourceLoadFromXml(MHandle hSessionCtx,const MChar *pFilePath, MHandle *pHandle, MDWord *pdwType);
+
 //rect  to transform easy to test
 MVoid QVET_RectToTransform(MRECT rect, QVET_3D_TRANSFORM *pTransform, MFloat fRoationZ);
 
@@ -85,6 +90,9 @@ MRESULT AMVE_GetBubbleThumbnailByTemplate(MHandle hSessionCtx,
 MRESULT AMVE_GetMaterialNeedEngineSupportList(const MChar *pszTemplatePath, MHandle hVecList);
 
 MRESULT AMVE_GetTemplateContentInfo(MHandle hSessionCtx, MInt64 llTemplateID, QVET_TEMPlATE_CONTENT_TYPE **ppTempalteInfo);
+
+MRESULT AMVE_GetTemplateContentInfoExt(MHandle hSessionCtx, MInt64 llTemplateID, QVET_TEMPlATE_CONTENT_TYPE **ppTempalteInfo, 
+                                    MBool bParseFaceDTRange);
 
 #if WIN32
 		
@@ -248,6 +256,9 @@ MRESULT AMVE_ExtractAudioSample(MHandle hClip,
 
 MRESULT AMVE_ClipEffectCreate(MHandle hSessionContext, MDWord dwEffectTrackType, MDWord dwGroupID, MFloat fLayerID, MDWord dwEffectType, MHandle* phEffect);
 
+/*
+ *插入Effect的智能指针到clip,智能指针会在函数外部创建
+ */
 MRESULT AMVE_ClipInsertEffect(MHandle hClip, MHandle hEffect);
 
 MRESULT AMVE_ClipRemoveEffect(MHandle hClip, MHandle hEffect);
@@ -258,7 +269,12 @@ MRESULT AMVE_ClipGetEffectCount(MHandle hClip, MDWord dwEffectTrackType, MDWord 
 
 MRESULT AMVE_ClipGetEffect(MHandle hClip, MDWord dwEffectTrackType, MDWord dwGroupID, MDWord dwIndex, MHandle* phEffect);
 
+MRESULT AMVE_ClipGetEffectSp(MHandle hClip, MDWord dwEffectTrackType, MDWord dwGroupID, MDWord dwIndex, MHandle* phEffect);
+
 MRESULT AMVE_ClipGetEffectByUuid(MHandle hClip, MTChar *pszUuid, MHandle *phEffect);
+
+MRESULT AMVE_ClipGetEffectSpByUuid(MHandle hClip, MTChar *pszUuid, MHandle *phEffect);
+
 
 MRESULT AMVE_ClipMoveEffect(MHandle hClip, MHandle hEffect, MDWord dwIndex);
 
@@ -293,6 +309,9 @@ MRESULT AMVE_ClipSetSceneExternalSource(MHandle hClip, MDWord dwIndex, QVET_EFFE
 
 MRESULT AMVE_ClipGetSceneExternalSource(MHandle hClip, MDWord dwIndex, QVET_EFFECT_EXTERNAL_SOURCE* pExtSrc);
 
+MRESULT AMVE_ClipMergeEffect(MHandle hClip, MHandle* phEffectList, MDWord dwCount, MHandle* phEffectGroup);
+MRESULT AMVE_ClipSeparationEffect(MHandle hClip, MHandle hEffect, MDWord* pdwCount, MHandle** phEffectList);
+
 //The interfaces for cover
 MRESULT AMVE_CoverGetTitleCount(MHandle hCover, MDWord* pdwCount);
 
@@ -309,6 +328,8 @@ MRESULT AMVE_CoverSetTitleUserData(MHandle hCover, MDWord dwIndex, AMVE_USER_DAT
 MRESULT AMVE_CoverGetTitleLayerID(MHandle hCover, MDWord dwIndex, MFloat* pfLayerID);
 
 MRESULT AMVE_CoverGetTitleEffect(MHandle hCover, MDWord dwIndex, MHandle* phEffect);
+
+MRESULT AMVE_CoverGetTitleEffetSp(MHandle hCover,MDWord dwIndex,MHandle* phEffectSp);
     
 //The interfaces for effect
 MRESULT AMVE_EffectSetProp(MHandle hEffect, MDWord dwPropId, MVoid* pData, MDWord dwSize);
@@ -342,6 +363,7 @@ MRESULT AMVE_EffectAppendLayerLinePoints(MHandle hEffect, MVoid *hVecPointsList)
 MRESULT AMVE_EffectEndLayerPaintShapeLine(MHandle hEffect);
 MDWord AMVE_EffectLayerPaintUndo(MHandle hEffect);
 MDWord AMVE_EffectLayerPaintRedo(MHandle hEffect);
+MDWord AMVE_EffectCopyPartFormEffect(MHandle hEffect, MHandle hFromEffect, EU_DUPLICATE_PART_EFFECT_TYPE euCopyMode);
 
 MRESULT AMVE_EffectGetKeyFrameTransformValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_VALUE* pValue);
 MRESULT AMVE_EffectGetKeyFrameTransformPosValue(MHandle hEffect, MDWord dwTimestamp, QVET_KEYFRAME_TRANSFORM_POS_VALUE* pValue);
@@ -364,7 +386,7 @@ MRESULT AMVE_EffectGetKeyFrameTransform3DValue(MHandle hEffect, MLong lTimeStamp
 MRESULT AMVE_EffectGetCurrentValueForKeyFrameCommonValue(QVET_KEYFRAME_COMMON_DATA* pData, MLong lTimeStamp, QVET_KEYFRAME_COMMON_VALUE* pValue);
 MRESULT AMVE_EffectKeyFrameCommonUpdateBaseValue(MHandle hEffect, MLong lKeyValue, MFloat fBaseValue);//更新CommonBaseValue的偏移值
 MRESULT AMVE_EffectKeyFrameCommonInsertOrReplaceValue(MHandle hEffect, MLong lKeyValue, QVET_KEYFRAME_COMMON_VALUE *pValue);//fTimeStamp没有关键帧则会插入，如果存在关键帧则会替换
-MRESULT AMVE_EffectKeyFrameCommonRemoveValue(MHandle hEffect, MLong lKeyValue, MLong lTimeStamp);//移除fTimeStamp对应的关键帧 治理float类型底层会转成int类型进行比较
+MRESULT AMVE_EffectKeyFrameCommonRemoveValue(MHandle hEffect, MLong lKeyValue, MFloat fTimeStamp);//移除fTimeStamp对应的关键帧 治理float类型底层会转成int类型进行比较
 
 MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 												const QVET_KEYFRAME_TRANSFORM_POS_DATA* pData,
@@ -373,6 +395,39 @@ MVoid   AMVE_EffectKeyFrame2DConvertTo3DTransform(const MRECT rcOrignRect,
 												QVET_KEYFRAME_COMMON_DATA_LIST *pTransformList);//2D转3D关键帧用的
 
 MRESULT AMVE_EffectGetTextAttachInfoById(MHandle hEffect, MInt64 lltemplateId, enum QTextAttachType* outType, MDWord* outDesignTime);
+
+MRESULT AMVE_EffectSetItemSourceFormIndex(MHandle hEffect, QVET_EFFECT_SUB_ITEM_SOURCE_TYPE *pType, MDWord dwIndex);
+
+MRESULT AMVE_EffectGroupGetEffectCount(MHandle hEffectGroup, MDWord* pdwCount);
+MRESULT AMVE_EffectGroupGetEffectByIndex(MHandle hEffectGroup, MDWord dwIndex, MHandle* phEffect);
+MRESULT AMVE_EffectGroupRefreshGroup(MHandle hEffectGroup);
+MHandle AMVE_EffectGetEffectGroup(MHandle hEffect);
+MRESULT AMVE_EffectGroupInsertEffect(MHandle hEffectGroup, MHandle hEffect);
+MRESULT AMVE_EffectGroupDeleteEffect(MHandle hEffectGroup, MHandle hEffect);
+MRESULT AMVE_EffectGroupMergeEffect(MHandle hEffectGroup, MHandle* phEffectList, MDWord dwCount, MHandle* phEffectGroup);
+MRESULT AMVE_EffectGroupSeparationEffect(MHandle hEffectGroup, MHandle hEffect, MDWord* pdwCount, MHandle** phEffectList);
+MRESULT AMVE_EffectGroupGetEffect3DTransformInfo(MHandle hEffectGroup, MHandle hEffect, QVET_3D_TRANSFORM* pTransform);
+MRESULT AMVE_EffectGroupReplaceEffect(MHandle hEffectGroup, MHandle* phEffectList, MDWord dwCount);
+
+MRESULT AMVE_EffectMoveItemSourceFormIndex(MHandle hEffect, MHandle hSubEffect, MDWord dwIndex);
+
+/****************Box Effect Function**********************/
+
+MRESULT AMVE_EffectBoxInsertEffect(MHandle hFatherEffect, MHandle hEffect, MDWord dwIndex);
+
+MRESULT AMVE_EffectBoxMoveEffect(MHandle hFatherEffect, MHandle hEffect, MDWord dwIndex);
+
+MRESULT AMVE_EffectBoxDeleteEffect(MHandle hFatherEffect, MHandle hEffect);
+
+MRESULT AMVE_EffectBoxGetEffectByIndex(MHandle hFatherEffect, MDWord dwIndex, MHandle *phEffect);
+
+MRESULT AMVE_EffectBoxGetEffectByUUid(MHandle hFatherEffect, MChar  *pUuid, MHandle *phEffect);
+
+
+/*********************************************************/
+
+
+MRESULT AMVE_EffectDestroy(MHandle hEffect);//销毁effect的接口
 
 //The interfaces for stream
 MRESULT AMVE_StreamOpen(AMVE_STREAM_SOURCE_TYPE* pSource, AMVE_STREAM_PARAM_TYPE* pParam, MHandle *phStream);
@@ -552,6 +607,10 @@ MBool AMVE_IsPureBG(MBITMAP* pBMP, MDWord* pdwColor, MPOINT* pdwPos, MInt8* pCol
 
 #define AMVES_StoryboardGetDataClip(hSession, phDataClip) \
 		(CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardGetData)(hSession, phDataClip))
+
+#define AMVES_StoryboardGetStuffClip(hSession, phDataClip) \
+		(CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardGetStuffClip)(hSession, phDataClip))
+
 
 #define AMVES_StoryboardLoadProject(hSession, pProjectFile, fnCallback, pUserData) \
 	    (CALL_AMVE_FUNC(hSession, MAMVEStoryboardSession, fnStoryboardLoadProject)(hSession, pProjectFile, fnCallback, pUserData))
@@ -787,6 +846,8 @@ MRESULT QVET_PCMEStop(MHandle h);
 MRESULT QVET_PCMEResume(MHandle h);
 MRESULT QVET_PCMEPause(MHandle h);
 
+MVoid QVET_GetMAXRectByTransform(MRECTF* pRect, QVET_3D_TRANSFORM transform, MSIZE size);
+MPOINT_FLOAT QVET_GetRotatePoint(MPOINT_FLOAT point, MFloat fRotate, MPOINT_FLOAT centerPoint);
 
 
 

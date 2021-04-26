@@ -93,6 +93,9 @@
 #define QVET_ERR_TEXTUTILS_JNI_BASE     (QVET_ERR_BASE+0x00003900)     //textutils_jni.cpp 
 #define QVET_ERR_EFTPRTHREAD_BASE       (QVET_ERR_BASE+0x00003A00)     //effectPrepareThread.cpp
 #define QVET_ERR_MULTIDETEC_BASE		(QVET_ERR_BASE+0x00003B00)	   //etmultidetec.cpp	
+#define QVET_ERR_MASKMGR_BASE			(QVET_ERR_BASE+0x00003C00)	   //etmaskmgr.cpp
+#define QVET_ERR_SKELETONUTILS_BASE		(QVET_ERR_BASE+0x00003E00)	   //etskeletonutils.cpp
+#define QVET_ERR_SKELETONMGR_BASE		(QVET_ERR_BASE+0x00003F00)	   //etskeletonmgr.cpp
 
 //0x00803B00
 //0x00803C00
@@ -100,6 +103,12 @@
 //0x00803E00
 //0x00803F00
 //[0x00804000, 0x00805000)
+#define QVET_ERR_EFFECTGROUP_BASE             (QVET_ERR_BASE+0x00804000)       //veeffectgroup.cpp 0x00804000
+#define QVET_ERR_VIDEOFRAMEGROUP_BASE         (QVET_ERR_BASE+0x00804000)       //vevideoframegroup.cpp 0x00804000
+#define QVET_ERR_EFFECTGROUP_STREAM_BASE      (QVET_ERR_BASE+0x00804100)       //eteffectgroupoutputstream.cpp 0x00804100
+#define QVET_ERR_EFFECTGROUP_TRACK_BASE       (QVET_ERR_BASE+0x00804200)       //eteffectgrouptrack.cpp 0x00804200
+#define QVET_ERR_AUDIO_FRAME_GROUP_TRACK_BASE       (QVET_ERR_BASE+0x00804300)       //veaudioframegrouptrack.cpp 0x00804300
+
 //
 //
 #define QVET_ERR_EFOS_BASE			(QVET_ERR_BASE+0x00005000)	//eteffectoutputstream.cpp   				0x00805000
@@ -123,6 +132,7 @@
 #define QVET_ERR_PPARSER_BASE		(QVET_ERR_BASE+0x00017000)	//etpkgparser.cpp   			0x00817000
 #define QVET_ERR_LZ4_BASE           (QVET_ERR_BASE+0x00018000)  //etCompressLz4Interface.cpp    //0x00018000
 #define QVET_ERR_SUBEFTSTRM_BASE    (QVET_ERR_BASE+0x00019000)  //etsubeffectoutputstream.cpp   0x00019000
+#define QVET_ERR_AECOS_BASE    (QVET_ERR_BASE+0x0001A000)  //etaecompositionoutputstream.cpp   0x0081A000
 
 
 //0x0001A000
@@ -248,18 +258,23 @@
 #define QVET_ERR_SCENE_OPS_BASE		(QVET_ERR_BASE+0x00079000)	//etsceneoutputstream.cpp	0x00879000
 #define QVET_ERR_SCENE_TK_BASE		(QVET_ERR_BASE+0x0007A000)	//etscenetrack.cpp			0x0087A000
 #define QVET_ERR_VIE_BASE			(QVET_ERR_BASE+0x0007B000)	//vevideoie.cpp					0x0087B000
+#define QVET_ERR_GROUP_FRAME_BASE	(QVET_ERR_BASE+0x0007B800)	//vegroupframe.cpp					0x0007B800
 #define QVET_ERR_VICM_BASE			(QVET_ERR_BASE+0x0007C000)	//vevideoinfocachemgr.cpp		0x0087C000
 #define QVET_ERR_VOPS_BASE			(QVET_ERR_BASE+0x0007D000)	//vevideooutputstream.cpp		0x0087D000
 #define QVET_ERR_VT_BASE			(QVET_ERR_BASE+0x0007E000)	//vevideotrack.cpp				0x0087E000
 #define QVET_ERR_GIF_BASE			(QVET_ERR_BASE+0x0007F000)	//vethreadgifcomposer.cpp		0x0087F000
 #define QVET_ERR_AA_API_BASE        (QVET_ERR_BASE+0x00080000)  //etaudio_api.cpp
 #define QVET_ERR_PCME_BASE			(QVET_ERR_BASE+0x00080100)  //etpcmextractor.cpp  0x00880100
+#define QVET_ERR_MASKMCM_BASE		(QVET_ERR_BASE+0X00080200)	//vemaskmgrcachemgr.cpp 0x00880200
+#define QVET_ERR_SKELETONMCM_BASE	(QVET_ERR_BASE+0X00080300)	//etskeletonmgrcachemgr.cpp 0x00880300
+
 //0x0007F000
 //0x00080000
 //0x00081000
 //0x00082000
 //0x00083000
 //0x00084000
+#define QVET_ERR_AEC_SETTING_PARSER_BASE    (QVET_ERR_BASE+0x00084000) //0x00084000 veaecomposersettingparser.cpp
 #define QVET_ERR_IOSTVC_BASE		(QVET_ERR_BASE+0x00085000) //veiosthreadvideocomposer.cpp 0x00885000
 #define QVET_ERR_VEIESP_BASE        (QVET_ERR_BASE+0x00086000)  //veiesettingparamparser.cpp    0x00886000
 #define QVET_ERR_CBEFOS_BASE		(QVET_ERR_BASE+0x00087000)  //etcomboeffectoutputstream.cpp    0x00887000
@@ -269,6 +284,8 @@
 #define QVET_ERR_TRCLP_BASE				(QVET_ERR_BASE+0x0008B000) //ettrclyricsparser.cpp 	0x0088B000
 #define QVET_ERR_AUDIO_ANALYZER_BASE		(QVET_ERR_BASE+0x0008C000) //etaudioanalyzer.cpp	 	0x0088C000
 #define QVET_ERR_SECNECLIP_BASE			(QVET_ERR_BASE+0x0008D000) //etsceneclip.cpp 	0x0088D000
+#define QVET_ERR_EFFECT_CLIP_BASE			(QVET_ERR_BASE+0x0008D100) //eteffectclip.cpp 	0x0088D100
+
 #define QVET_ERR_TRCSVGREADER_BASE		(QVET_ERR_BASE+0x0008E000) //etieframetrcsvgreader.cpp 	0x0088E000
 #define QVET_ERR_TXTENGINE_BASE			(QVET_ERR_BASE+0x0008F000) //ettextengine.cpp 	0x0088F000
 #define QVET_ERR_TPME_BASE				(QVET_ERR_BASE+0x00090000) //ettemplateparamengine.cpp 	0x00890000
@@ -298,7 +315,11 @@
 #define QVET_ERR_SLSH_SEEN_BASE         (QVET_ERR_BASE+0x000A8000) //veslideshowsessionengine.cpp
 #define QVET_ERR_SLSH_SE_BASE           (QVET_ERR_BASE+0x000A9000) //veslideshowsession.cpp
 #define QVET_ERR_SLSH_XMLPA_BASE        (QVET_ERR_BASE+0x000AA000) //veslideshowxmlparser.cpp
+#define QVET_ERR_SOURCE_XMLPA_BASE      (QVET_ERR_BASE+0x000AA800) //vesourcexmlparser.cpp
 #define QVET_ERR_SLSH_XMLWR_BASE        (QVET_ERR_BASE+0x000AB000) //veslideshowxmlwriter.cpp
+#define QVET_ERR_SOURCE_XMLWR_BASE      (QVET_ERR_BASE+0x000ABA00) //vesourcexmlwriter.cpp
+#define QVET_ERR_SOURCE_MANAGE_BASE      (QVET_ERR_BASE+0x000ABB00) //vesourcexmlmanagebase.cpp
+#define QVET_ERR_SOURCE_MANAGE_EFFECT      (QVET_ERR_BASE+0x000ABC00) //vesourcexmlmanageeffect.cpp
 #define QVET_ERR_THEME_SCECFG_PA_BASE   (QVET_ERR_BASE+0x000AC000) //vethemescecfgparser.cpp
 #define QVET_ERR_SLSH_EN_BASE           (QVET_ERR_BASE+0x000AD000) //etslideshowengine.cpp
 #define QVET_ERR_TA_PARSER_BASE         (QVET_ERR_BASE+0x000AE000) //vetextanimationparamparser.cpp
@@ -350,6 +371,7 @@
 #define QVERR_OCCE_BASE             (QVET_ERR_BASE+0x000C0000)  //CXiaoYingCamEngine.mm 0x008C0000
 #define QVERR_OCCLIP_BASE           (QVET_ERR_BASE+0x000C1000)  //CXiaoYingClip.mm      0x008C1000
 #define QVERR_OCEFFECT_BASE         (QVET_ERR_BASE+0x000C2000)  //CXiaoYingEffect.mm    0x008C2000
+#define QVERR_OCGROUPEFFECT_BASE         (QVET_ERR_BASE+0x000C2800)  //CXiaoYingGroupEffect.mm    0x008C2000
 #define QVERR_OCENGINE_BASE         (QVET_ERR_BASE+0x000C3000)  //CXiaoYingEngine.mm    0x008C3000
 #define QVERR_OCPLAYER_BASE         (QVET_ERR_BASE+0x000C4000)  //CXiaoYingPlayerSession.mm     0x008C4000
 #define QVERR_OCPOSTER_BASE         (QVET_ERR_BASE+0x000C5000)  //CXiaoYingPoster.mm    0x008C5000
@@ -361,6 +383,7 @@
 #define QVERR_OCUTILS_BASE          (QVET_ERR_BASE+0x000CB000)  //CXiaoYingUtils.mm     0x008CB000
 #define QVERR_OCCOVER_BASE          (QVET_ERR_BASE+0x000CC000)  //CXiaoYingCover.mm     0x008CC000
 #define QVERR_QCSCENECLIP_BASE      (QVET_ERR_BASE+0x000CD000)  //CXiaoYingSceneClip.mm 0x008CD000
+#define QVERR_QCEFFECTCLIP_BASE      (QVET_ERR_BASE+0x000CD800)  //CXiaoYingEffectClip.mm 0x008CD800
 #define QVERR_OCPIPPO_BASE          (QVET_ERR_BASE+0x000CE000)  //CXiaoYingPIPPO.mm     0x008CE000
 #define QVERR_OCAMPOT_BASE          (QVET_ERR_BASE+0x000CF000)  //CXiaoYingAnimatePointOperator.mm 0x008CF000
 #define QVERR_SLSHSE_BASE           (QVET_ERR_BASE+0x000D0000)  //CXiaoYingSlideShowSession.mm 0x008D0000
