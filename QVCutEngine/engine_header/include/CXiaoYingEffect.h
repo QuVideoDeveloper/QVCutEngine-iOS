@@ -154,6 +154,14 @@
     QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO extInfo;//method==3 时，这个值是引擎用来储存贝塞尔曲线的信息的
     QVET_KEYFRAME_EASINGINFO easingInfo;//缓动曲线配置
 }
+- (QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO)getExtInfo;
+- (void)setExtInfo:(QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO)extInfo;
+
+- (QVET_KEYFRAME_EASINGINFO)getEasingInfo;
+- (void)setEasingInfo:(QVET_KEYFRAME_EASINGINFO)easingInfo;
+ 
+- (QVET_KEYFRAME_UNIFORM_VALUE)getUnifromValue;
+- (void)setUnifromValue:(QVET_KEYFRAME_UNIFORM_VALUE)uniformValue;
 @end
 
 
@@ -332,6 +340,16 @@ typedef struct _tagCXYEffectTextAttachFileInfo
 
 - (MRESULT) getProperty : (MDWord) dwPropertyID
 						   PropertyData : (MVoid*)pValue;
+
+// get第faceIdx个人脸上的第layerId层人脸贴纸的3d transform, 如果设置了只贴最大人脸，只会返回最大脸的layerId=0的贴纸
+- (MBool) getFacePasterTransform : (QVET_FACE_PASTER_TRANSFORM*) transform
+							FaceIdx : (MDWord) faceIdx
+							LayerId : (MDWord) layerId;
+
+// get第faceIdx个人脸上的第layerId层人脸贴纸的3d transform, 如果设置了只贴最大人脸，只会设置最大脸的layerId=0的贴纸
+- (void) setFacePasterTransform : (QVET_FACE_PASTER_TRANSFORM*) transform
+							FaceIdx : (MDWord) faceIdx
+							LayerId : (MDWord) layerId;	
 
 - (CXiaoYingEffect*) duplicate;
 

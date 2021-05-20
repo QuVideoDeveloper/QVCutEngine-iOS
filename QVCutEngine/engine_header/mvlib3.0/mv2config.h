@@ -1449,6 +1449,7 @@ Note:
 
 #define MV2_CFG_MEDIASTREAM_REVERSE_MODE               (MV2_CFG_MEDIASTREAM_BASE + 42)
 
+#define MV2_CFG_MEDIASTREAM_REFRESH_PREPARE_DATA                           (MV2_CFG_MEDIASTREAM_BASE + 43)
 
 
 /////////configuration type ID for media file //////////////////
@@ -3319,6 +3320,10 @@ Note:
 #define MV2_CFG_CUSTOM_EFFECT_HAS_SEGMENT				 (MV2_CFG_CUSTOM_BASE + 113) 
 
 #define MV2_CFG_CUSTOM_EFFECT_DEPTH_DATA             (MV2_CFG_CUSTOM_BASE + 114)
+#define MV2_CFG_CUSTOM_EFFECT_EXPECT_SIZE             (MV2_CFG_CUSTOM_BASE + 115)
+#define MV2_CFG_CUSTOM_EFFECT_SEEK_KEY_TYPE            (MV2_CFG_CUSTOM_BASE + 116)
+
+#define MV2_CFG_MEDIASTREAM_CACHE_FLAG					(MV2_CFG_CUSTOM_BASE + 117)
 
 #endif	//_MV2CONFIG_H_
 

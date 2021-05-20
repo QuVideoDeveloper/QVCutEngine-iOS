@@ -339,6 +339,11 @@
 #define QVET_ERR_WEBP_BASE					(QVET_ERR_BASE+0x000B1200)       //0x008B1200 vethreadwebpcomposer.cpp
 #define QVET_ERR_PARTICLE_BASE			(QVET_ERR_BASE+0x000B1300)		//0x008B1300 particle lib
 #define QVET_ERR_PARTICLE_END			(QVET_ERR_BASE+0x000B14FF)		//0x008B14FF particle lib
+
+#define QVET_ERR_SPLITER_HEAD_STREAM_BASE		(QVET_ERR_BASE+0x000B1E00)   //etspliterheadoutputstream.cpp
+#define QVET_ERR_SPLITER_HEAD_PARSE_BASE		(QVET_ERR_BASE+0x000B1F00)   //vespliterheadsettingparse.cpp
+
+
 #define QVET_ERR_ATOM3D_BASE			(QVET_ERR_BASE+0x000B2000)		//0x008B2000 atom3d lib	
 #define QVET_ERR_ATOM3D_END				(QVET_ERR_BASE+0x000B6FFF)		//0x008B6FFF atom3d lib
 #define QVET_ERR_COLORCURVE_BASE		(QVET_ERR_BASE+0x000B7000)		//0x008B7000 colorcurve.cpp

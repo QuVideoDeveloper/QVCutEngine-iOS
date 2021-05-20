@@ -43,6 +43,8 @@
 //to specify seek by frame or the specifed frame
 #define SEEK_NEXT_FRAME 0xFFFFFFFF
 #define SEEK_PRE_FRAME  0xFFFFFFFE
+#define SEEK_SPECIAL_TIMESTAMP 0xFFFFFFFC
+#define SEEK_NONE 0
 
 #define READAUDIO_FLAG  0x1
 #define READVIDEO_FLAG  0x2
