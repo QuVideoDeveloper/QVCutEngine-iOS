@@ -250,6 +250,7 @@ extern "C"
 #define MV2_COLOR_SPACE_NV12            0x10
 #define MV2_COLOR_SPACE_NV21            0x20
 #define MV2_COLOR_SPACE_NV12T           0x40
+#define	MV2_BT2020_YUV			0X00004000
 
 
 #define MV2_COLOR_SPACE_RGB24			0x0100
@@ -576,6 +577,7 @@ typedef struct _tag_frame_info {
 	MDWord 	dwLength;			// the frame lenght in bytes 
 	MDWord  dwCSType;			// the color space type of frame
 	MDWord	dwRotation;			// the roation angel
+	MDWord  dwColourPrimaries; //BT2020 for yuv
 }MV2FRAMEINFO , *LPMV2FRAMEINFO;
 
 
@@ -658,6 +660,8 @@ typedef struct _tag_player_callback_data {
 	MDWord  dwLastDrawnFrameTS;		//Last Drawn Frame TimeStamp
 	MDWord  dwLastDrawnFrameTSP;	//Last Drawn Frame TimeSpan
 	MDWord  dwOrignalSeekTime;      //seek orignal time, just only apply seek mode,update value
+	MDWord  dwFps;//本次回调播放了多少帧
+	MDWord  dwIntervalTime;//距离上次回调的间隔
 }MV2PLAYERCBDATA, *LPMV2PLAYERCBDATA;
 
 /*=======================================

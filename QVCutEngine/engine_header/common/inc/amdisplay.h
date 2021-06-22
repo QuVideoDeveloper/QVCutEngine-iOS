@@ -81,6 +81,8 @@ thereof.
 #define		MPAF_BT601_YCBCR		0X00001000
 #define		MPAF_BT709_YUV			0X00002000
 #define		MPAF_BT709_YCBCR		0X00003000
+#define		MPAF_BT2020_YUV			0X00004000
+
 //Bits[11:08]	YUV Type
 #define		MPAF_YUV_PLANAR			0X00000800
 #define		MPAF_YUV_UVY			0X00000400
@@ -185,6 +187,8 @@ thereof.
 #define		MPAF_YV16H				(MPAF_I422H | MPAF_YUV_VU)
 //8 bit Y plane followed by 8 bit V and U planes
 #define		MPAF_YV24				(MPAF_I444 | MPAF_YUV_VU)
+
+#define		MPAF_I420_BT2020				(MPAF_YUV_BASE | MPAF_YUV_PLANAR | MPAF_BT2020_YUV | MPAF_MAKE_H(2) | MPAF_MAKE_V(2))
 
 //Y sample at every pixel, U and V sampled at every fourth pixel horizontally on each line 
 #define		MPAF_Y41PH				(MPAF_YUV_BASE | MPAF_YUV_PLANAR | MPAF_MAKE_H(4) | MPAF_MAKE_V(1))

@@ -2470,6 +2470,11 @@ for get
 
 #define MV2_CFG_STREAM_FX_ORIGNAL_TYPE                        (MV2_CFG_MEDIAFILE_BASE+222)
 
+#define MV2_CFG_STREAM_EFFECT_SEEKTYPE                        (MV2_CFG_MEDIAFILE_BASE+223)
+
+
+#define MV2_CFG_STREAM_COLOUR_PRIMARIES                        (MV2_CFG_MEDIAFILE_BASE+224)
+
 ///////configuration type ID for display//////////////////////
 #define MV2_CFG_DISPLAY_BASE				0x09000000
 #define MV2_CFG_DISPLAY_END				0x09ffffff
@@ -3061,6 +3066,9 @@ Note:
 
 #define MV2_CFG_CODEC_IS_SAME_SUB_STREAM           (MV2_CFG_CODEC_BASE+70) 
 
+#define MV2_CFG_CODEC_GET_CODEC_TYPE                (MV2_CFG_CODEC_BASE+71) 
+#define MV2_CFG_CODEC_GET_VIDEO_INFO               (MV2_CFG_CODEC_BASE+72) 
+
 //Add freeze frame stream config
 #define MV2_CFG_FREEZE_FRAME_BASE				   0x12000000
 #define MV2_CFG_FREEZE_FRAME_END				   0x12ffffff
@@ -3324,6 +3332,8 @@ Note:
 #define MV2_CFG_CUSTOM_EFFECT_SEEK_KEY_TYPE            (MV2_CFG_CUSTOM_BASE + 116)
 
 #define MV2_CFG_MEDIASTREAM_CACHE_FLAG					(MV2_CFG_CUSTOM_BASE + 117)
+
+#define MV2_CFG_MEDIASTREAM_FLUSH_MEDIACODEC					(MV2_CFG_CUSTOM_BASE + 118)
 
 #endif	//_MV2CONFIG_H_
 
