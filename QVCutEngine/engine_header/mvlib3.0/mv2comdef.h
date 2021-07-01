@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------------------------------
-* This file is ArcSoft's property. It contains ArcSoft's trade secret, proprietary and 		
+* This file is XiaoYing's property. It contains XiaoYing's trade secret, proprietary and 		
 * confidential information. 
 * 
-* The information and code contained in this file is only for authorized ArcSoft employees 
+* The information and code contained in this file is only for authorized XiaoYing employees 
 * to design, create, modify, or review.
 * 
 * DO NOT DISTRIBUTE, DO NOT DUPLICATE OR TRANSMIT IN ANY FORM WITHOUT PROPER AUTHORIZATION.
@@ -10,7 +10,7 @@
 * If you are not an intended recipient of this file, you must not copy, distribute, modify, 
 * or take any action in reliance on it. 
 * 
-* If you have received this file in error, please immediately notify ArcSoft and 
+* If you have received this file in error, please immediately notify XiaoYing and 
 * permanently delete the original and any copy of any file and any printout thereof.
 *
 *-------------------------------------------------------------------------------------------------*/
@@ -25,7 +25,7 @@
  *
  * History
  *    
- *  07.26.2004 Sheng Han(shan@arcsoft.com.cn )   
+ *  07.26.2004 Sheng Han(shan@XiaoYing.com.cn )   
  * - initial version 
  *
  */
@@ -646,6 +646,7 @@ typedef struct _tag_player_callback_data {
 	// status 
 	MDWord	dwStatus;				//playback status 
 	MRESULT resStatus;				// the result code of current status, for example , if unexcepect error occurs , the callback will be called with the STOP status and an error code
+	MDWord  substreamError;			// cloud to local substream error code
 	MDWord	dwStatusData1;			//for playing status , this param means current playback position , for buffering status , it means current buffering position 
 	MDWord	dwStatusData2;			//for playing status , this param means total playback duration , for buffering status , it means total bufferring size
 	MDWord  dwReason;				//reason for operations,eg: play、pause
@@ -1056,7 +1057,7 @@ typedef struct _tag_track_status{
 	MBool   bEnable;	  // MTrue:to enable the dwTrackType track,MFalse to disable it    
 }MV2TRACKSTATUS , *LPMV2TRACKSTATUS;
 
-//Add by yzhang(yzhang@arcsoft.com.cn)
+//Add by yzhang(yzhang@XiaoYing.com.cn)
 //Define for AudioEditor
 #define MV2_AUDIO_CHANNEL_NONE		0
 #define MV2_AUDIO_CHANNEL_LEFT			1

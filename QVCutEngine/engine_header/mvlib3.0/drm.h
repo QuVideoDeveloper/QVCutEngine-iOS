@@ -1,11 +1,11 @@
 /*******************************************************************************
  
-Copyright(c) ArcSoft, All right reserved.
+Copyright(c) XiaoYing, All right reserved.
  
-This file is ArcSoft's property. It contains ArcSoft's trade secret, proprietary 
+This file is XiaoYing's property. It contains XiaoYing's trade secret, proprietary 
 and confidential information. 
  
-The information and code contained in this file is only for authorized ArcSoft 
+The information and code contained in this file is only for authorized XiaoYing 
 employees to design, create, modify, or review.
  
 DO NOT DISTRIBUTE, DO NOT DUPLICATE OR TRANSMIT IN ANY FORM WITHOUT PROPER 
@@ -14,7 +14,7 @@ AUTHORIZATION.
 If you are not an intended recipient of this file, you must not copy, 
 distribute, modify, or take any action in reliance on it. 
  
-If you have received this file in error, please immediately notify ArcSoft and 
+If you have received this file in error, please immediately notify XiaoYing and 
 permanently delete the original and any copy of any file and any printout 
 thereof.
  

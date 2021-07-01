@@ -267,6 +267,10 @@
 #define QVET_ERR_PCME_BASE			(QVET_ERR_BASE+0x00080100)  //etpcmextractor.cpp  0x00880100
 #define QVET_ERR_MASKMCM_BASE		(QVET_ERR_BASE+0X00080200)	//vemaskmgrcachemgr.cpp 0x00880200
 #define QVET_ERR_SKELETONMCM_BASE	(QVET_ERR_BASE+0X00080300)	//etskeletonmgrcachemgr.cpp 0x00880300
+#define QVET_ERR_CARTOONUTILS_BASE	(QVET_ERR_BASE+0x00080400)	//etcartoonutils.cpp 0x00880400
+#define QVET_ERR_CARTOON_PARSER_BASE (QVET_ERR_BASE+0x00080500)  //vecartoonsettingparser.cpp
+#define QVET_ERR_CARTOON_OPS_BASE	(QVET_ERR_BASE+0x00080600)  //etcartoonoutputstream.cpp
+#define QVET_ERR_CLIPEFFPREPARE_BASE (QVET_ERR_BASE+0x00080700)  //etclipeffectpreparethread.cpp 0x00880700
 
 //0x0007F000
 //0x00080000
@@ -339,6 +343,10 @@
 #define QVET_ERR_WEBP_BASE					(QVET_ERR_BASE+0x000B1200)       //0x008B1200 vethreadwebpcomposer.cpp
 #define QVET_ERR_PARTICLE_BASE			(QVET_ERR_BASE+0x000B1300)		//0x008B1300 particle lib
 #define QVET_ERR_PARTICLE_END			(QVET_ERR_BASE+0x000B14FF)		//0x008B14FF particle lib
+
+#define QVET_ERR_FACEMOPHINGETTING_PARSE_BASE	(QVET_ERR_BASE+0x000B1A00)   	//0x000B1A00 vefacemorphingsettingparse.cpp
+#define QVET_ERR_FACEMOPHINGSTREAM_BASE			(QVET_ERR_BASE+0x000B1B00)   //etfacemorphingoutputstream.cpp
+
 
 #define QVET_ERR_SPLITER_HEAD_STREAM_BASE		(QVET_ERR_BASE+0x000B1E00)   //etspliterheadoutputstream.cpp
 #define QVET_ERR_SPLITER_HEAD_PARSE_BASE		(QVET_ERR_BASE+0x000B1F00)   //vespliterheadsettingparse.cpp
@@ -478,8 +486,10 @@
 
 
 
-
-
+#define ALGO_FACEMORPHING_BASE   0x18001000
+#define IsCoud2LocalErr(err) (((err) & 0xffffff00) == QVET_ERR_FACEMOPHINGSTREAM_BASE || \
+								((err) & 0xffffff00) == QVET_ERR_FACEMOPHINGSTREAM_BASE || \
+								((err) & 0xfffff000) == ALGO_FACEMORPHING_BASE)
 
 
 

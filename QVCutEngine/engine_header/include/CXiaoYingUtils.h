@@ -120,6 +120,13 @@
                   FilePath : (MTChar*)pSourceFile
                  VideoInfo : (AMVE_VIDEO_INFO_TYPE*)pVideoInfo
                    ExtInfo : (AMVE_SOURCE_EXT_INFO*)pExtInfo;
+
++ (MRESULT) preprocessImg: (CXiaoYingEngine*) pEngine
+				   InputPath: (NSString*) input
+				   OutputPath: (NSString*) output
+				   Args: (PreprocessArgs*) args;
+
+
 /*
  *  getCurSysTimeStamp:
  *      get the system timestamp since 1970.1.1
