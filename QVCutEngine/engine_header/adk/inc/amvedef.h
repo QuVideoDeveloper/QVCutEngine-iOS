@@ -115,6 +115,10 @@
 #define	AMVE_PROP_CONTEXT_SKELETON_ADAPTER				(AMVE_PROP_CONTEXT_BASE+74) //人体关键点算法代理句柄,目前只有ios平台需要配置
 #define AMVE_PROP_CONTEXT_SEGMENT_FIRST_SYNC			(AMVE_PROP_CONTEXT_BASE+75) //抠像时首帧是否同步
 
+#define AMVE_PROP_CONTEXT_SEGHEAD_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+76) // 人头分割组件代理句柄,目前只有ios平台需要配置
+#define AMVE_PROP_CONTEXT_FACEMORPHING_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+77) // 人脸渐变组件代理句柄,目前只有ios平台需要配置
+#define AMVE_PROP_CONTEXT_SEGMENT_USE_VIDEO				(AMVE_PROP_CONTEXT_BASE+78) //ios平台上是否使用视频抠像接口
+
 //Constants used to identify the media type for clip's source
 #define AMVE_CLIP_TYPE_BASE                            0X00000000
 #define AMVE_VIDEO_CLIP                                (AMVE_CLIP_TYPE_BASE+1)

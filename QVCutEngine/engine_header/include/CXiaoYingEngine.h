@@ -100,6 +100,10 @@
 
 - (MVoid) SetSegmentAdapter : (MVoid*)pAdapter;
 
+- (MVoid) SetSegHeadAdapter : (MVoid*)pAdapter;
+
+- (MVoid) SetFaceMorphingAdapter: (MVoid*)pAdapter;
+
 - (MVoid) SetShotDTAdapter : (MVoid*)pAdapter;
 
 - (MVoid) SetMultiDTAdapter : (MVoid*)pAdapter;
