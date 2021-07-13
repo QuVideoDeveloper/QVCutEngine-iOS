@@ -90,7 +90,7 @@ private:
 //	MBool	m_bStreamEnd;
 
 	/*
-		arcsoft aac dec处理A Happy & Wonderful Life.m4a这类aac audio有问题，第一帧解码会返回0x5009的错误----原因未知
+		XiaoYing aac dec处理A Happy & Wonderful Life.m4a这类aac audio有问题，第一帧解码会返回0x5009的错误----原因未知
 		解决方法: 如果是aac audio file的话，stream read一次如果返回0x5009，则再read一次。
   	*/
 	MBool	m_bAACSrc; 

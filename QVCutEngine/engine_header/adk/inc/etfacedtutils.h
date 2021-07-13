@@ -185,7 +185,7 @@ MRESULT FaceDTUtils_SetProperty(MHandle hContext,MDWord dwPropID,MVoid* pData);
 * @return   QVET_ERR_NONE if success,other value if failed
 **/
 MRESULT FaceDTUtils_ConvertDTPoint(MHandle hContext,MPOINT_FLOAT* pDTPoint,MPOINT_FLOAT* pDstPoint);
-    
+
 /**
  *  将特征点坐标由在检测图像中的坐标转换为目标size中的坐标
  * @param hContext,face dt context

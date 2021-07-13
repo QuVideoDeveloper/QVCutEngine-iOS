@@ -94,6 +94,8 @@ MRESULT AMVE_GetTemplateContentInfo(MHandle hSessionCtx, MInt64 llTemplateID, QV
 MRESULT AMVE_GetTemplateContentInfoExt(MHandle hSessionCtx, MInt64 llTemplateID, QVET_TEMPlATE_CONTENT_TYPE **ppTempalteInfo, 
                                     MBool bParseFaceDTRange);
 
+MRESULT AMVE_GetTemplateResolutionModeSupportList(const MChar *pszTemplatePath, MHandle hVecList);
+
 #if WIN32
 		
 MRESULT AMVE_EffectThumbnailMgrCreate(MHandle *phThumbnailMgr,

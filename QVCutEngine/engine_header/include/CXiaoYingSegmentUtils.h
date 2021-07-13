@@ -54,6 +54,11 @@
                              Mask : (MBITMAP*  _Nonnull) pMaskBitmap;
 
 
+- (MRESULT) GetMaskRectByImgPath: (NSString*) pStrImagePath
+								Mask :	(NSString*) pMaskPath
+							Rotation :	(MDWord) dwRotation
+								Rect :  (MRECT*) pRect;
+
 /**
  * 由bitmap获得该bitmap的点位
  * @param pMaskBitmap[IN]

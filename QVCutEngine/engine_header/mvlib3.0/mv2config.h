@@ -1449,6 +1449,7 @@ Note:
 
 #define MV2_CFG_MEDIASTREAM_REVERSE_MODE               (MV2_CFG_MEDIASTREAM_BASE + 42)
 
+#define MV2_CFG_MEDIASTREAM_REFRESH_PREPARE_DATA                           (MV2_CFG_MEDIASTREAM_BASE + 43)
 
 
 /////////configuration type ID for media file //////////////////
@@ -2469,6 +2470,11 @@ for get
 
 #define MV2_CFG_STREAM_FX_ORIGNAL_TYPE                        (MV2_CFG_MEDIAFILE_BASE+222)
 
+#define MV2_CFG_STREAM_EFFECT_SEEKTYPE                        (MV2_CFG_MEDIAFILE_BASE+223)
+
+
+#define MV2_CFG_STREAM_COLOUR_PRIMARIES                        (MV2_CFG_MEDIAFILE_BASE+224)
+
 ///////configuration type ID for display//////////////////////
 #define MV2_CFG_DISPLAY_BASE				0x09000000
 #define MV2_CFG_DISPLAY_END				0x09ffffff
@@ -3060,6 +3066,9 @@ Note:
 
 #define MV2_CFG_CODEC_IS_SAME_SUB_STREAM           (MV2_CFG_CODEC_BASE+70) 
 
+#define MV2_CFG_CODEC_GET_CODEC_TYPE                (MV2_CFG_CODEC_BASE+71) 
+#define MV2_CFG_CODEC_GET_VIDEO_INFO               (MV2_CFG_CODEC_BASE+72) 
+
 //Add freeze frame stream config
 #define MV2_CFG_FREEZE_FRAME_BASE				   0x12000000
 #define MV2_CFG_FREEZE_FRAME_END				   0x12ffffff
@@ -3319,6 +3328,18 @@ Note:
 #define MV2_CFG_CUSTOM_EFFECT_HAS_SEGMENT				 (MV2_CFG_CUSTOM_BASE + 113) 
 
 #define MV2_CFG_CUSTOM_EFFECT_DEPTH_DATA             (MV2_CFG_CUSTOM_BASE + 114)
+#define MV2_CFG_CUSTOM_EFFECT_EXPECT_SIZE             (MV2_CFG_CUSTOM_BASE + 115)
+#define MV2_CFG_CUSTOM_EFFECT_SEEK_KEY_TYPE            (MV2_CFG_CUSTOM_BASE + 116)
+
+#define MV2_CFG_MEDIASTREAM_CACHE_FLAG					(MV2_CFG_CUSTOM_BASE + 117)
+
+#define MV2_CFG_MEDIASTREAM_FLUSH_MEDIACODEC					(MV2_CFG_CUSTOM_BASE + 118)
+
+#define MV2_CFG_MEDIASTREAM_NEED_PREPARE_READ					(MV2_CFG_CUSTOM_BASE + 119)
+
+#define MV2_CFG_MEDIASTREAM_PREPARE_READ_STAMP					(MV2_CFG_CUSTOM_BASE + 120)
+
+#define MV2_CFG_CUSTOM_CLIP_EFFECT_PREPARE_THREAD				(MV2_CFG_CUSTOM_BASE + 121)
 
 #endif	//_MV2CONFIG_H_
 

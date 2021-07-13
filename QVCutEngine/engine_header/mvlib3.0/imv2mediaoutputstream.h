@@ -44,6 +44,8 @@ class IMV2MediaOutputStream
  public: 
 	 IMV2MediaOutputStream(){
 		InitSkipFrameMode();
+		m_expectSize.cx = 0;
+		m_expectSize.cy = 0;
 	 }
 	 virtual ~IMV2MediaOutputStream(){}
 
@@ -335,6 +337,7 @@ class IMV2MediaOutputStream
 	 
 protected:
 	MBool	m_bSkipVideoFrame;
+	MSIZE   m_expectSize;
 	//m_bSkipVideoFrame means the frame doesn't need to be show in the screen. 
 	//it wii be decided by the outputstreammgr in mvlib, and it will be set level by level into the different AMVE stream 
 

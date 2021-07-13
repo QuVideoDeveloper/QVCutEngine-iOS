@@ -154,6 +154,14 @@
     QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO extInfo;//method==3 时，这个值是引擎用来储存贝塞尔曲线的信息的
     QVET_KEYFRAME_EASINGINFO easingInfo;//缓动曲线配置
 }
+- (QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO)getExtInfo;
+- (void)setExtInfo:(QVET_KEYFRAME_TRANSFORM_FLOAT_EXTINFO)extInfo;
+
+- (QVET_KEYFRAME_EASINGINFO)getEasingInfo;
+- (void)setEasingInfo:(QVET_KEYFRAME_EASINGINFO)easingInfo;
+ 
+- (QVET_KEYFRAME_UNIFORM_VALUE)getUnifromValue;
+- (void)setUnifromValue:(QVET_KEYFRAME_UNIFORM_VALUE)uniformValue;
 @end
 
 

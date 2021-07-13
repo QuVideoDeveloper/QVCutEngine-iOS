@@ -120,6 +120,13 @@
                   FilePath : (MTChar*)pSourceFile
                  VideoInfo : (AMVE_VIDEO_INFO_TYPE*)pVideoInfo
                    ExtInfo : (AMVE_SOURCE_EXT_INFO*)pExtInfo;
+
++ (MRESULT) preprocessImg: (CXiaoYingEngine*) pEngine
+				   InputPath: (NSString*) input
+				   OutputPath: (NSString*) output
+				   Args: (PreprocessArgs*) args;
+
+
 /*
  *  getCurSysTimeStamp:
  *      get the system timestamp since 1970.1.1
@@ -269,6 +276,9 @@
 
 + (NSObject*) ObjectFromXml:(CXiaoYingEngine*)nsEngine Path:(NSString *)nsPath Type:(EU_SOURCE_XML_TYPE)euType;
 
++ (MDWord) GetCurveTime : (QVET_CURVE_SPEED_VALUES)points srcLen:(MDWord)dwLen;
+
++ (NSArray<NSNumber *> *_Nullable) GetTemplateSupportResolutionMode:(NSString*)templateFile;
 @end // CXiaoYingUtils
 
 

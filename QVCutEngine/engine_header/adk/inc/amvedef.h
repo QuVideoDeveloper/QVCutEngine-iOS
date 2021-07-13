@@ -112,6 +112,12 @@
 
 #define AMVE_PROP_CONTEXT_DUMP_EFFECT_TEXTURE_LAYOUT	(AMVE_PROP_CONTEXT_BASE+72) // 设置是否导出effect纹理
 #define AMVE_PROP_CONTEXT_BITMAP_VIEWER	  (AMVE_PROP_CONTEXT_BASE+73) //展示bitmap图片，便于调试查看 
+#define	AMVE_PROP_CONTEXT_SKELETON_ADAPTER				(AMVE_PROP_CONTEXT_BASE+74) //人体关键点算法代理句柄,目前只有ios平台需要配置
+#define AMVE_PROP_CONTEXT_SEGMENT_FIRST_SYNC			(AMVE_PROP_CONTEXT_BASE+75) //抠像时首帧是否同步
+
+#define AMVE_PROP_CONTEXT_SEGHEAD_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+76) // 人头分割组件代理句柄,目前只有ios平台需要配置
+#define AMVE_PROP_CONTEXT_FACEMORPHING_ADAPTER		  (AMVE_PROP_CONTEXT_BASE+77) // 人脸渐变组件代理句柄,目前只有ios平台需要配置
+#define AMVE_PROP_CONTEXT_SEGMENT_USE_VIDEO				(AMVE_PROP_CONTEXT_BASE+78) //ios平台上是否使用视频抠像接口
 
 //Constants used to identify the media type for clip's source
 #define AMVE_CLIP_TYPE_BASE                            0X00000000
@@ -420,6 +426,9 @@
 #define AMVE_PROP_EFFECT_TIME_SRC_TO_DST_FLOAT                    (AMVE_PROP_EFFECT_BASE+259)//画中画 时间 src to dst
 
 #define AMVE_PROP_EFFECT_FACE_PASTER_MAX_FACE_ONLY			(AMVE_PROP_EFFECT_BASE+260)  // 人脸贴纸只画最大脸
+#define AMVE_PROP_EFFECT_FACE_SET_BY_USER			(AMVE_PROP_EFFECT_BASE+261)  // 人脸贴纸兼容2d transform
+#define AMVE_PROP_EFFECT_VIDEO_FRAME_SELF_ROTATION			(AMVE_PROP_EFFECT_BASE+262)  // 画中画视频中，自带的旋转角度
+#define AMVE_PROP_EFFECT_CHECK_SOURCE_EXIST                 (AMVE_PROP_EFFECT_BASE+263)  // 检测源文件是否存在，不存在则做一系列适配
 
 #define AMVE_PROP_EFFECT_GROUP_BASE                          0X0000F000
 #define AMVE_PROP_EFFECT_GROUP_SIZE                          (AMVE_PROP_EFFECT_GROUP_BASE + 1)
@@ -582,6 +591,13 @@
 #define AMVE_PROP_CLIP_EFFECT_SOURCE                    (AMVE_PROP_CLIP_BASE+81) //设置effect source
 #define AMVE_PROP_CLIP_TYPE_SEG_MASK					(AMVE_PROP_CLIP_BASE+82) 	
 #define AMVE_PROP_CLIP_TYPE_SEG_MASK_PATH               (AMVE_PROP_CLIP_BASE+83)
+
+#define AMVE_PROP_CLIP_ORIGIN_3D_TRANSFORM				(AMVE_PROP_CLIP_BASE+84)
+#define AMVE_PROP_CLIP_DISPLAY_3D_TRANSFROM              	(AMVE_PROP_CLIP_BASE+85)//修改用户源的transform，getprop/setprop
+#define AMVE_PROP_CLIP_DISPLAY_3D_TRANSFROM_LIST              	(AMVE_PROP_CLIP_BASE+86)//获取当前支持修改的源数组
+#define AMVE_PROP_CLIP_DISPLAY_3D_TRANSFROM_LIST_CLEAR          (AMVE_PROP_EFFECT_BASE+87)//内存释放QVET_SCENE_SOURCE_TRANSFORM_LIST
+
+#define AMVE_PROP_CLIP_FACEMORPHING_DISABLE_CROP		(AMVE_PROP_CLIP_BASE+88) // 人脸渐变内部禁用裁剪
 
 //constants used to identify the property for storyboard
 #define AMVE_PROP_STORYBOARD_BASE                      0X00004000
@@ -1274,11 +1290,14 @@ typedef struct _tagAMVE_CBDATA_TYPE
 	MDWord dwLastDrawnVFTS; //Last Drawn video frame timestamp
 	MDWord dwLastDrawnVFTSP;//Last Drawn video frame timespan
 	MTChar* pszUserData;
+	MDWord substreamErr;
 	MDWord dwAudioErr; //audio process error code
 	MDWord dwVDecErr;  //video decoding error code
 	MDWord dwVEncErr;  //video encoding error code
 	MDWord dwOpenglErr; //opengl es error code
 	MDWord dwOrignalSeekTime;      //seek orignal time, just only apply seek mode,update value
+	MDWord  dwFps;//本次回调播放了多少帧
+	MDWord  dwIntervalTime;//距离上次回调的间隔
 } AMVE_CBDATA_TYPE;
 
 //The callback function
@@ -2283,6 +2302,8 @@ typedef struct
 
 typedef struct
 {
+	MPOINT appFaceCenter;
+
     MLong lFaceCenterX;
 	MLong lFaceCenterY;
 	MBool bFaceDetected;
@@ -2293,6 +2314,8 @@ typedef struct
 
 typedef struct
 {
+	MPOINT appFaceCenter;
+
     MLong lFaceCenterX;
 	MLong lFaceCenterY;
 	MBool bFaceDetected;
@@ -3674,5 +3697,18 @@ typedef struct {
 	MSIZE bgSize;	// 当前的bgSize
     MBool bSetByUser;  //外部设置过的flag
 } QVET_FACE_PASTER_TRANSFORM;
+
+typedef struct __tagQVET_SCENE_SOURCE_TRANSFORM
+{
+	MDWord dwParamID;
+	MDWord dwPreviewPos;
+	QVET_3D_TRANSFORM transform;
+}QVET_SCENE_SOURCE_TRANSFORM;
+
+typedef struct __tagQVET_SCENE_SOURCE_TRANSFORM_LIST
+{
+    MDWord dwCount;
+    QVET_SCENE_SOURCE_TRANSFORM *pTransform;
+}QVET_SCENE_SOURCE_TRANSFORM_LIST;
 
 #endif //_AMVE_DEF_H_

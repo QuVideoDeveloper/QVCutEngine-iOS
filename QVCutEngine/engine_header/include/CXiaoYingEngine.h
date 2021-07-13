@@ -100,9 +100,15 @@
 
 - (MVoid) SetSegmentAdapter : (MVoid*)pAdapter;
 
+- (MVoid) SetSegHeadAdapter : (MVoid*)pAdapter;
+
+- (MVoid) SetFaceMorphingAdapter: (MVoid*)pAdapter;
+
 - (MVoid) SetShotDTAdapter : (MVoid*)pAdapter;
 
 - (MVoid) SetMultiDTAdapter : (MVoid*)pAdapter;
+
+- (MVoid) SetSkeletonAdapter : (MVoid*)pAdapter;
 
 - (MRESULT) CleanMaskCache : (MDWord) fileSize;
 + (NSArray<NSString *> * _Nullable) GetEngineSupportList;

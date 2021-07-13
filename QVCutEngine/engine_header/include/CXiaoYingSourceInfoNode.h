@@ -11,6 +11,8 @@
 
 @interface CXiaoYingImageSourceInfo : NSObject
 {
+    SInt32 _siAppFaceCenterX;   // app 选择的人脸点位，万分比
+    SInt32 _siAppFaceCenterY;
     SInt32 _siFaceCenterX;
 	SInt32 _siFaceCenterY;
 	Boolean   _bFaceDetected;
@@ -18,6 +20,8 @@
     MPOINT* _FeaturePoint; //人脸特征点信息
 }
 
+@property(readwrite, nonatomic) SInt32 siAppFaceCenterX;
+@property(readwrite, nonatomic) SInt32 siAppFaceCenterY;
 @property(readwrite, nonatomic) SInt32 siFaceCenterX;
 @property(readwrite, nonatomic) SInt32 siFaceCenterY;
 @property(readwrite, nonatomic) Boolean bFaceDetected;
