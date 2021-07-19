@@ -92,10 +92,6 @@ MRESULT CESGetImgFileInfoFromAssetURL(MVoid* pFile,AssetsURLImageInfoProcessBloc
     
 MRESULT CESGetImgFileInfoFromPhAsset(MVoid* pFile,LPMDIMGFILEINFO pImgInfo);
     
-MRESULT CESGetImgFormatFromAssetURL(MVoid* pFile,AssetsURLImageInfoProcessBlock ImgInfoProcessBlock);
-
-MRESULT CESGetImgFormatFromPhAsset(MVoid* pFile,LPMDIMGFILEINFO pImgInfo);
-
 MRESULT CESBitmapLoadFromAssetURL(MVoid* pFile,AssetsURLImageLoadProcessBlock ImageLoadProcessBlock);
     
 MRESULT CESBitmapLoadFromPhAsset(MVoid* pFile,MBITMAP* pBitmap);

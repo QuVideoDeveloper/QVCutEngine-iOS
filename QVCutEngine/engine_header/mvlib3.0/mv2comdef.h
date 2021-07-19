@@ -1496,14 +1496,6 @@ typedef struct
 }MV2_PLAYER_DISTURB_SEEK_CALLBACK_DATA;
 
 
-typedef MDWord  (*PMV2PLAYER_TIME_MANAGER_CALLBACK) ( MVoid* pData);
-
-typedef struct
-{
-    PMV2PLAYER_TIME_MANAGER_CALLBACK pCallback;
-	MVoid* pPlayerData;
-}MV2_PLAYER_TIME_MANNAGER_ADAPTER;
-
 
 //Resize Algorithms 
 #define	MV2_DIS_RESAMPLE_NEAREST_NEIGHBOUR					0x001	//Nearest Neighbour Interpolation, high performance and low quality
